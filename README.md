@@ -125,7 +125,8 @@ _Use a terminal for the following steps:_
     ```sh 
     python manage.py runserver
     ```
-    Open server in a browser (optional).
+    Open server in a browser (optional). <br>
+    _To access admin pannel (contains info about all modules) access /admin from django server and add admin credentials._
 #### Open frontend app
 4. ```sh
     cd frontend
