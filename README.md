@@ -116,20 +116,16 @@ _Use a terminal for the following steps:_
    git clone git@github.com:Homeify/Home-management-platform.git
    ```
 #### Open backend django app 
-2. Activate php environment for Linux
-    ```sh 
-    source env/bin/activate 
-    ``` 
-    or for Windows
-    ```sh 
-    env\Scripts\activate
-    ``` 
+2. Install pip packages
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 3. Open django admin app
     ```sh 
     python manage.py runserver
     ```
-    Open server in a browser.
+    Open server in a browser (optional).
 #### Open frontend app
 4. ```sh
     cd frontend
