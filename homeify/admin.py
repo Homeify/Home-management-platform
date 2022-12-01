@@ -12,23 +12,20 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'password1', 'password2')
         }),
         ('Personal info', {
-            'fields': ('first_name', 'last_name', 'email', 'rewards', 'image_url')
+            'fields': ('first_name', 'last_name', 'email', 'image_url')
         })
         )
 
     # view/edit user
     fieldsets = (
         (None, {
-            'fields': ('username', 'password1', 'password2')
+            'fields': ('username', 'is_staff')
         }),
         ('Personal info', {
-            'fields': ('first_name', 'last_name', 'email', 'rewards', 'image_url')
+            'fields': ('first_name', 'last_name', 'email', 'image_url')
         })
         )
 
     # list view
-    list_display = (
-        'username', 'email', 'first_name', 'last_name', 'is_staff',
-        'rewards'
-        )
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -1,5 +1,3 @@
-# registers endpoints
-
 from rest_framework.decorators import api_view, authentication_classes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
@@ -17,13 +15,13 @@ class RegisterAPI(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
-        serialized = RegisterSerializer(request.data)
+        data = RegisterSerializer(request.data)
         try:
-            validated = serialized.validate(request.data)
-            serialized.create(validated)
-        except Exception as e:
-            content = {'message': f'Register error. {e}'}
+            data.validate()
+        except:
+            content = {'message': 'Register error.'}
             return Response(data=content, status=status.HTTP_406_NOT_ACCEPTABLE)
+        data.create()
         content = {'message': 'User succesfully added.'}
         return Response(data=content, status=status.HTTP_201_CREATED)
 
