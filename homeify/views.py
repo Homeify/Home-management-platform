@@ -1,4 +1,6 @@
 # registers endpoints
+from datetime import date
+
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework import status
@@ -7,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework_simplejwt.tokens import AccessToken
 
+from .models import Membership
 from .serializers import *
 import re
 
@@ -142,5 +145,30 @@ class EditPasswordAPI(generics.GenericAPIView):
                     return Response(data=content, status=status.HTTP_400_BAD_REQUEST)
             except Exception:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class AddGroup(generics.GenericAPIView):
+    def post(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)  # the user that adds the group is the admin
+            serializer = HomeGroupSerializer(data=request.data)
+            if serializer.is_valid():
+                # create group
+                name = request.data['name']
+                descr = request.data['description']
+                code = ''  # @TODO generate code
+                new_group = HomeGroup.objects.create(name=name, description=descr, code=code)
+                # create membership
+                Membership.objects.create(user=user, group=new_group, owner=True,
+                                          date_joined=date.today())
+                new_group.members.add(user)
+                new_group.save()
+                return Response(data={'message': 'group successfully created'}, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)

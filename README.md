@@ -95,7 +95,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [Redux](https://react-redux.js.org/)
 * [Chakra-ui](https://chakra-ui.com/docs/components)
 * [SqlLite](https://www.sqlite.org/index.html)
-
+![image](https://miro.medium.com/max/1400/1*lAMsvtB6afHwTQYCNM1xvw.webp)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -122,11 +122,8 @@ _Use a terminal for the following steps:_
     ```
 3. Run migrations
     ````sh
-     python manage.py makemigrations homeify
+     python manage.py makemigrations
      ````
-   ```sh
-   python manage.py migrate homeify
-    ```
     ```sh
    python manage.py migrate
     ```
@@ -135,7 +132,7 @@ _Use a terminal for the following steps:_
     python manage.py runserver
     ```
     Open server in a browser (optional). <br>
-    _To access admin pannel (contains info about all modules) access /admin from django server and add admin credentials._
+    _To access adminhomeify pannel (contains info about all modules) access /admin from django server and add admin credentials._
 #### Open frontend app
 5. ```sh
     cd frontend
