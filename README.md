@@ -120,22 +120,31 @@ _Use a terminal for the following steps:_
     ```sh
     pip install -r requirements.txt
     ```
-
-3. Open django admin app
+3. Run migrations
+    ````sh
+     python manage.py makemigrations homeify
+     ````
+   ```sh
+   python manage.py migrate homeify
+    ```
+    ```sh
+   python manage.py migrate
+    ```
+4. Open django admin app
     ```sh 
     python manage.py runserver
     ```
     Open server in a browser (optional). <br>
     _To access admin pannel (contains info about all modules) access /admin from django server and add admin credentials._
 #### Open frontend app
-4. ```sh
+5. ```sh
     cd frontend
     ```
-5. Install NPM packages
+6. Install NPM packages
    ```sh
    npm install
    ```
-6. Open react app
+7. Open react app
    ```sh
    npm run start
    ```
@@ -146,6 +155,9 @@ _Use a terminal for the following steps:_
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+Useful phyton commands:
+* ```python manage.py create super user``` - creates an admin that can access administration backend platform (can see/add/edit entities)
+* ```pip freeze > requirements.txt``` - add local requirements in requirements.txt file
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
