@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI
-from django.views.decorators.csrf import csrf_exempt
+from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -30,6 +29,8 @@ urlpatterns = [
     path('users/logout', LogoutAPI.as_view(), name='logout_user'),
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('users/edit/username', EditUsernameAPI.as_view(), name='edit_username'),  # edit current logged in user id
+    path('users/edit/email', EditEmailAPI.as_view(), name='edit_email'),
     path('users/edit/password', EditPasswordAPI.as_view(), name='edit_password'),
+    path('users/view/current_user', SeeCurrentUserAPI.as_view(), name='see_current_user'),
     path('', admin.site.urls),
 ]
