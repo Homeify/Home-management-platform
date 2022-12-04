@@ -1,4 +1,4 @@
-from .models import CustomUser
+from .models import CustomUser, HomeGroup
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
@@ -47,3 +47,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class HomeGroupSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    name = serializers.CharField(required=True, max_length=60)
+    description = serializers.CharField(max_length=255)
+
+    class Meta:
+        model = HomeGroup
+        fields = ['id', 'name', 'description']
