@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "68f51827-b4f7-40f1-81be-9144a70ab6ed",
+		"name": "Groups",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16868793"
+	},
+	"item": [
+		{
+			"name": "Add group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDgzNzQxLCJpYXQiOjE2NzAwODE5NDEsImp0aSI6IjU3Y2FkY2EwZjFlZTQ2ZmU4YTVjOTc4ZjE4ZDU3NzU0IiwidXNlcl9pZCI6MX0.gajv5gSWMPmQh08iRKmPsQROyv8LY_7URFD3WjyMQJg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "test owner group",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "test description",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/groups/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"add"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add group",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDgzNzQxLCJpYXQiOjE2NzAwODE5NDEsImp0aSI6IjU3Y2FkY2EwZjFlZTQ2ZmU4YTVjOTc4ZjE4ZDU3NzU0IiwidXNlcl9pZCI6MX0.gajv5gSWMPmQh08iRKmPsQROyv8LY_7URFD3WjyMQJg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test owner group",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "test description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"add"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 03 Dec 2022 16:06:09 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"group successfully created\"\n}"
+				}
+			]
+		}
+	]
+}

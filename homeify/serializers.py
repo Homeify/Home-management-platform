@@ -20,13 +20,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
 
+    image_url = serializers.URLField(required=False, default="")
+
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'first_name', 'last_name',
                   'rewards', 'image_url', 'password1', 'password2']
         extra_kwargs = {
             'first_name': {'required': True},
-            'last_name': {'required': True}
+            'last_name': {'required': True},
+            'image_url': {'required': False}
         }
 
     def validate(self, attrs):
@@ -40,7 +43,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
+            last_name=validated_data['last_name'],
+            image_url=validated_data['image_url'],
         )
 
         user.set_password(validated_data['password1'])
