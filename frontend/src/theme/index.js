@@ -1,5 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
-import COLORS from './colors';
+import COLORS from './_colors.scss';
 
 const theme = extendTheme({
     fonts: {
@@ -28,6 +28,18 @@ const theme = extendTheme({
         },
         black: {
             300: COLORS.black,
+        },
+        blue: {
+            100: COLORS.blue,
+            900: COLORS.blueDark,
+        },
+        grey: {
+            100: COLORS.grey,
+            900: COLORS.greyDark,
+        },
+        green: {
+            100: COLORS.green,
+            900: COLORS.greenDark,
         },
     },
 });

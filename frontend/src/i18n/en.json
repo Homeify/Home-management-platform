@@ -1,4 +1,7 @@
 {
     "title": "Homeify",
-    "add": "Add"
+    "add": "Add",
+    "todo": "To Do",
+    "inprogress": "In Progress",
+    "done": "Done"
 }

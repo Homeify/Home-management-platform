@@ -1,0 +1,12 @@
+@import '../theme/_colors.scss';
+
+.task-li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: $white;
+}
+
+.task-li-container {
+    margin: 10px 0;
+}
