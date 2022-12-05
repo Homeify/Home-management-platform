@@ -1,14 +1,18 @@
 import React from 'react';
-import './App.css';
-import { useTranslation } from 'react-i18next';
 import './i18n/config.js';
-import { Button } from '@chakra-ui/react';
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import ROUTES from './utils/routes.js';
+
+import { Home, Landing } from './components/pages';
 
 function App() {
-    const { t } = useTranslation();
     return (
         <div className='App'>
-            <Button colorScheme='primary'>{t('add')}</Button>
+            <Routes>
+                <Route path={ROUTES.LANDING} element={<Landing />} />
+                <Route path={ROUTES.HOME} element={<Home />} />
+            </Routes>
         </div>
     );
 }

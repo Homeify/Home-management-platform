@@ -5,6 +5,7 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import theme from './theme';
 
@@ -15,7 +16,9 @@ root.render(
     <React.StrictMode>
         <ChakraProvider theme={theme}>
             <Provider store={store}>
-                <App />
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
             </Provider>
         </ChakraProvider>
     </React.StrictMode>
