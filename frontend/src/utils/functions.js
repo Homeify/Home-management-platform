@@ -6,13 +6,18 @@ const getDateElements = (date) => {
     };
 };
 
-const getFormattedDate = (date, months, hasYear = false) => {
+const getFormattedDate = (date, months, hasYear = false, dashed = false) => {
     const monthsArr = months.split(' ');
     const dateElements = getDateElements(date);
     const day = dateElements.day;
     const month = monthsArr[dateElements.month];
     const year = dateElements.year;
-    const formattedDate = day + ' ' + month + (hasYear ? ' ' + year : '');
+    let formattedDate;
+    if (!dashed) {
+        formattedDate = day + ' ' + month + (hasYear ? ' ' + year : '');
+    } else {
+        formattedDate = year + '-' + (dateElements.month + 1) + '-' + day;
+    }
     return formattedDate;
 };
 

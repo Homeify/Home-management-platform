@@ -1,5 +1,5 @@
 {
-    "title": "Homeify",
+    "title": "Title",
     "add": "Add",
     "todo": "To Do",
     "inprogress": "In Progress",
@@ -27,5 +27,9 @@
     "writeComment": "Write a comment...",
     "noComments": "No comments yet.",
     "assignTask": "Assign task",
-    "edit": "Edit"
+    "edit": "Edit",
+    "description": "Description",
+    "selectRewardValue": "Select reward value",
+    "save": "Save",
+    "status": "Status"
 }

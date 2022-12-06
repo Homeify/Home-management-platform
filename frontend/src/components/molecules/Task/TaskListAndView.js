@@ -10,11 +10,11 @@ import React, { useEffect, useState } from 'react';
 import '../../../styles/tasks.scss';
 import { Card } from '../../atoms';
 import { TaskList } from '../../atoms/Task';
-import TaskView from '../../organisms/TaskView';
+import { TaskView } from '../../organisms/Task';
 
 export default function TaskListAndView({ tasks }) {
-    const [selectedTask, setSelectedTask] = useState();
     const [winWidth, setWinWidth] = useState(window.innerWidth);
+    const [selectedTask, setSelectedTask] = useState();
     const { onClose } = useDisclosure();
 
     const handleResize = () => {

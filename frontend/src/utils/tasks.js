@@ -32,7 +32,7 @@ const TASKS = [
         assigned: undefined,
         deadline: new Date('05 Dec 2022'),
         created: new Date('04 Dec 2022'),
-        reward: 22,
+        reward: 25,
     },
     {
         title: 'Sters praful',

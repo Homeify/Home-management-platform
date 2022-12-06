@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Text } from '@chakra-ui/react';
-import { CloseIcon, DiamondIcon } from '../../assets/icons';
-import { getFormattedDate } from '../../utils/functions';
-import { AvatarWithPopover } from '../atoms/Avatar';
-import { CommentInput, CommentsHeader } from '../atoms/Comment';
-import TaskPopover from '../atoms/Task/TaskPopover';
-import { DetailsHeader, DetailsItem } from '../atoms/Details';
-import { PriorityIcon } from '../atoms';
-import Assigned from '../atoms/Task/Assigned';
-import Deadline from '../atoms/Task/Deadline';
+import { CloseIcon, DiamondIcon } from '../../../assets/icons';
+import { getFormattedDate } from '../../../utils/functions';
+import { AvatarWithPopover } from '../../atoms/Avatar';
+import { CommentInput, CommentsHeader } from '../../atoms/Comment';
+import TaskPopover from '../../atoms/Task/TaskPopover';
+import { DetailsHeader, DetailsItem } from '../../atoms/Details';
+import { PriorityIcon } from '../../atoms';
+import Assigned from '../../atoms/Task/Assigned';
+import Deadline from '../../atoms/Task/Deadline';
+import { StatusTag } from '../../atoms/Task';
+import EditTask from './EditTask';
 
 export default function TaskView({ task, deselectAll }) {
     const { t } = useTranslation();
@@ -22,10 +24,11 @@ export default function TaskView({ task, deselectAll }) {
         description,
         authorName,
         reward,
+        status,
     } = task;
     const months = t('allMonths');
-    const [value, setValue] = useState('');
     const [editModalVisible, setEditModalVisible] = useState(false);
+    const [value, setValue] = useState('');
     const deadlineFormattedDate = getFormattedDate(deadline, months, false);
     const createdFormattedDate = getFormattedDate(created, months, true);
     const assignedName = assigned ? assigned : t('unknown');
@@ -82,6 +85,9 @@ export default function TaskView({ task, deselectAll }) {
                     <DiamondIcon size='32px' />
                 </Box>
             </DetailsItem>
+            <DetailsItem itemName={t('status')}>
+                <StatusTag status={status} />
+            </DetailsItem>
 
             {/* Comments */}
             <CommentsHeader count={0} />
@@ -90,6 +96,14 @@ export default function TaskView({ task, deselectAll }) {
                 <Text color='grey.500'>{t('noComments')}</Text>
             </Box>
             <CommentInput value={value} handleInputChange={handleInputChange} />
+
+            {editModalVisible && (
+                <EditTask
+                    isVisible={editModalVisible}
+                    setIsVisible={setEditModalVisible}
+                    task={task}
+                />
+            )}
         </>
     );
 }

@@ -1,5 +1,5 @@
 {
-    "title": "Homeify",
+    "title": "Titlu",
     "add": "Adauga",
     "todo": "De facut",
     "inprogress": "In curs",
@@ -27,5 +27,9 @@
     "writeComment": "Scrie un comentariu...",
     "noComments": "Niciun comentariu.",
     "assignTask": "Preia sarcina",
-    "edit": "Editeaza"
+    "edit": "Editeaza",
+    "description": "Descriere",
+    "selectRewardValue": "Selecteaza valoarea recompensei",
+    "save": "Salveaza",
+    "status": "Stare"
 }
