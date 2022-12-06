@@ -1,0 +1,36 @@
+@import '../theme/_colors.scss';
+
+.task-li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 3px solid transparent;
+    height: 45pt;
+}
+
+.task-li:hover {
+    cursor: pointer;
+}
+
+.task-li-border {
+    border: 3px solid $primary;
+}
+
+.task-li-container {
+    height: 45pt;
+}
+
+.task-details {
+    background-color: $white;
+    min-height: 50vh;
+}
+
+.task-details-container {
+    height: 100%;
+}
+
+@media (max-width: 1600px) {
+    .task-li-container {
+        height: auto;
+    }
+}

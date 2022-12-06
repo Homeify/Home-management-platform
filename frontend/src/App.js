@@ -1,6 +1,6 @@
 import React from 'react';
 import './i18n/config.js';
-import './App.css';
+import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from './utils/routes.js';
 

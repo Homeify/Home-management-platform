@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import './index.scss';
 import theme from './theme';
 
 const container = document.getElementById('root');
