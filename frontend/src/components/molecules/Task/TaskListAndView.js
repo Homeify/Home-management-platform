@@ -7,10 +7,10 @@ import {
     useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import '../../styles/tasks.scss';
-import { Card } from '../atoms';
-import TaskList from '../atoms/TaskList';
-import TaskView from '../organisms/TaskView';
+import '../../../styles/tasks.scss';
+import { Card } from '../../atoms';
+import { TaskList } from '../../atoms/Task';
+import TaskView from '../../organisms/TaskView';
 
 export default function TaskListAndView({ tasks }) {
     const [selectedTask, setSelectedTask] = useState();
@@ -42,7 +42,7 @@ export default function TaskListAndView({ tasks }) {
 
             {selectedTask !== undefined &&
                 (winWidth > 1600 ? (
-                    <Box w='35%' p='10px'>
+                    <Box w='40%' p='10px'>
                         <Card
                             className='task-details'
                             containerClassName='task-details-container'

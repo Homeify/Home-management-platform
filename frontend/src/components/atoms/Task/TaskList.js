@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
-import TaskListItem from '../molecules/TaskListItem';
+import TaskListItem from './TaskListItem';
 
 export default function TaskList({ tasks, selectTask, selectedTask }) {
     return (

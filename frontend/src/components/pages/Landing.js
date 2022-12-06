@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Link } from '@chakra-ui/react';
-import TaskListAndView from '../molecules/TaskListAndView';
+import { TaskListAndView } from '../molecules/Task';
 import TASKS from '../../utils/tasks';
 
 export default function Landing() {

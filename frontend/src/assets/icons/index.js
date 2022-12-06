@@ -1,21 +1,23 @@
-import HighPriority from './HighPriority';
-import MediumPriority from './MediumPriority';
-import LowPriority from './LowPriority';
-import Deadline from './Deadline';
-import Close from './Close';
-import Details from './Details';
-import Diamond from './Diamond';
-import Comments from './Comments';
-import Send from './Send';
+import HighPriorityIcon from './HighPriorityIcon';
+import MediumPriorityIcon from './MediumPriorityIcon';
+import LowPriorityIcon from './LowPriorityIcon';
+import DeadlineIcon from './DeadlineIcon';
+import CloseIcon from './CloseIcon';
+import DetailsIcon from './DetailsIcon';
+import DiamondIcon from './DiamondIcon';
+import CommentsIcon from './CommentsIcon';
+import SendIcon from './SendIcon';
+import DotsIcon from './DotsIcon';
 
 export {
-    Close,
-    Comments,
-    Deadline,
-    Details,
-    Diamond,
-    HighPriority,
-    LowPriority,
-    MediumPriority,
-    Send,
+    CloseIcon,
+    CommentsIcon,
+    DeadlineIcon,
+    DetailsIcon,
+    DiamondIcon,
+    DotsIcon,
+    HighPriorityIcon,
+    LowPriorityIcon,
+    MediumPriorityIcon,
+    SendIcon,
 };

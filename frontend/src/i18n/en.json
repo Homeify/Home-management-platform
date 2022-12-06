@@ -25,5 +25,7 @@
     "comments": "Comments",
     "unknown": "Unknown",
     "writeComment": "Write a comment...",
-    "noComments": "No comments yet."
+    "noComments": "No comments yet.",
+    "assignTask": "Assign task",
+    "edit": "Edit"
 }

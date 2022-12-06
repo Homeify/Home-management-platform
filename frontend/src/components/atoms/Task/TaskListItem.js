@@ -2,15 +2,11 @@ import React from 'react';
 import { Box, Tag, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import '../../styles/tasks.scss';
-import { Card } from '../atoms';
-import {
-    Deadline,
-    HighPriority,
-    LowPriority,
-    MediumPriority,
-} from '../../assets/icons';
-import { getFormattedDate } from '../../utils/functions';
+import '../../../styles/tasks.scss';
+import { Card } from '..';
+import { DeadlineIcon } from '../../../assets/icons';
+import { getFormattedDate } from '../../../utils/functions';
+import { PriorityIcon } from '..';
 
 export default function TaskListItem({ item, selected }) {
     const { t } = useTranslation();
@@ -26,19 +22,13 @@ export default function TaskListItem({ item, selected }) {
             className={`task-li ${selected ? 'task-li-border' : ''}`}
             containerClassName='task-li-container'
         >
-            {priority === 1 ? (
-                <LowPriority />
-            ) : priority === 2 ? (
-                <MediumPriority />
-            ) : (
-                <HighPriority />
-            )}
+            <PriorityIcon priority={priority} />
             <Text m='0 20px' flexGrow='1' as='b' fontSize='xl' w='150px'>
                 {title}
             </Text>
 
             <Box display='flex' flexDir='row' alignItems='center'>
-                <Deadline size='18pt' />
+                <DeadlineIcon size='18pt' />
                 <Text as='b' m='0 30px 0 10px' minW='60px'>
                     {deadlineFormattedDate}
                 </Text>

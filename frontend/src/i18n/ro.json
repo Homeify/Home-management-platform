@@ -25,5 +25,7 @@
     "comments": "Comentarii",
     "unknown": "Necunoscut",
     "writeComment": "Scrie un comentariu...",
-    "noComments": "Niciun comentariu."
+    "noComments": "Niciun comentariu.",
+    "assignTask": "Preia sarcina",
+    "edit": "Editeaza"
 }
