@@ -35,6 +35,7 @@ const theme = extendTheme({
         },
         grey: {
             100: COLORS.grey,
+            500: COLORS.greyMedium,
             900: COLORS.greyDark,
         },
         green: {

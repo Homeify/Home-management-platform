@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button, Link } from '@chakra-ui/react';
-import TaskList from '../atoms/TaskList';
+import TaskListAndView from '../molecules/TaskListAndView';
 import TASKS from '../../utils/tasks';
 
 export default function Landing() {
     return (
-        <div>
+        <div style={{ width: '60%', margin: 'auto' }}>
             <Link href='/home'>
                 <Button colorScheme='primary'>Go to Home Page</Button>
             </Link>
-            <TaskList tasks={TASKS} />
+            <TaskListAndView tasks={TASKS} />
         </div>
     );
 }

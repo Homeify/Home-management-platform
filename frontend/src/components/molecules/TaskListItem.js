@@ -1,17 +1,31 @@
 import React from 'react';
-import { Avatar, Tag, Text } from '@chakra-ui/react';
+import { Box, Tag, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-import '../../styles/taskListItem.scss';
+import '../../styles/tasks.scss';
 import { Card } from '../atoms';
-import { HighPriority, LowPriority, MediumPriority } from '../../assets/icons';
+import {
+    Deadline,
+    HighPriority,
+    LowPriority,
+    MediumPriority,
+} from '../../assets/icons';
+import { getFormattedDate } from '../../utils/functions';
 
-export default function TaskListItem({ item }) {
+export default function TaskListItem({ item, selected }) {
     const { t } = useTranslation();
-    const { title, priority, authorName, status } = item;
+    const { title, priority, status, deadline } = item;
+    const deadlineFormattedDate = getFormattedDate(
+        deadline,
+        t('allMonths'),
+        false
+    );
 
     return (
-        <Card className='task-li' containerClassName='task-li-container'>
+        <Card
+            className={`task-li ${selected ? 'task-li-border' : ''}`}
+            containerClassName='task-li-container'
+        >
             {priority === 1 ? (
                 <LowPriority />
             ) : priority === 2 ? (
@@ -19,20 +33,23 @@ export default function TaskListItem({ item }) {
             ) : (
                 <HighPriority />
             )}
-            <Text margin='0 20px' flexGrow='1' as='b' fontSize='2xl'>
+            <Text m='0 20px' flexGrow='1' as='b' fontSize='xl' w='150px'>
                 {title}
             </Text>
-            <Avatar
-                name={authorName}
-                size='sm'
-                fontWeight='bold'
-                margin='0 20px'
-                color='white.300'
-            />
+
+            <Box display='flex' flexDir='row' alignItems='center'>
+                <Deadline size='18pt' />
+                <Text as='b' m='0 30px 0 10px' minW='60px'>
+                    {deadlineFormattedDate}
+                </Text>
+            </Box>
+
+            {/* <Avatar name={authorName} size='sm' /> */}
+
             <Tag
-                size='lg'
+                size='md'
                 variant='solid'
-                w='70pt'
+                w='60pt'
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
