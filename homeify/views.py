@@ -1,6 +1,8 @@
 # registers endpoints
+import json
 from datetime import date
 
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework import status
@@ -45,7 +47,7 @@ class LogoutAPI(generics.GenericAPIView):
             #  access tokens can't be deleted, so it's recommended that access lifetime should be short
             return Response(data={"message": "User successfully logout"}, status=status.HTTP_200_OK)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class SeeCurrentUserAPI(generics.GenericAPIView):
@@ -58,7 +60,7 @@ class SeeCurrentUserAPI(generics.GenericAPIView):
             data = self.getUserJson(user)
             return Response(data=data, status=status.HTTP_200_OK)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
     def getUserJson(self, user):
         data = {'username': user.username,
@@ -89,7 +91,7 @@ class EditUsernameAPI(generics.GenericAPIView):
             except Exception:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class EditEmailAPI(generics.GenericAPIView):
@@ -111,7 +113,7 @@ class EditEmailAPI(generics.GenericAPIView):
             except Exception:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
     def validateEmail(self, email):
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -146,7 +148,7 @@ class EditPasswordAPI(generics.GenericAPIView):
             except Exception:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class AddGroup(generics.GenericAPIView):
@@ -161,14 +163,82 @@ class AddGroup(generics.GenericAPIView):
                 # create group
                 name = request.data['name']
                 descr = request.data['description']
-                code = ''  # @TODO generate code
+                code = ''  # @TODO generate code at the moment Id is used maybe we should leave it like that
                 new_group = HomeGroup.objects.create(name=name, description=descr, code=code)
                 # create membership
                 Membership.objects.create(user=user, group=new_group, owner=True,
                                           date_joined=date.today())
                 new_group.members.add(user)
                 new_group.save()
-                return Response(data={'message': 'group successfully created'}, status=status.HTTP_201_CREATED)
+                return Response(data={'message': 'Group successfully created'}, status=status.HTTP_201_CREATED)
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
-            return Response(data={'message:' 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class UserToGroup(generics.GenericAPIView):
+    def post(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+            valid, message = self.validatePostRequest(request, user)
+            if not valid:
+                return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
+
+            # create membership
+            Membership.objects.create(user=user, group=message, owner=False,
+                                      date_joined=date.today())
+            message.members.add(user)
+            message.save()
+            return Response(data={'message': 'User added to the group'}, status=status.HTTP_201_CREATED)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request):
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        access_token_obj = AccessToken(token)
+        user_id = access_token_obj['user_id']
+        user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+        valid, message = self.validateRequest(request)
+        if not valid:
+            return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
+
+        # create membership
+        Membership.objects.filter(user=user, group=message).delete()
+        message.members.remove(user)
+        message.save()
+        return Response(data={'message': 'User removed from the group'}, status=status.HTTP_200_OK)
+
+    def validateRequest(self, request):
+        code = request.data.get("code")
+        if code is None:
+            return False, "Missing parameter code"
+
+        try:
+            code_numer = int(code)
+        except ValueError:
+            return False, "Wrong code format"
+
+        try:
+            home_group = HomeGroup.objects.get(id=code_numer)
+        except ObjectDoesNotExist:
+            return False, "Group not found"
+
+        return True, home_group
+
+    def validatePostRequest(self, request, user):
+        valid, msg = self.validateRequest(request)
+        if not valid:
+            return False, msg
+
+        number_of_members_in_group = Membership.objects.filter(user=user, group=msg).count()
+        if number_of_members_in_group != 0:
+            return False, "User was already part of the group"
+
+        return True, msg
+    
+    
+
+
