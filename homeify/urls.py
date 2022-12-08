@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup
+from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup, \
+    UserToGroup, AdminUserToGroup, GetGroupsForCurrentUser, GetUsersFromGroup
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -32,5 +33,9 @@ urlpatterns = [
     path('users/edit/password', EditPasswordAPI.as_view(), name='edit_password'),
     path('users/view/current_user', SeeCurrentUserAPI.as_view(), name='see_current_user'),
     path('groups/add', AddGroup.as_view(), name='add_group'),
+    path('groups/user', UserToGroup.as_view(), name='user_to_group'),
+    path('groups/user/admin', AdminUserToGroup.as_view(), name='admin_add_user_to_group'),
+    path('groups', GetGroupsForCurrentUser.as_view(), name='get_groups'),
+    path('groups/users', GetUsersFromGroup.as_view(), name='get_users_for_group'),
     path('', admin.site.urls),
 ]
