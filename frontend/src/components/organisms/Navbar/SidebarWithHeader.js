@@ -10,13 +10,11 @@ import Header from './Header';
 import { SidebarContent } from '../../atoms/Navbar';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '../../../utils/routes';
-import useWindowWidth from '../../../hooks/useWindowWidth';
 import { GroupsIcon, TaskIcon } from '../../../assets/icons';
 
 export default function SidebarWithHeader({ children }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { t } = useTranslation();
-    const { isMobile } = useWindowWidth();
 
     const linkItems = [
         {

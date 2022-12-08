@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     # additional fields added to the default user object
-    image_url = models.URLField(default=None)
+    image_url = models.URLField(blank=False, null=True)
 
 
 class HomeGroup(models.Model):

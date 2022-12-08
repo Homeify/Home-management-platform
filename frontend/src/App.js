@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import ROUTES from './utils/routes.js';
 
 import { Home, Landing, MyGroups } from './components/pages';
+import SignIn from './components/pages/SignIn.js';
+import SignUp from './components/pages/SignUp.js';
 
 function App() {
     return (
@@ -14,6 +16,8 @@ function App() {
                 <Route path={ROUTES.HOME} element={<Home />} />
                 <Route path={ROUTES.MYGROUPS} element={<MyGroups />} />
                 <Route path={ROUTES.MYTASKS} element={<Home />} />
+                <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
+                <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
             </Routes>
         </div>
     );

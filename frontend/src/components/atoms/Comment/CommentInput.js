@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SendIcon } from '../../../assets/icons';
 
 export default function CommentInput({ value, handleInputChange }) {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
     return (
         <Box position='absolute' bottom='0' left='0' w='100%'>
