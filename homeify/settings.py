@@ -25,17 +25,18 @@ SECRET_KEY = 'django-insecure-*9s2s+sstgj33ac+3@5l=f_e_0ujt1m*63aqz8sxw%0d33jp$s
 DEBUG = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
 }
-ALLOWED_HOSTS = ["127.0.0.1"]
+
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'homeify',
-    "corsheaders",
+    'corsheaders',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,8 +126,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'homeify.CustomUser'
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000' ]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
