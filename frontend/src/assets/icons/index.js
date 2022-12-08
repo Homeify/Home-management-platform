@@ -10,14 +10,14 @@ import SendIcon from './SendIcon';
 import DotsIcon from './DotsIcon';
 
 export {
-    CloseIcon,
-    CommentsIcon,
-    DeadlineIcon,
-    DetailsIcon,
-    DiamondIcon,
-    DotsIcon,
-    HighPriorityIcon,
-    LowPriorityIcon,
-    MediumPriorityIcon,
-    SendIcon,
+  CloseIcon,
+  CommentsIcon,
+  DeadlineIcon,
+  DetailsIcon,
+  DiamondIcon,
+  DotsIcon,
+  HighPriorityIcon,
+  LowPriorityIcon,
+  MediumPriorityIcon,
+  SendIcon,
 };
