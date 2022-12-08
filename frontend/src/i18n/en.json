@@ -1,4 +1,5 @@
 {
+    "appName": "Homeify",
     "title": "Title",
     "add": "Add",
     "todo": "To Do",
@@ -31,5 +32,10 @@
     "description": "Description",
     "selectRewardValue": "Select reward value",
     "save": "Save",
-    "status": "Status"
+    "status": "Status",
+    "myGroups": "My groups",
+    "myTasks": "My tasks",
+    "createGroup": "Create group",
+    "settings": "Settings",
+    "logout": "Log out"
 }

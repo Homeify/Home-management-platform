@@ -6,25 +6,18 @@ import {
     ModalOverlay,
     useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useWindowWidth from '../../../hooks/useWindowWidth';
 import '../../../styles/tasks.scss';
+import { windowWidthMobile } from '../../../utils/constants';
 import { Card } from '../../atoms';
 import { TaskList } from '../../atoms/Task';
 import { TaskView } from '../../organisms/Task';
 
 export default function TaskListAndView({ tasks }) {
-    const [winWidth, setWinWidth] = useState(window.innerWidth);
     const [selectedTask, setSelectedTask] = useState();
     const { onClose } = useDisclosure();
-
-    const handleResize = () => {
-        setWinWidth(window.innerWidth);
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', handleResize, false);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const { winWidth } = useWindowWidth();
 
     const deselectAll = () => {
         setSelectedTask(undefined);
@@ -41,7 +34,7 @@ export default function TaskListAndView({ tasks }) {
             </Box>
 
             {selectedTask !== undefined &&
-                (winWidth > 1600 ? (
+                (winWidth > windowWidthMobile ? (
                     <Box w='40%' p='10px'>
                         <Card
                             className='task-details'

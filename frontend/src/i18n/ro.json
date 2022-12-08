@@ -1,4 +1,5 @@
 {
+    "appName": "Homeify",
     "title": "Titlu",
     "add": "Adauga",
     "todo": "De facut",
@@ -31,5 +32,10 @@
     "description": "Descriere",
     "selectRewardValue": "Selecteaza valoarea recompensei",
     "save": "Salveaza",
-    "status": "Stare"
+    "status": "Stare",
+    "myGroups": "Grupurile mele",
+    "myTasks": "Sarcinile mele",
+    "createGroup": "Creeaza grup",
+    "settings": "Setari",
+    "logout": "Delogare"
 }

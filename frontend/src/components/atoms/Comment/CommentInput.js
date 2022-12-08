@@ -17,6 +17,7 @@ export default function CommentInput({ value, handleInputChange }) {
                 border='none'
                 borderTop='1px'
                 borderTopColor='grey.100'
+                focusBorderColor='secondary.300'
             />
             <Box position='absolute' bottom='10px' right='20px'>
                 <SendIcon size='15pt' />

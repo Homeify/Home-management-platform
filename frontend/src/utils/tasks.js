@@ -53,7 +53,7 @@ const TASKS = [
         priority: 2,
         authorName: 'Ilie Vasile',
         status: 1,
-        assigned: 'Diana Vasile',
+        assigned: 'Diana V',
         deadline: new Date('12 Dec 2022'),
         created: new Date('04 Dec 2022'),
         reward: 15,
