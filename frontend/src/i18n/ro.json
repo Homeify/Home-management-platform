@@ -37,5 +37,19 @@
     "myTasks": "Sarcinile mele",
     "createGroup": "Creeaza grup",
     "settings": "Setari",
-    "logout": "Delogare"
+    "logout": "Delogare",
+    "welcomeBack": "Bine ai revenit!",
+    "signIn": "Autentificare",
+    "signUp": "Inregistrare",
+    "username": "Nume de utilizator",
+    "password": "Parola",
+    "confirmPassword": "Confirma parola",
+    "gettingStarted": "Bine ai venit!",
+    "createAccountDesc": "Creeaza-ti un cont pentru a te putea bucura de tot ce avem de oferit",
+    "firstName": "Prenume",
+    "lastName": "Nume",
+    "emailAddress": "Adresa de email",
+    "termsAndConditions": "Prin inscriere, esti de acord cu termenii si conditiile",
+    "alreadyHaveAccount": "Ai deja un cont?",
+    "dontHaveAccount": "Nu ai un cont?"
 }
