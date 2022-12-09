@@ -15,7 +15,7 @@ import ROUTES from '../../../utils/routes';
 import { GroupAddIcon, SettingsIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
-import SignOutButton from '../SignOutButton';
+import { SignOutButton } from '../';
 
 export default function SidebarContent({ onClose, linkItems, ...rest }) {
     const { t } = useTranslation();

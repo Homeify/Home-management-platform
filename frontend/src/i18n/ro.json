@@ -51,5 +51,8 @@
     "emailAddress": "Adresa de email",
     "termsAndConditions": "Prin inscriere, esti de acord cu termenii si conditiile",
     "alreadyHaveAccount": "Ai deja un cont?",
-    "dontHaveAccount": "Nu ai un cont?"
+    "dontHaveAccount": "Nu ai un cont?",
+    "pageNotFound": "Ups... Se pare ca te-ai ratacit.",
+    "pageNotFoundDescr": "Ne pare rau, pagina pe care ai cerut-o nu a putut fi gasita. Te rugam sa te intorci la pagina principala.",
+    "backHome": "Inapoi la pagina principala"
 }
