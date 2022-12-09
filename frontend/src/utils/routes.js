@@ -1,8 +1,10 @@
 const ROUTES = {
-  HOME: '/home',
-  LANDING: '/',
-  SIGN_IN: '/signin',
-  SIGN_UP: '/signup',
+    HOME: '/home',
+    LANDING: '/',
+    MYGROUPS: '/mygroups',
+    MYTASKS: '/mytasks',
+    SIGN_IN: '/signin',
+    SIGN_UP: '/signup',
 };
 
 export default ROUTES;

@@ -1,71 +1,64 @@
 import {
-  Box,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
+    Box,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalOverlay,
+    useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useWindowWidth from '../../../hooks/useWindowWidth';
 import '../../../styles/tasks.scss';
+import { windowWidthMobile } from '../../../utils/constants';
 import { Card } from '../../atoms';
 import { TaskList } from '../../atoms/Task';
 import { TaskView } from '../../organisms/Task';
 
 export default function TaskListAndView({ tasks }) {
-  const [winWidth, setWinWidth] = useState(window.innerWidth);
-  const [selectedTask, setSelectedTask] = useState();
-  const { onClose } = useDisclosure();
+    const [selectedTask, setSelectedTask] = useState();
+    const { onClose } = useDisclosure();
+    const { winWidth } = useWindowWidth();
 
-  const handleResize = () => {
-    setWinWidth(window.innerWidth);
-  };
+    const deselectAll = () => {
+        setSelectedTask(undefined);
+    };
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize, false);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    return (
+        <Box display='flex' flexDir='row'>
+            <Box flexGrow='1' height='100%'>
+                <TaskList
+                    tasks={tasks}
+                    selectTask={setSelectedTask}
+                    selectedTask={selectedTask}
+                />
+            </Box>
 
-  const deselectAll = () => {
-    setSelectedTask(undefined);
-  };
-
-  return (
-    <Box display='flex' flexDir='row'>
-      <Box flexGrow='1' height='100%'>
-        <TaskList
-          tasks={tasks}
-          selectTask={setSelectedTask}
-          selectedTask={selectedTask}
-        />
-      </Box>
-
-      {selectedTask !== undefined &&
-                (winWidth > 1600 ? (
+            {selectedTask !== undefined &&
+                (winWidth > windowWidthMobile ? (
                     <Box w='40%' p='10px'>
-                      <Card
-                        className='task-details'
-                        containerClassName='task-details-container'
-                      >
-                        <TaskView
-                          task={tasks[selectedTask]}
-                          deselectAll={deselectAll}
-                        />
-                      </Card>
+                        <Card
+                            className='task-details'
+                            containerClassName='task-details-container'
+                        >
+                            <TaskView
+                                task={tasks[selectedTask]}
+                                deselectAll={deselectAll}
+                            />
+                        </Card>
                     </Box>
                 ) : (
                     <Modal isOpen={true} onClose={onClose}>
-                      <ModalOverlay />
-                      <ModalContent p='20px 10px'>
-                        <ModalBody>
-                          <TaskView
-                            task={tasks[selectedTask]}
-                            deselectAll={deselectAll}
-                          />
-                        </ModalBody>
-                      </ModalContent>
+                        <ModalOverlay />
+                        <ModalContent p='20px 10px'>
+                            <ModalBody>
+                                <TaskView
+                                    task={tasks[selectedTask]}
+                                    deselectAll={deselectAll}
+                                />
+                            </ModalBody>
+                        </ModalContent>
                     </Modal>
                 ))}
-    </Box>
-  );
+        </Box>
+    );
 }

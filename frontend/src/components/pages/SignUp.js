@@ -14,13 +14,11 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
 } from '@chakra-ui/react';
 import {useState} from 'react';
 import ROUTES from '../../utils/routes.js';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
 import {useNavigate} from 'react-router-dom';
-// import {ReactComponent as UserCircle} from '../../assets/icons/user-circle.svg';
 import {signUp as signUpAction} from '../../state/actions/auth.js';
 import {signIn as signInAction} from '../../state/actions/auth.js';
 import {connect} from 'react-redux';
@@ -41,7 +39,7 @@ function Signup({signUp, signIn}) {
   const passwordMatch = newUser.password === newUser.checkedPassword;
   const submitHandler = async (e) => {
     e.preventDefault();
-    const {checkedPassword, ..._user} = newUser;
+    const {..._user} = newUser;
     await signUp(_user);
     await signIn({username: _user.username, password: _user.password});
     setTimeout(navigate(ROUTES.HOME), 0);
