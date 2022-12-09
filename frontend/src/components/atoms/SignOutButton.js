@@ -1,63 +1,41 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {
-  Flex,
-  Icon,
-  Text,
-} from '@chakra-ui/react';
-import {CiLogin} from 'react-icons/ci';
-import {useNavigate} from 'react-router-dom';
-import {signOut} from '../../state/actions/auth';
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LogOutIcon } from '../../assets/icons';
+import { signOut as signOutAction } from '../../state/actions/auth';
 import ROUTES from '../../utils/routes';
+import NavItem from './Navbar/NavItem';
 
-const SignOut = ({signOut}) => {
-  const navigate = useNavigate();
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    await signOut();
-    setTimeout(navigate(ROUTES.LANDING), 100);
-  };
-  return (
-    <Flex
-      onClick={submitHandler}
-      h="20"
-      p="2"
-      mt="2"
-      role="group"
-      flexDir="column"
-      alignItems="center"
-      fontSize="18"
-      cursor="pointer"
-      _hover={{
-        bg: 'primary.300',
-        color: 'white.300',
-      }}>
-      <Icon
-        my="auto"
-        fontSize="18"
-        _groupHover={{
-          color: 'white.300',
-        }}
-        as={CiLogin}
-      />
-      <Text fontSize="sm">
-        Sign Out
-      </Text>
-    </Flex>
-  );
-};
+function SignOutButton({ signOut }) {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
 
+    const signOutHandler = async (e) => {
+        e.preventDefault();
+        await signOut();
+        setTimeout(navigate(ROUTES.LANDING), 100);
+    };
+
+    return (
+        <NavItem
+            icon={LogOutIcon}
+            name={t('logout')}
+            iconSize='14pt'
+            onClick={signOutHandler}
+        />
+    );
+}
 
 const mapStateToProps = (state) => {
-  return {
-  };
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-    signOut: () => dispatch(signOut()),
-  };
+    return {
+        dispatch,
+        signOut: () => dispatch(signOutAction()),
+    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignOut);
+export default connect(mapStateToProps, mapDispatchToProps)(SignOutButton);

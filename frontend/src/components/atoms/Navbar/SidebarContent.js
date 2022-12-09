@@ -12,9 +12,10 @@ import NavItem from './NavItem';
 import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
-import { GroupAddIcon, LogOutIcon, SettingsIcon } from '../../../assets/icons';
+import { GroupAddIcon, SettingsIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
+import SignOutButton from '../SignOutButton';
 
 export default function SidebarContent({ onClose, linkItems, ...rest }) {
     const { t } = useTranslation();
@@ -81,12 +82,7 @@ export default function SidebarContent({ onClose, linkItems, ...rest }) {
                         link={'#'}
                         iconSize='14pt'
                     />
-                    <NavItem
-                        icon={LogOutIcon}
-                        name={t('logout')}
-                        link={'#'}
-                        iconSize='14pt'
-                    />
+                    <SignOutButton />
                 </Box>
             </Flex>
         </Box>
