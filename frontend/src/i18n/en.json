@@ -51,5 +51,8 @@
     "emailAddress": "Email Address",
     "termsAndConditions": "By joining, I agree to terms and conditions",
     "alreadyHaveAccount": "Already have an account?",
-    "dontHaveAccount": "Don't have an account?"
+    "dontHaveAccount": "Don't have an account?",
+    "pageNotFound": "Whoops... Looks like you're lost.",
+    "pageNotFoundDescr": "Sorry, the page you requested could not be found. Please go back to homepage.",
+    "backHome": "Back to Home"
 }

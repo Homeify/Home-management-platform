@@ -43,7 +43,7 @@ const signOut = () => async (dispatch) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            'Authorization': `Bearer ${authToken}`,
         },
     });
     localStorage.removeItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
