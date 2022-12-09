@@ -9,7 +9,6 @@ import {
 import React, { useState } from 'react';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import '../../../styles/tasks.scss';
-import { windowWidthMobile } from '../../../utils/constants';
 import { Card } from '../../atoms';
 import { TaskList } from '../../atoms/Task';
 import { TaskView } from '../../organisms/Task';
@@ -17,7 +16,7 @@ import { TaskView } from '../../organisms/Task';
 export default function TaskListAndView({ tasks }) {
     const [selectedTask, setSelectedTask] = useState();
     const { onClose } = useDisclosure();
-    const { winWidth } = useWindowWidth();
+    const { isSmall } = useWindowWidth();
 
     const deselectAll = () => {
         setSelectedTask(undefined);
@@ -34,7 +33,7 @@ export default function TaskListAndView({ tasks }) {
             </Box>
 
             {selectedTask !== undefined &&
-                (winWidth > windowWidthMobile ? (
+                (!isSmall ? (
                     <Box w='40%' p='10px'>
                         <Card
                             className='task-details'
