@@ -4,9 +4,7 @@ import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from './utils/routes.js';
 
-import { Home, Landing, MyGroups } from './components/pages';
-import SignIn from './components/pages/SignIn.js';
-import SignUp from './components/pages/SignUp.js';
+import { Home, Landing, MyGroups, SignIn, SignUp } from './components/pages';
 
 function App() {
     return (
