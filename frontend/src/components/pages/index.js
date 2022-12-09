@@ -1,4 +1,7 @@
 import Landing from './Landing';
 import Home from './Home';
+import MyGroups from './MyGroups';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
-export { Landing, Home };
+export { Landing, Home, MyGroups, SignIn, SignUp };

@@ -1,8 +1,8 @@
 import TaskList from './TaskList';
-import TaskPopover from './TaskPopover';
+import TaskMenu from './TaskMenu';
 import TaskListItem from './TaskListItem';
 import Assigned from './Assigned';
 import Deadline from './Deadline';
 import StatusTag from './StatusTag';
 
-export { TaskList, TaskPopover, TaskListItem, Assigned, Deadline, StatusTag };
+export { TaskList, TaskMenu, TaskListItem, Assigned, Deadline, StatusTag };

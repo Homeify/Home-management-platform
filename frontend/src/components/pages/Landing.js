@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button, Link } from '@chakra-ui/react';
-import { TaskListAndView } from '../molecules/Task';
-import TASKS from '../../utils/tasks';
 
 export default function Landing() {
     return (
@@ -9,7 +7,6 @@ export default function Landing() {
             <Link href='/home'>
                 <Button colorScheme='primary'>Go to Home Page</Button>
             </Link>
-            <TaskListAndView tasks={TASKS} />
         </div>
     );
 }

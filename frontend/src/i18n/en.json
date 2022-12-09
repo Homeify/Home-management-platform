@@ -1,4 +1,5 @@
 {
+    "appName": "Homeify",
     "title": "Title",
     "add": "Add",
     "todo": "To Do",
@@ -31,5 +32,24 @@
     "description": "Description",
     "selectRewardValue": "Select reward value",
     "save": "Save",
-    "status": "Status"
+    "status": "Status",
+    "myGroups": "My groups",
+    "myTasks": "My tasks",
+    "createGroup": "Create group",
+    "settings": "Settings",
+    "logout": "Log out",
+    "welcomeBack": "Welcome back!",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "gettingStarted": "Getting Started",
+    "createAccountDesc": "Create an account to enjoy all of our cool features",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "emailAddress": "Email Address",
+    "termsAndConditions": "By joining, I agree to terms and conditions",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?"
 }

@@ -15,11 +15,13 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Link,
 } from '@chakra-ui/react';
 import {useNavigate} from 'react-router-dom';
 import {signIn} from '../../state/actions/auth';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
 import ROUTES from '../../utils/routes';
+import { useTranslation } from 'react-i18next';
 
 const SignIn = ({signIn}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,7 @@ const SignIn = ({signIn}) => {
     username: '',
     password: '',
   });
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -56,7 +59,7 @@ const SignIn = ({signIn}) => {
             Sign In
           </Heading>
           <Text fontSize={'md'} color={'gray.600'}>
-            Welcome back!
+          {t('welcomeBack')}
           </Text>
         </Stack>
         <Box
@@ -75,7 +78,7 @@ const SignIn = ({signIn}) => {
               />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Password</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('password')}</FormLabel>
               <InputGroup>
                 <Input
                   size="md"
@@ -110,9 +113,20 @@ const SignIn = ({signIn}) => {
                 }}
                 onClick={submitHandler}
               >
-                Sign in
+               {t('signIn')}
               </Button>
             </Stack>
+            <Stack>
+                            <Text fontSize={'md'} m='0' color={'gray.600'}>
+                                {t('dontHaveAccount')}{' '}
+                                <Link
+                                    color={'primary.300'}
+                                    href={ROUTES.SIGN_UP}
+                                >
+                                    {t('signUp')}
+                                </Link>
+                            </Text>
+                        </Stack>
           </Stack>
         </Box>
       </Flex>

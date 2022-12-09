@@ -38,6 +38,7 @@ function Signup({signUp, signIn}) {
     username: ''
   });
 
+  const { t } = useTranslation();
   const passwordMatch = newUser.password === newUser.checkedPassword;
   const submitHandler = async (e) => {
     e.preventDefault();

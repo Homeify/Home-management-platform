@@ -5,7 +5,7 @@ import { CloseIcon, DiamondIcon } from '../../../assets/icons';
 import { getFormattedDate } from '../../../utils/functions';
 import { AvatarWithPopover } from '../../atoms/Avatar';
 import { CommentInput, CommentsHeader } from '../../atoms/Comment';
-import TaskPopover from '../../atoms/Task/TaskPopover';
+import TaskMenu from '../../atoms/Task/TaskMenu';
 import { DetailsHeader, DetailsItem } from '../../atoms/Details';
 import { PriorityIcon } from '../../atoms';
 import Assigned from '../../atoms/Task/Assigned';
@@ -52,7 +52,7 @@ export default function TaskView({ task, deselectAll }) {
                 <Box flexGrow='1'>
                     <PriorityIcon priority={priority} />
                 </Box>
-                <TaskPopover showEditModal={showEditModal} />
+                <TaskMenu showEditModal={showEditModal} />
                 <Box onClick={deselectAll} cursor='pointer'>
                     <CloseIcon />
                 </Box>

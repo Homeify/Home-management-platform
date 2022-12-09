@@ -15,20 +15,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         required=True,
         validators=[UniqueValidator(queryset=CustomUser.objects.all())]
     )
-    password = serializers.CharField(
+    password1 = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-
-    image_url = serializers.URLField(required=False, default="")
 
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'first_name', 'last_name',
-                  'rewards', 'image_url', 'password1', 'password2']
+                   'password1', 'password2']
         extra_kwargs = {
             'first_name': {'required': True},
-            'last_name': {'required': True},
-            'image_url': {'required': False}
+            'last_name': {'required': True}
         }
 
     def validate(self, attrs):
@@ -38,20 +35,20 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = CustomUser.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            image_url=validated_data['image_url'],
-        )
+        try:
+            user = CustomUser.objects.create(
+                username=validated_data['username'],
+                email=validated_data['email'],
+                first_name=validated_data['first_name'],
+                last_name=validated_data['last_name']
+            )
 
-        user.set_password(validated_data['password1'])
-        user.save()
-
-        return user
-
-
+            user.set_password(validated_data['password1'])
+            user.save()
+            return user
+        except Exception as e:
+          print(e)  
+            
 class HomeGroupSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     name = serializers.CharField(required=True, max_length=60)

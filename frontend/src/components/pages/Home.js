@@ -15,9 +15,9 @@ const Home = ({getGroups, groups}) => {
   }, []);
   return (
     <div>
-      <Link href='/'>
-        <Button colorScheme='primary'>Go to Landing Page</Button>
-      </Link>
+    <Link href='/mygroups'>
+                <Button colorScheme='primary'>Go to Groups</Button>
+            </Link>
       <IconButton
         borderRadius="full"
         colorScheme="primary"

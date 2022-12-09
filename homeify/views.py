@@ -5,7 +5,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework import status
-
 from rest_framework.response import Response
 from rest_framework.generics import (
   RetrieveUpdateDestroyAPIView
@@ -16,13 +15,12 @@ from .models import Membership, HomeGroup
 from .serializers import *
 import re
 
-
 # Register API
-
 
 class RegisterAPI(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
-
+    serializer_class = RegisterSerializer
+    
     def post(self, request):
         serialized = RegisterSerializer(request.data)
         try:
