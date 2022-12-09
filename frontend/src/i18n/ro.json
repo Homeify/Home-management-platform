@@ -31,5 +31,11 @@
     "description": "Descriere",
     "selectRewardValue": "Selecteaza valoarea recompensei",
     "save": "Salveaza",
-    "status": "Stare"
+    "status": "Stare",
+    "group-create-title": "Creeaza un grup",
+    "group-create-subtitle": "Colaboreaza strans cu un grup de persoane pentru a imparti responsabilitatile si creste recompensele.",
+    "create-group-name-label": "Numele grupului",
+    "create-group-description-label": "Descrierea grupului",
+    "dismiss": "Anuleaza",
+    "create": "Creeaza"
 }
