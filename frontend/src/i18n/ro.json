@@ -67,5 +67,8 @@
     "close": "Inchide",
     "group-members-title": "Membrii grupului",
     "delete": "Sterge grupul",
-    "invite": "Invita membrii"
+    "invite": "Invita membrii",
+    "pageNotFound": "Ups... Se pare ca te-ai ratacit.",
+    "pageNotFoundDescr": "Ne pare rau, pagina pe care ai cerut-o nu a putut fi gasita. Te rugam sa te intorci la pagina principala.",
+    "backHome": "Inapoi la pagina principala"
 }

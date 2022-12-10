@@ -14,10 +14,14 @@ import { AvatarWithPopover } from '../../atoms/Avatar';
 import { BellIcon, BurgerIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
+import { store } from '../../../state';
 
 export default function Header({ onOpen, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
+    const authState = store.getState().auth;
+    const { first_name: firstName, last_name: lastName } =
+        authState.currentUser;
 
     return (
         <Flex
@@ -62,7 +66,10 @@ export default function Header({ onOpen, ...rest }) {
                 />
                 <Flex alignItems={'center'}>
                     <HStack>
-                        <AvatarWithPopover name='Diana V' size='sm' />
+                        <AvatarWithPopover
+                            name={`${firstName} ${lastName}`}
+                            size='sm'
+                        />
                         {!isMobile && (
                             <VStack
                                 display={{ base: 'none', md: 'flex' }}
@@ -70,7 +77,7 @@ export default function Header({ onOpen, ...rest }) {
                                 spacing='1px'
                                 ml='2'
                             >
-                                <Text fontSize='sm'>Justina Clark</Text>
+                                <Text fontSize='sm'>{`${firstName} ${lastName}`}</Text>
                                 <Text fontSize='xs' color='gray.600'>
                                     Admin
                                 </Text>

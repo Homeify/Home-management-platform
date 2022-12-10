@@ -4,9 +4,8 @@ import TASKS from '../../utils/tasks';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import GroupDetails from '../organisms/GroupDetails';
-import useWindowWidth from '../../hooks/useWindowWidth';
 import '../../styles/tasks.scss';
-import { windowWidthMobile } from '../../utils/constants';
+import useWindowWidth from '../../hooks/useWindowWidth';
 import { Card } from '../atoms';
 import { TaskList } from '../atoms/Task';
 import { TaskView } from '../organisms/Task';
@@ -16,13 +15,13 @@ const Group = ({}) => {
   const params = useParams();
   const [selectedTask, setSelectedTask] = useState();
   const { onClose } = useDisclosure();
-  const { winWidth } = useWindowWidth();
+  const { isSmall } = useWindowWidth();
   const tasks = TASKS;
   const deselectAll = () => {
     setSelectedTask(undefined);
   };
   useEffect(() => {
-    if (winWidth > windowWidthMobile) {
+    if (!isSmall) {
       setSelectedTask(0);
     }
     // FIX ME
@@ -41,7 +40,7 @@ const Group = ({}) => {
         </Box>
 
         {selectedTask !== undefined &&
-                    (winWidth > windowWidthMobile ? (
+                    (!isSmall ? (
                         <Box w='40%' px="10px">
                           <Card
                             className='task-details'

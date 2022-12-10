@@ -61,5 +61,8 @@
     "close": "Close",
     "group-members-title": "Group members",
     "delete": "Delete the group",
-    "invite": "Invite people"
+    "invite": "Invite people",
+    "pageNotFound": "Whoops... Looks like you're lost.",
+    "pageNotFoundDescr": "Sorry, the page you requested could not be found. Please go back to homepage.",
+    "backHome": "Back to Home"
 }
