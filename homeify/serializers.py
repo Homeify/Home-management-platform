@@ -82,15 +82,15 @@ class HomeGroupDetailSerializer(serializers.ModelSerializer):
     members_count = serializers.SerializerMethodField(method_name='get_members_count')
 
     def get_owner(self, obj):
-        serializer = CustomUserSerializer(Membership.objects.filter(group = obj, owner = True).first().user)
+        serializer = CustomUserSerializer(Membership.objects.filter(group=obj, owner=True).first().user)
         return serializer.data
     
     def get_members_count(self, obj):
-        return Membership.objects.filter(group = obj).count()
+        return Membership.objects.filter(group=obj).count()
     
     class Meta:
         model = HomeGroup
-        fields = ['id', 'name', 'description', 'owner', 'members']   
+        fields = ['id', 'name', 'description', 'owner', 'members', 'members_count']
 
 class HomeGroupUpsertSerializer(serializers.ModelSerializer):
      class Meta:
