@@ -10,7 +10,7 @@ import {
 import { ArrowDownIcon } from '../../../assets/icons';
 import { ApplyButton } from '../../atoms/SearchAndFilter';
 
-const FilterMenu = ({ name = 'Filtru', filters = [] }) => {
+const FilterMenu = ({ name, filters, setValue, onSubmit }) => {
     return (
         <Menu closeOnSelect={false}>
             <MenuButton
@@ -21,14 +21,14 @@ const FilterMenu = ({ name = 'Filtru', filters = [] }) => {
                 {name}
             </MenuButton>
             <MenuList>
-                <MenuOptionGroup type='checkbox'>
+                <MenuOptionGroup type='checkbox' onChange={setValue}>
                     {filters.map((filter, index) => (
-                        <MenuItemOption key={index} value={filter}>
+                        <MenuItemOption key={index} value={index}>
                             {filter}
                         </MenuItemOption>
                     ))}
                 </MenuOptionGroup>
-                <ApplyButton />
+                <ApplyButton onClick={onSubmit} />
             </MenuList>
         </Menu>
     );

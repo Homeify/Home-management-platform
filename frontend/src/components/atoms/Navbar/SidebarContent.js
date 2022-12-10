@@ -12,7 +12,7 @@ import { NavItem } from './';
 import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
-import { GroupAddIcon, SettingsIcon } from '../../../assets/icons';
+import { SettingsIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { SignOutButton } from '../';

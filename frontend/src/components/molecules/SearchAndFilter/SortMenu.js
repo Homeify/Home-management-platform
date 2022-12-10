@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowDownIcon } from '../../../assets/icons';
 import { ApplyButton } from '../../atoms/SearchAndFilter';
 
-const SortMenu = ({ name, criteria }) => {
+const SortMenu = ({ name, criteria, setOrder, setValue, onSubmit }) => {
     const { t } = useTranslation();
     return (
         <Menu closeOnSelect={false}>
@@ -28,6 +28,7 @@ const SortMenu = ({ name, criteria }) => {
                     defaultValue='asc'
                     type='radio'
                     title={t('order')}
+                    onChange={setOrder}
                 >
                     <MenuItemOption value='asc'>
                         {t('ascending')}
@@ -40,17 +41,17 @@ const SortMenu = ({ name, criteria }) => {
                 <MenuDivider />
 
                 <MenuOptionGroup
-                    defaultValue={criteria[0]}
                     type='radio'
-                    title={t('criteria')}
+                    title={t('criterion')}
+                    onChange={setValue}
                 >
-                    {criteria.map((criterium, index) => (
-                        <MenuItemOption key={index} value={criterium}>
-                            {criterium}
+                    {criteria.map((criterion, index) => (
+                        <MenuItemOption key={index} value={criterion}>
+                            {criterion}
                         </MenuItemOption>
                     ))}
                 </MenuOptionGroup>
-                <ApplyButton />
+                <ApplyButton onClick={onSubmit} />
             </MenuList>
         </Menu>
     );

@@ -22,28 +22,10 @@ import { SearchAndFilter } from '../organisms/SearchAndFilter';
 const Group = ({}) => {
     const params = useParams();
     const [selectedTask, setSelectedTask] = useState();
-    const [searchQueryString, setSearchQueryString] = useState('');
     const [filteredTasks, setFilteredTasks] = useState(TASKS);
     const { onClose } = useDisclosure();
     const { isSmall } = useWindowWidth();
     const tasks = TASKS;
-    const searchParameters = Object.keys(Object.assign({}, ...tasks));
-
-    const search = () => {
-        return tasks.filter((item) =>
-            searchParameters.some((param) => {
-                return item[param]
-                    ?.toString()
-                    ?.toLowerCase()
-                    .includes(searchQueryString);
-            })
-        );
-    };
-
-    useEffect(() => {
-        const newTasks = search();
-        setFilteredTasks(newTasks);
-    }, [searchQueryString]);
 
     const deselectAll = () => {
         setSelectedTask(undefined);
@@ -64,7 +46,7 @@ const Group = ({}) => {
                     <GroupDetails id={params.uid} />
                     <SearchAndFilter
                         tasks={tasks}
-                        setQueryString={setSearchQueryString}
+                        setTasks={setFilteredTasks}
                     />
                     <TaskList
                         tasks={filteredTasks}

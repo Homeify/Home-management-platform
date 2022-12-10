@@ -41,7 +41,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
       }
     },
     {
-      name: 'delete',
+      name: 'deleteGroup',
       icon: TrashIcon,
       color: 'red.500',
       action: async (e) => {
