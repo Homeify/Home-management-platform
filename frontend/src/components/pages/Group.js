@@ -16,8 +16,8 @@ import {
     ModalBody,
     useDisclosure,
 } from '@chakra-ui/react';
-import { SearchField } from '../atoms/SearchAndFilter';
 import { GroupDetails } from '../organisms/Group';
+import { SearchAndFilter } from '../organisms/SearchAndFilter';
 
 const Group = ({}) => {
     const params = useParams();
@@ -62,7 +62,10 @@ const Group = ({}) => {
             <Box display='flex' flexDir='row'>
                 <Box flexGrow='1' height='100%'>
                     <GroupDetails id={params.uid} />
-                    <SearchField setQueryString={setSearchQueryString} />
+                    <SearchAndFilter
+                        tasks={tasks}
+                        setQueryString={setSearchQueryString}
+                    />
                     <TaskList
                         tasks={filteredTasks}
                         selectTask={setSelectedTask}

@@ -62,6 +62,7 @@ export default function Header({ onOpen, ...rest }) {
                     variant='ghost'
                     aria-label='open menu'
                     icon={<BellIcon size='14pt' />}
+                    borderRadius='full'
                 />
                 <Flex alignItems={'center'}>
                     <HStack>

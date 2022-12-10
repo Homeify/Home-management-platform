@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, IconButton, Text } from '@chakra-ui/react';
 import { CloseIcon, DiamondIcon } from '../../../assets/icons';
 import { getFormattedDate } from '../../../utils/functions';
 import { AvatarWithPopover } from '../../atoms/Avatar';
@@ -51,9 +51,12 @@ export default function TaskView({ task, deselectAll }) {
                     <PriorityIcon priority={priority} />
                 </Box>
                 <TaskMenu showEditModal={showEditModal} />
-                <Box onClick={deselectAll} cursor='pointer'>
-                    <CloseIcon />
-                </Box>
+                <IconButton
+                    onClick={deselectAll}
+                    icon={<CloseIcon />}
+                    variant='ghost'
+                    borderRadius='full'
+                />
             </Box>
 
             {/* Assigned and deadline */}

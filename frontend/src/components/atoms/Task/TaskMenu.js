@@ -19,6 +19,8 @@ export default function TaskMenu({ showEditModal }) {
                 aria-label='Options'
                 icon={<DotsIcon />}
                 variant='ghost'
+                borderRadius='full'
+                mr='2'
             />
             <MenuList>
                 <MenuItem icon={<AddTaskIcon size='14pt' />}>

@@ -1,21 +1,18 @@
 import React from 'react';
-import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '../../../assets/icons';
+import { useTranslation } from 'react-i18next';
 
 const SearchField = ({ setQueryString }) => {
+    const { t } = useTranslation();
     return (
-        <Box>
-            <InputGroup
-                bgColor='white.300'
-                borderRadius='10'
-                border='white'
-                my='4'
-            >
+        <Flex flexGrow='1'>
+            <InputGroup bgColor='white.300' borderRadius='10' border='white'>
                 <InputLeftElement pointerEvents='none' color='grey.100'>
                     <SearchIcon size='16pt' />
                 </InputLeftElement>
                 <Input
-                    placeholder='Search for ...'
+                    placeholder={t('searchPlaceholder')}
                     type='search'
                     name='search'
                     onChange={(e) => setQueryString(e.target.value)}
@@ -25,7 +22,7 @@ const SearchField = ({ setQueryString }) => {
                     autoComplete='off'
                 />
             </InputGroup>
-        </Box>
+        </Flex>
     );
 };
 

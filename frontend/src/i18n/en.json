@@ -66,5 +66,16 @@
     "pageNotFoundDescr": "Sorry, the page you requested could not be found. Please go back to homepage.",
     "backHome": "Back to Home",
     "owner": "Owner",
-    "noTask": "No task found"
+    "noTask": "No task found",
+    "searchPlaceholder": "Search for...",
+    "apply": "Apply",
+    "priority": "Priority",
+    "priorityHigh": "High",
+    "priorityMedium": "Medium",
+    "priorityLow": "Low",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "criteria": "Criteria",
+    "sort": "Sort",
+    "noOfComments": "Number of comments"
 }

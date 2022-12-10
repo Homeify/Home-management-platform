@@ -22,9 +22,11 @@ import TrashIcon from './TrashIcon';
 import PersonAddIcon from './PersonAddIcon';
 import PersonRemoveIcon from './PersonRemoveIcon';
 import PlusIcon from './PlusIcon';
+import ArrowDownIcon from './ArrowDownIcon';
 
 export {
     AddTaskIcon,
+    ArrowDownIcon,
     BellIcon,
     BurgerIcon,
     CloseIcon,

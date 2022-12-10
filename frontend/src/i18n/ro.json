@@ -72,5 +72,17 @@
     "pageNotFoundDescr": "Ne pare rau, pagina pe care ai cerut-o nu a putut fi gasita. Te rugam sa te intorci la pagina principala.",
     "backHome": "Inapoi la pagina principala",
     "owner": "Proprietar",
-    "noTask": "Nicio sarcina gasita"
+    "noTask": "Nicio sarcina gasita",
+    "searchPlaceholder": "Cauta...",
+    "apply": "Aplica",
+    "priority": "Prioritate",
+    "priorityHigh": "Crescuta",
+    "priorityMedium": "Medie",
+    "priorityLow": "Scazuta",
+    "order": "Ordine",
+    "ascending": "Crescator",
+    "descending": "Descrescator",
+    "criteria": "Criterii",
+    "sort": "Sorteaza",
+    "noOfComments": "Numar de comentarii"
 }
