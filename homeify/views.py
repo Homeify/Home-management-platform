@@ -7,7 +7,7 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import (
-  RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView
 )
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework_simplejwt.tokens import AccessToken
@@ -17,13 +17,14 @@ from django.utils.dateparse import parse_datetime
 from .serializers import *
 import re
 
+
 # Register API
 
 
 class RegisterAPI(generics.GenericAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = RegisterSerializer
-    
+
     def post(self, request):
         serialized = RegisterSerializer(request.data)
         try:
@@ -61,6 +62,7 @@ class SeeCurrentUserAPI(generics.GenericAPIView):
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
 
 class EditUsernameAPI(generics.GenericAPIView):
     def patch(self, request):
@@ -340,9 +342,9 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
         try:
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
-            groupIdx = [membership.group.id for membership in Membership.objects.filter(user= request.user)]
+            groupIdx = [membership.group.id for membership in Membership.objects.filter(user=request.user)]
             print("GROUPS", groupIdx)
-            queryset = HomeGroup.objects.filter(id__in = groupIdx)
+            queryset = HomeGroup.objects.filter(id__in=groupIdx)
             try:
                 serializer = HomeGroupSerializer(queryset, many=True, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -351,10 +353,12 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
+
 class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
     Handles the retrieval, update, delete of HomeGroup objects.
     """
+
     def get_object(self, pk):
         """
         Retrieves a Group object given its identifier pk.
@@ -373,7 +377,7 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
                 token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
                 access_token_obj = AccessToken(token)
             except Exception:
-               return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
             group = self.get_object(pk)
             serializer = HomeGroupDetailSerializer(group, context={'request': request})
@@ -390,21 +394,22 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
                 token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
                 access_token_obj = AccessToken(token)
             except Exception:
-               return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
             group = None
             if pk is not None:
                 group = self.get_object(pk)
             if group:
-                ownerMembership = Membership.objects.filter(group = group, owner = True).first()
+                ownerMembership = Membership.objects.filter(group=group, owner=True).first()
                 if ownerMembership.user.id != request.user.id:
                     return Response(data={'message': 'Owner-only operation.'}, status=status.HTTP_403_FORBIDDEN)
-                serializer = HomeGroupUpsertSerializer(group, data=request.data, partial=True, context={'request': request})
+                serializer = HomeGroupUpsertSerializer(group, data=request.data, partial=True,
+                                                       context={'request': request})
                 if serializer.is_valid():
-                     serializer.save()
+                    serializer.save()
                 return Response(data=serializer.data)
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-                return Response({"ERROR": str(e)}, status=400)
+            return Response({"ERROR": str(e)}, status=400)
 
     def delete(self, request, pk, format=None):
         """
@@ -415,19 +420,21 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
                 token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
                 access_token_obj = AccessToken(token)
             except Exception:
-               return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
             group = None
             if pk is not None:
                 group = self.get_object(pk)
             if group:
-                ownerMembership = Membership.objects.filter(group = group, owner = True).first()
+                ownerMembership = Membership.objects.filter(group=group, owner=True).first()
                 if ownerMembership.user.id != request.user.id:
-                    return Response(data={'message': 'You do not have sufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={'message': 'You do not have sufficient permissions.'},
+                                    status=status.HTTP_403_FORBIDDEN)
                 group.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-                return Response({"ERROR": str(e)}, status=400)
+            return Response({"ERROR": str(e)}, status=400)
+
 
 class TaskAPI(generics.GenericAPIView):
     def post(self, request):
@@ -457,17 +464,23 @@ class TaskAPI(generics.GenericAPIView):
                 reward = int(request.data['reward'])
                 priority = int(request.data['priority'])
 
-                new_task = Task.objects.create(author=user, assigned_user=assigned_user, group=group, posted=date.today(), deadline=deadline, title=title, content=content, reward=reward, priority=priority)
+                new_task = Task.objects.create(author=user, assigned_user=assigned_user, group=group,
+                                               posted=datetime.now(), deadline=deadline, title=title, content=content,
+                                               reward=reward, priority=priority)
 
                 new_task.save()
                 return Response(data={'message': 'Task successfully created'}, status=status.HTTP_201_CREATED)
+            print(serializer.errors)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
     def validateRequest(self, request, user):
         group_id = request.data.get('group_id')
         deadline = parse_datetime(request.data.get('deadline'))
+        if deadline is None:
+            return False, "Incorrect datetime format, should be YYYY-MM-DD HH:MM"
 
         if group_id is None:
             return False, "Missing parameter group_id"
@@ -478,12 +491,12 @@ class TaskAPI(generics.GenericAPIView):
             return False, "Group not found"
 
         try:
-            membership = Membership.objects.get(user=user, group=group)
+            Membership.objects.get(user=user, group=group)
         except ObjectDoesNotExist:
             return False, "Group not found"
 
         if deadline < datetime.today():
-            return False, "Incorrect date"
+            return False, "Incorrect deadline value, must be greater than current datetime"
 
         return True, "Valid request"
 
@@ -797,7 +810,8 @@ class GetTasksForGroup(generics.GenericAPIView):
             try:
                 membership = Membership.objects.get(user=user, group=group)
             except ObjectDoesNotExist:
-                return Response(data={'message': 'You are not a member of this group'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response(data={'message': 'You are not a member of this group'},
+                                status=status.HTTP_401_UNAUTHORIZED)
 
             tasks = Task.objects.all().filter(group=group)
 

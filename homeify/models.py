@@ -32,9 +32,9 @@ class Membership(models.Model):
 
 
 class StatusType(models.TextChoices):
-    to_do = 'to_do'
-    in_progress = 'in_progress'
-    on_hold = 'on_hold'
+    to_do = 'to do'
+    in_progress = 'in progress'
+    on_hold = 'on hold'
     done = 'done'
 
 
@@ -42,8 +42,8 @@ class Task(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author')
     assigned_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assignedUser')
     group = models.ForeignKey(HomeGroup, on_delete=models.CASCADE)
-    posted = models.DateField() 
-    deadline = models.DateField()
+    posted = models.DateTimeField()
+    deadline = models.DateTimeField()
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=500)
     reward = models.IntegerField()
@@ -53,4 +53,4 @@ class Task(models.Model):
     color = models.CharField(max_length=50, default='white')
 
     def __str__(self):
-        return self.name
+        return self.title + " - " + self.group.name

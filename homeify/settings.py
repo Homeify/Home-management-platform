@@ -26,7 +26,7 @@ DEBUG = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
-    ],
+    ]
 }
 
 ALLOWED_HOSTS = ['*']
@@ -126,7 +126,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'homeify.CustomUser'
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:8000' ]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:8000']
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
