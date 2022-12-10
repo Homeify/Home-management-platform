@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { LogOutIcon } from '../../assets/icons';
 import { signOut as signOutAction } from '../../state/actions/auth';
 import ROUTES from '../../utils/routes';
-import NavItem from './Navbar/NavItem';
+import { NavItem } from './Navbar';
 
 function SignOutButton({ signOut }) {
     const { t } = useTranslation();

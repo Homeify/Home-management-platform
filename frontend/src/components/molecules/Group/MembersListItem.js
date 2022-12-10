@@ -1,20 +1,23 @@
 import React from 'react';
-import { Avatar, Badge, Flex, Text, IconButton } from '@chakra-ui/react';
-import { IoPersonRemoveOutline } from 'react-icons/io5';
+import { Badge, Flex, Text, IconButton } from '@chakra-ui/react';
+import { PersonRemoveIcon } from '../../../assets/icons';
+import { Avatar } from '../../atoms/Avatar';
+import { useTranslation } from 'react-i18next';
 
 export default function MemberListItem({ member, canRemove }) {
+  const { t } = useTranslation();
   const removeMember = () => {};
   const showRemoveAction = member.owner === false && canRemove;
   return (
     <Flex direction="row" gap={3} alignItems="center">
-      <Avatar size="md" name={member.username} src='' />
+      <Avatar size="md" name={member.first_name + ' ' + member.last_name} src='' m='0' />
       <Flex direction="column" grow="1">
         <Flex direction="row" alignItems="center">
           <Text fontWeight='600'>
             {`${member.first_name} ${member.last_name}`}
           </Text>
           { member.owner && <Badge ml='2' bgColor="green.500" px="2" fontWeight="600" textTransform="capitalize" color="white" borderRadius="2xl">
-           Owner
+           {t('owner')}
           </Badge> }
         </Flex>
         <Text fontSize='sm'>{member.username}</Text>
@@ -24,7 +27,7 @@ export default function MemberListItem({ member, canRemove }) {
         colorScheme="red"
         variant="ghost"
         onClick={removeMember}
-        icon={<IoPersonRemoveOutline/>}></IconButton> }
+        icon={<PersonRemoveIcon/>}></IconButton> }
     </Flex>
   );
 }

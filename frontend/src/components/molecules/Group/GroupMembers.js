@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, ModalBody, ModalCloseButton, ModalHeader, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import MemberListItem from './MembersListItem';
+import { MembersListItem } from './';
 
 const GroupMembers = ({ groupId, members, open, onClose, isCurrentUserOwner }) => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const GroupMembers = ({ groupId, members, open, onClose, isCurrentUserOwner }) =
         <ModalBody>
           {
             members?.map((member, index) => (
-              <MemberListItem
+              <MembersListItem
                 key={`group-member-${groupId}-${index}`}
                 member={member}
                 canRemove={isCurrentUserOwner}/>

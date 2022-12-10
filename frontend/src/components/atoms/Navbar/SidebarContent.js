@@ -8,7 +8,7 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import NavItem from './NavItem';
+import { NavItem } from './';
 import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
@@ -33,7 +33,6 @@ export default function SidebarContent({ onClose, linkItems, ...rest }) {
             w={{ base: 'full', md: 60 }}
             pos='fixed'
             h='full'
-            boxShadow='3px 0 5px #eee'
             {...rest}
         >
             <Flex
@@ -69,13 +68,6 @@ export default function SidebarContent({ onClose, linkItems, ...rest }) {
 
                 <Box>{isMobile && <RewardCounter count={6969} m='5' />}</Box>
                 <Box mt='auto' mb='5'>
-                    <NavItem
-                        icon={GroupAddIcon}
-                        name={t('createGroup')}
-                        link={'#'}
-                        bg='secondary.300'
-                        iconSize='14pt'
-                    />
                     <NavItem
                         icon={SettingsIcon}
                         name={t('settings')}

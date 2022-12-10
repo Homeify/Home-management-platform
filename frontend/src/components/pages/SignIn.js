@@ -67,7 +67,7 @@ const SignIn = ({signIn}) => {
         >
           <Stack gap="4">
             <FormControl id="username" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Username</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('username')}</FormLabel>
               <Input
                 size="md"
                 borderRadius="xl"

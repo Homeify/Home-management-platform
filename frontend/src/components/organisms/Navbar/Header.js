@@ -36,7 +36,6 @@ export default function Header({ onOpen, ...rest }) {
                 'secondary.300'
             )}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
-            boxShadow='0 3px 5px #eee'
             {...rest}
         >
             <IconButton
