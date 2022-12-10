@@ -36,7 +36,7 @@ urlpatterns = [
     path('groups/user', UserToGroup.as_view(), name='user_to_group'),
     path('groups/user/admin', AdminUserToGroup.as_view(), name='admin_add_user_to_group'),
     path('groups', GetGroupsForCurrentUser.as_view(), name='get_groups'),
-    path('groups/users', GetUsersFromGroup.as_view(), name='get_users_for_group'),
+    path('groups/users/<int:group_id>', GetUsersFromGroup.as_view(), name='get_users_for_group'),
     path('groups/<int:pk>', GroupDetailAPIView.as_view()),
     path('', admin.site.urls),
 ]

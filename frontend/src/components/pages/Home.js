@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, IconButton, Link } from '@chakra-ui/react';
+import { IconButton, Flex, Heading } from '@chakra-ui/react';
 import GroupCreate from '../molecules/GroupCreate';
 import { IoAddOutline } from 'react-icons/io5';
-import SignOutButton from '../atoms/SignOutButton';
+import { SidebarWithHeader } from '../organisms/Navbar';
 import { getUserGroups } from '../../state/actions/group';
 import {connect} from 'react-redux';
 import GroupList from '../organisms/GroupList';
+import { useTranslation } from 'react-i18next';
 
 const Home = ({getGroups, groups}) => {
   const [open, setOpen] = useState(false);
@@ -13,20 +14,21 @@ const Home = ({getGroups, groups}) => {
   useEffect(() => {
     getGroups();
   }, []);
+  const { t } = useTranslation();
   return (
-    <div>
-    <Link href='/mygroups'>
-                <Button colorScheme='primary'>Go to Groups</Button>
-            </Link>
-      <IconButton
-        borderRadius="full"
-        colorScheme="primary"
-        icon={<IoAddOutline/>}
-        onClick={() => setOpen(true)}></IconButton>
+    <SidebarWithHeader>
+      <Flex gap={3} alignItems="center" mb={5}>
+        <Heading fontSize="24" fontWeight="600">{t('myGroups')}</Heading>
+        <IconButton
+          borderRadius="full"
+          colorScheme="primary"
+          icon={<IoAddOutline/>}
+          onClick={() => setOpen(true)}></IconButton>
+      </Flex>
+
       <GroupCreate isOpen={open} close={onClose}/>
-      <Box maxW="75px"><SignOutButton/></Box>
       {groups && <GroupList groups={groups}/>}
-    </div>
+    </SidebarWithHeader>
   );
 };
 

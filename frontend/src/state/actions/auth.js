@@ -30,8 +30,27 @@ const signIn = (newUser) => (
             dispatch({
               type: AUTH_ACTION_TYPES.SIGN_IN,
             });
+            dispatch(getCurrentUser());
           }
         });
+  }
+);
+
+const getCurrentUser = () => (
+  async (dispatch) => {
+    const authToken = localStorage.getItem('authToken');
+    axios.get(`${BASE_URL}/users/view/current_user`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }}).then((res) => {
+      if (res.status === 201 || res.status === 200) {
+        const payload = res.data;
+        dispatch({
+          type: AUTH_ACTION_TYPES.GET_CURRENT_USER,
+          payload
+        });
+      }
+    });
   }
 );
 
@@ -56,4 +75,5 @@ export {
   signIn,
   signUp,
   signOut,
+  getCurrentUser
 };

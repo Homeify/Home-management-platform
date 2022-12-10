@@ -26,6 +26,10 @@ const GroupCreate = ({isOpen, close, addGroup}) => {
     description: ''
   });
   const isDataValid = group.name.length >= 3 && group.description.length >= 3;
+  const handleGroupCreate = async () => {
+    await addGroup(group);
+    close();
+  };
   return (
     <>
       <Modal size="lg" isOpen={isOpen} onClose={close} isCentered={true}>
@@ -66,7 +70,7 @@ const GroupCreate = ({isOpen, close, addGroup}) => {
               isDisabled={!isDataValid}
               colorScheme="primary"
               borderRadius="lg"
-              onClick={() => addGroup(group)}>
+              onClick={handleGroupCreate}>
               {t('create')}
             </Button>
           </ModalFooter>

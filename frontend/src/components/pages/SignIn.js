@@ -56,10 +56,10 @@ const SignIn = ({signIn}) => {
         bg={useColorModeValue('white', 'gray.700')}>
         <Stack>
           <Heading fontSize={'xl'}>
-            Sign In
+            {t('signIn')}
           </Heading>
           <Text fontSize={'md'} color={'gray.600'}>
-          {t('welcomeBack')}
+            {t('welcomeBack')}
           </Text>
         </Stack>
         <Box
@@ -113,20 +113,20 @@ const SignIn = ({signIn}) => {
                 }}
                 onClick={submitHandler}
               >
-               {t('signIn')}
+                {t('signIn')}
               </Button>
             </Stack>
             <Stack>
-                            <Text fontSize={'md'} m='0' color={'gray.600'}>
-                                {t('dontHaveAccount')}{' '}
-                                <Link
-                                    color={'primary.300'}
-                                    href={ROUTES.SIGN_UP}
-                                >
-                                    {t('signUp')}
-                                </Link>
-                            </Text>
-                        </Stack>
+              <Text fontSize={'md'} m='0' color={'gray.600'}>
+                {t('dontHaveAccount')}{' '}
+                <Link
+                  color={'primary.300'}
+                  href={ROUTES.SIGN_UP}
+                >
+                  {t('signUp')}
+                </Link>
+              </Text>
+            </Stack>
           </Stack>
         </Box>
       </Flex>

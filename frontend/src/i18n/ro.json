@@ -57,5 +57,15 @@
     "emailAddress": "Adresa de email",
     "termsAndConditions": "Prin inscriere, esti de acord cu termenii si conditiile",
     "alreadyHaveAccount": "Ai deja un cont?",
-    "dontHaveAccount": "Nu ai un cont?"
+    "dontHaveAccount": "Nu ai un cont?",
+    "created-at": "Creat la",
+    "tasks": "Sarcini",
+    "members": "Membrii",
+    "created-by": "Creat de",
+    "group-invite-title": "Invita persoane in grupul tau",
+    "group-invite-description": "Invita cunoscutii sa se alature grupului tau prin distribuirea codului de mai jos.",
+    "close": "Inchide",
+    "group-members-title": "Membrii grupului",
+    "delete": "Sterge grupul",
+    "invite": "Invita membrii"
 }

@@ -159,7 +159,8 @@ class AddGroup(generics.GenericAPIView):
                                           date_joined=date.today())
                 new_group.members.add(user)
                 new_group.save()
-                return Response(data={'message': 'Group successfully created'}, status=status.HTTP_201_CREATED)
+                output = HomeGroupSerializer(new_group)
+                return Response(output.data, status=status.HTTP_201_CREATED)
             return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
@@ -319,8 +320,7 @@ class AdminUserToGroup(generics.GenericAPIView):
 
 
 class GetUsersFromGroup(generics.GenericAPIView):
-    def get(self, request):
-        group_id = request.data.get("group_id")
+    def get(self, request, group_id):
         if group_id is None:
             return Response(data={'message': "Missing parameter group_id"}, status=status.HTTP_400_BAD_REQUEST)
         try:
@@ -354,7 +354,7 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
     def get_object(self, pk):
         """
-        Retrieves an event object given its identifier pk
+        Retrieves a Group object given its identifier pk.
         """
         try:
             return HomeGroup.objects.get(pk=pk)
@@ -363,7 +363,7 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     def get(self, request, pk, format=None):
         """
-        Retrieves an event given its identifier pk
+        Retrieves a Group given its identifier pk.
         """
         try:
             try:
@@ -377,3 +377,51 @@ class GroupDetailAPIView(RetrieveUpdateDestroyAPIView):
             return Response(serializer.data)
         except Exception as e:
             return Response({"ERROR": str(e)}, status=400)
+        
+    def patch(self, request, pk=None):
+        """
+        Partially updates a Group given its identifier pk.
+        """
+        try:
+            try:
+                token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+                access_token_obj = AccessToken(token)
+            except Exception:
+               return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            group = None
+            if pk is not None:
+                group = self.get_object(pk)
+            if group:
+                ownerMembership = Membership.objects.filter(group = group, owner = True).first()
+                if ownerMembership.user.id != request.user.id:
+                    return Response(data={'message': 'Owner-only operation.'}, status=status.HTTP_403_FORBIDDEN)
+                serializer = HomeGroupUpsertSerializer(group, data=request.data, partial=True, context={'request': request})
+                if serializer.is_valid():
+                     serializer.save()
+                return Response(data=serializer.data)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+                return Response({"ERROR": str(e)}, status=400)
+    
+    def delete(self, request, pk, format=None):
+        """
+        Deletes a Group given its identifier pk.
+        """
+        try:
+            try:
+                token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+                access_token_obj = AccessToken(token)
+            except Exception:
+               return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+            group = None
+            if pk is not None:
+                group = self.get_object(pk)
+            if group:
+                ownerMembership = Membership.objects.filter(group = group, owner = True).first()
+                if ownerMembership.user.id != request.user.id:
+                    return Response(data={'message': 'You do not have sufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
+                group.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+                return Response({"ERROR": str(e)}, status=400)
