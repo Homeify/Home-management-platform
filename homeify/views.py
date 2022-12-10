@@ -676,10 +676,11 @@ class UpdateTaskAPI(generics.GenericAPIView):
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
+            task.assigned_user = assigned_user
+
         serializer = TaskSerializer(task, data=request.data, partial=True,
                                     context={'request': request})
         if serializer.is_valid():
-            task.assigned_user = assigned_user
             serializer.assigned_user = assigned_user
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
