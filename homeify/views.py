@@ -1,6 +1,6 @@
 # registers endpoints
 
-from datetime import date
+from datetime import date, datetime
 
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
@@ -9,6 +9,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework_simplejwt.tokens import AccessToken
+from django.utils.dateparse import parse_datetime
+
 from .models import Membership
 from .serializers import *
 import re
@@ -365,5 +367,402 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
                          'owner': owner.user.id}
                 list.append(group)
             return Response(data={'data': list}, status=status.HTTP_200_OK)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class TaskAPI(generics.GenericAPIView):
+    def post(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            serializer = TaskSerializer(data=request.data)
+            valid, message = self.validateRequest(request, user)
+
+            if not valid:
+                return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
+
+            if serializer.is_valid():
+                # create task
+                assigned_user_id = request.data['assigned_user_id']
+                assigned_user = CustomUser.objects.get(id=assigned_user_id)
+
+                group_id = request.data['group_id']
+                group = HomeGroup.objects.get(id=group_id)
+
+                deadline = request.data['deadline']
+                title = request.data['title']
+                content = request.data['content']
+                reward = int(request.data['reward'])
+                priority = int(request.data['priority'])
+
+                new_task = Task.objects.create(author=user, assigned_user=assigned_user, group=group, posted=date.today(), deadline=deadline, title=title, content=content, reward=reward, priority=priority)
+
+                new_task.save()
+                return Response(data={'message': 'Task successfully created'}, status=status.HTTP_201_CREATED)
+            return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+    def validateRequest(self, request, user):
+        group_id = request.data.get('group_id')
+        deadline = parse_datetime(request.data.get('deadline'))
+
+        if group_id is None:
+            return False, "Missing parameter group_id"
+
+        try:
+            group = HomeGroup.objects.get(id=group_id)
+        except ObjectDoesNotExist:
+            return False, "Group not found"
+
+        try:
+            membership = Membership.objects.get(user=user, group=group)
+        except ObjectDoesNotExist:
+            return False, "Group not found"
+
+        if deadline < datetime.today():
+            return False, "Incorrect date"
+
+        return True, "Valid request"
+
+    def get(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            group_id = request.data.get("group_id")
+
+            if group_id is None:
+                return Response(data={'message': "Missing parameter group_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                group = HomeGroup.objects.get(id=group_id)
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Group does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+            tasks = Task.objects.all().filter(assigned_user=user, group=group)
+
+            list_of_tasks = []
+
+            for task in tasks:
+                item = {
+                    'id': task.id,
+                    'author': task.author.get_full_name(),
+                    'posted': task.posted,
+                    'deadline': task.deadline,
+                    'title': task.title,
+                    'content': task.content,
+                    'reward': task.reward,
+                    'priority': task.priority,
+                    'status': task.status,
+                    'color': task.color,
+                    'emoji': task.emoji
+                }
+
+                list_of_tasks.append(item)
+
+            return Response(data={'data': list_of_tasks}, status=status.HTTP_200_OK)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            task_id = request.data.get("task_id")
+
+            if task_id is None:
+                return Response(data={'message': "Missing parameter task_id"}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                task = Task.objects.get(id=task_id)
+                group = HomeGroup.objects.get(id=task.group.id)
+                membership = Membership.objects.get(user=user, group=group)
+
+                if task.author == user or membership.owner:
+                    task.delete()
+                    return Response(data={'message': 'Task succesfully deleted'}, status=status.HTTP_200_OK)
+                
+                return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Task does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskAssignee(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                assigned_user_id = request.data['assigned_user_id']
+                task = Task.objects.get(id=task_id)
+                
+                assigned_user = CustomUser.objects.get(id=assigned_user_id)
+                group = HomeGroup.objects.get(id=task.group.id)
+                membership = Membership.objects.get(user=assigned_user, group=group)
+
+                if task.author != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+                    
+                task.assigned_user = assigned_user
+                task.status = StatusType.to_do
+                task.save()
+                return Response(data={'message': 'Assignee successfully updated.'}, status=status.HTTP_200_OK)  
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskStatus(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                task_status = request.data['status']
+                task = Task.objects.get(id=task_id)
+
+                if task.assigned_user != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+                try:
+                    StatusType(task_status)
+                except ValueError:
+                    return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+
+                task.status = task_status
+                task.save()
+                return Response(data={'message': 'Status successfully updated.'}, status=status.HTTP_200_OK)  
+            except Exception:
+                return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskDeadline(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                deadline = parse_datetime(request.data['deadline'])
+                task = Task.objects.get(id=task_id)
+
+                if task.author != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+                if deadline < datetime.today():
+                    return Response(data={'message': 'Incorrect date'}, status=status.HTTP_400_BAD_REQUEST)
+                    
+                task.deadline = deadline
+                task.save()
+                return Response(data={'message': 'Content successfully updated.'}, status=status.HTTP_200_OK)  
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskTitle(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                title = request.data['title']
+                task = Task.objects.get(id=task_id)
+
+                if len(title) < 3:
+                    return Response(data={'message': 'Title is too short'}, status=status.HTTP_400_BAD_REQUEST)
+
+                if task.author != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+                task.title = title
+                task.save()
+                return Response(data={'message': 'Title successfully updated.'}, status=status.HTTP_200_OK)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskContent(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                content = request.data['content']
+                task = Task.objects.get(id=task_id)
+
+                if len(content) < 3:
+                    return Response(data={'message': 'Content is too short'}, status=status.HTTP_400_BAD_REQUEST)
+
+                if task.author != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+                task.content = content
+                task.save()
+                return Response(data={'message': 'Content successfully updated.'}, status=status.HTTP_200_OK)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskPriority(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                priority = int(request.data['priority'])
+                task = Task.objects.get(id=task_id)
+
+                if task.author == user:
+                    task.priority = priority
+                    task.save()
+                    return Response(data={'message': 'Priority successfully updated.'}, status=status.HTTP_200_OK)
+                
+                return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskEmoji(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                emoji = request.data['emoji']
+                task = Task.objects.get(id=task_id)
+
+                if task.author == user:
+                    task.emoji = emoji
+                    task.save()
+                    return Response(data={'message': 'Emoji successfully updated.'}, status=status.HTTP_200_OK)
+                
+                return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class EditTaskColor(generics.GenericAPIView):
+    def patch(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            try:
+                task_id = request.data['task_id']
+                color = request.data['color']
+                task = Task.objects.get(id=task_id)
+
+                if task.assigned_user == user:
+                    task.color = color
+                    task.save()
+                    return Response(data={'message': 'Color successfully updated.'}, status=status.HTTP_200_OK)
+                
+                return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class GetTasksForGroup(generics.GenericAPIView):
+    def get(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            group_id = request.data.get("group_id")
+
+            if group_id is None:
+                return Response(data={'message': "Missing parameter group_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                group = HomeGroup.objects.get(id=group_id)
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Group does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                membership = Membership.objects.get(user=user, group=group)
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'You are not a member of this group'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            tasks = Task.objects.all().filter(group=group)
+
+            list_of_tasks = []
+
+            for task in tasks:
+                item = {
+                    'id': task.id,
+                    'author': task.author.get_full_name(),
+                    'assigned_user': task.assigned_user.get_full_name(),
+                    'posted': task.posted,
+                    'deadline': task.deadline,
+                    'title': task.title,
+                    'content': task.content,
+                    'reward': task.reward,
+                    'priority': task.priority,
+                    'status': task.status,
+                    'color': task.color,
+                    'emoji': task.emoji
+                }
+
+                list_of_tasks.append(item)
+
+            return Response(data={'data': list_of_tasks}, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)

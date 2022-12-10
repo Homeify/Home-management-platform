@@ -1,4 +1,4 @@
-from .models import CustomUser, HomeGroup
+from .models import CustomUser, HomeGroup, Task, StatusType
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
@@ -58,3 +58,29 @@ class HomeGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeGroup
         fields = ['id', 'name', 'description']
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    group_id = serializers.ReadOnlyField()
+    author_id = serializers.ReadOnlyField()
+    assigned_user_id = serializers.ReadOnlyField()
+    posted = serializers.DateField(required=False)
+    deadline = serializers.DateField()
+    title = serializers.CharField(required=True, min_length=3, max_length=100)
+    content = serializers.CharField(min_length=3,max_length=500)
+    reward = serializers.IntegerField(required=True, min_value=1)
+    priority = serializers.IntegerField(required=True)
+    status = serializers.ChoiceField(required=False, choices=StatusType.choices)
+    emoji = serializers.CharField(required=False)
+    color = serializers.CharField(required=False)
+
+    class Meta:
+        model = Task
+        fields = ['id', 'group_id', 'author_id', 'assigned_user_id', 'posted', 'deadline', 'title', 'content', 'reward', 'priority', 'status', 'emoji', 'color']
+        extra_kwargs = {
+            'posted': {'required': False},
+            'status': {'required': False},
+            'emoji': {'required': False},
+            'color': {'required': False}
+        }
