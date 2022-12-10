@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, IconButton, Text } from '@chakra-ui/react';
 import { CloseIcon, DiamondIcon } from '../../../assets/icons';
 import { getFormattedDate } from '../../../utils/functions';
 import { AvatarWithPopover } from '../../atoms/Avatar';
 import { CommentInput, CommentsHeader } from '../../atoms/Comment';
-import TaskMenu from '../../atoms/Task/TaskMenu';
 import { DetailsHeader, DetailsItem } from '../../atoms/Details';
 import { PriorityIcon } from '../../atoms';
-import Assigned from '../../atoms/Task/Assigned';
-import Deadline from '../../atoms/Task/Deadline';
-import { StatusTag } from '../../atoms/Task';
-import EditTask from './EditTask';
+import { StatusTag, TaskMenu, Assigned, Deadline } from '../../atoms/Task';
+import { EditTask } from './';
 
 export default function TaskView({ task, deselectAll }) {
+    if (!task) return <></>;
     const { t } = useTranslation();
     const {
         title,
@@ -53,9 +51,12 @@ export default function TaskView({ task, deselectAll }) {
                     <PriorityIcon priority={priority} />
                 </Box>
                 <TaskMenu showEditModal={showEditModal} />
-                <Box onClick={deselectAll} cursor='pointer'>
-                    <CloseIcon />
-                </Box>
+                <IconButton
+                    onClick={deselectAll}
+                    icon={<CloseIcon />}
+                    variant='ghost'
+                    borderRadius='full'
+                />
             </Box>
 
             {/* Assigned and deadline */}

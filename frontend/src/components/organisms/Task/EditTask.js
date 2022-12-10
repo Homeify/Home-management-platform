@@ -17,6 +17,8 @@ import { useTranslation } from 'react-i18next';
 import { getFormattedDate } from '../../../utils/functions';
 
 export default function EditTask({ isVisible, setIsVisible, task }) {
+  if (!task) return <></>;
+
   const { t } = useTranslation();
   const months = t('allMonths');
   const { title, description, deadline, reward } = task;

@@ -6,7 +6,7 @@ import {
   DrawerContent,
   useDisclosure,
 } from '@chakra-ui/react';
-import Header from './Header';
+import { Header } from './';
 import { SidebarContent } from '../../atoms/Navbar';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '../../../utils/routes';

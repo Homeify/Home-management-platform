@@ -36,7 +36,6 @@ export default function Header({ onOpen, ...rest }) {
                 'secondary.300'
             )}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
-            boxShadow='0 3px 5px #eee'
             {...rest}
         >
             <IconButton
@@ -63,6 +62,7 @@ export default function Header({ onOpen, ...rest }) {
                     variant='ghost'
                     aria-label='open menu'
                     icon={<BellIcon size='14pt' />}
+                    borderRadius='full'
                 />
                 <Flex alignItems={'center'}>
                     <HStack>

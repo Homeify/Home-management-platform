@@ -1,5 +1,5 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { DiamondIcon } from '../../../assets/icons';
 
 export default function RewardCounter({ count, ...rest }) {

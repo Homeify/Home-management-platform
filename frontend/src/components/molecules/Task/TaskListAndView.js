@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
     Box,
     Modal,
@@ -6,7 +7,6 @@ import {
     ModalOverlay,
     useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import '../../../styles/tasks.scss';
 import { Card } from '../../atoms';
