@@ -1,0 +1,1802 @@
+{
+	"info": {
+		"_postman_id": "4b90751e-a522-4413-854d-0d3bf96f179b",
+		"name": "Tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16868793"
+	},
+	"item": [
+		{
+			"name": "Add task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "assigned_user_id",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "group_id",
+							"value": "22",
+							"type": "text"
+						},
+						{
+							"key": "deadline",
+							"value": "2022-12-16 09:15",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Buy 1l Milk",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "hello, please buy some milk today after school",
+							"type": "text"
+						},
+						{
+							"key": "reward",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "priority",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjY5NzMzLCJpYXQiOjE2NzA2Njc5MzMsImp0aSI6IjUzMzYyNzQ4ZWJlNzQ2Y2Q5ZGQ4ZGU4Njk5MzA2M2E2IiwidXNlcl9pZCI6OH0.5Bm_0stRHP2-k75VlXHvinWkgD4fiZaPiihe5cWYzBc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assigned_user_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "group_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "deadline",
+									"value": "12/11/2018 09:15",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Buy 1l Milk",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "hello, please buy some milk today after school",
+									"type": "text"
+								},
+								{
+									"key": "reward",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 10:53:31 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "77"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Incorrect deadline value, must be greater than current datetime\"\n}"
+				},
+				{
+					"name": "Add task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjY5NzMzLCJpYXQiOjE2NzA2Njc5MzMsImp0aSI6IjUzMzYyNzQ4ZWJlNzQ2Y2Q5ZGQ4ZGU4Njk5MzA2M2E2IiwidXNlcl9pZCI6OH0.5Bm_0stRHP2-k75VlXHvinWkgD4fiZaPiihe5cWYzBc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assigned_user_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "group_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "deadline",
+									"value": "12/11/2018",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Buy 1l Milk",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "hello, please buy some milk today after school",
+									"type": "text"
+								},
+								{
+									"key": "reward",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 10:54:01 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Incorrect datetime format, should be DD-MM-YYYY HH:MM\"\n}"
+				},
+				{
+					"name": "Add task",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc0MDk1LCJpYXQiOjE2NzA2NzIyOTUsImp0aSI6ImQ4MzIyZGYxNGRiZjRlNTk5ZjA2MTY3MjEzZDk3MzNjIiwidXNlcl9pZCI6OH0.DbDSom_80CXWvPL8HLaXJ6WN9PHLfPrPJZqJ-1JDx0A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "assigned_user_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "group_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "deadline",
+									"value": "2022-12-12 10:00",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Water the plants",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "all the plants in the garden",
+									"type": "text"
+								},
+								{
+									"key": "reward",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "to do",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:03:35 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "277"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"id\": 6,\n        \"group_id\": 21,\n        \"author_id\": 8,\n        \"assigned_user_id\": 8,\n        \"posted\": \"2022-12-10T12:03:35.180477\",\n        \"deadline\": \"2022-12-12 10:00\",\n        \"title\": \"Water the plants\",\n        \"content\": \"all the plants in the garden\",\n        \"reward\": 3,\n        \"priority\": 1,\n        \"status\": \"to do\",\n        \"emoji\": \"none\",\n        \"color\": \"white\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get tasks for a user in a group",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc1MDEzLCJpYXQiOjE2NzA2NzMyMTMsImp0aSI6Ijc3NTA4MWUwYzdkYjRiNGFhZmIyZjQ5YmIzZWZlYjQzIiwidXNlcl9pZCI6OH0.6kGfVx0wnl3jwRZO2dofcRWPFJsMEY2YxR9KABqGVhI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "group_id",
+							"value": "21",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get tasks for a user in a group",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc1MDEzLCJpYXQiOjE2NzA2NzMyMTMsImp0aSI6Ijc3NTA4MWUwYzdkYjRiNGFhZmIyZjQ5YmIzZWZlYjQzIiwidXNlcl9pZCI6OH0.6kGfVx0wnl3jwRZO2dofcRWPFJsMEY2YxR9KABqGVhI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "group_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:04:37 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1635"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T00:00:00Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Buy 1l Milk\",\n            \"content\": \"hello, please buy some milk today after school\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        },\n        {\n            \"id\": 2,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T00:00:00Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Water the plants\",\n            \"content\": \"all the plants in the garden\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        },\n        {\n            \"id\": 3,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T11:44:40.570743Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Water the plants\",\n            \"content\": \"all the plants in the garden\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        },\n        {\n            \"id\": 4,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T11:55:49.315422Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Water the plants\",\n            \"content\": \"all the plants in the garden\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        },\n        {\n            \"id\": 5,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T11:57:39.409689Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Water the plants\",\n            \"content\": \"all the plants in the garden\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        },\n        {\n            \"id\": 6,\n            \"group_id\": 21,\n            \"author_id\": 8,\n            \"assigned_user_id\": 8,\n            \"posted\": \"2022-12-10T12:03:35.180477Z\",\n            \"deadline\": \"2022-12-12T10:00:00Z\",\n            \"title\": \"Water the plants\",\n            \"content\": \"all the plants in the garden\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"emoji\": \"none\",\n            \"color\": \"white\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete task from group",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "group_id",
+							"value": "21",
+							"type": "text"
+						},
+						{
+							"key": "task_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete task from group",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "group_id",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "task_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:23:47 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "38"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Task succesfully deleted\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Edit assignee",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "task_id",
+							"value": "7",
+							"type": "text"
+						},
+						{
+							"key": "assigned_user_id",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks/edit/assignee",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks",
+						"edit",
+						"assignee"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Edit assignee",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "task_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "assigned_user_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks/edit/assignee",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"edit",
+								"assignee"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:30:21 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "PATCH, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Edit assignee",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "task_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "assigned_user_id",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks/edit/assignee",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"edit",
+								"assignee"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:31:30 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "PATCH, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "44"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Assignee successfully updated.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "ADMIN delete group",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/groups/21",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"21"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get group",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjY3NjI3LCJpYXQiOjE2NzA2NjU4MjcsImp0aSI6IjYwYWEyMTQ2M2RjNzQ4NTBhZTgyYThjMTBkYzAzOGQ4IiwidXNlcl9pZCI6OH0.JdKHufmovIbsXbn_c9ZtrI4KAd2LrOOh0mSpNgEy-1E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/21",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"21"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 10:00:46 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "219"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 21,\n    \"name\": \"test new group\",\n    \"description\": \"hello group\",\n    \"owner\": {\n        \"id\": 8,\n        \"username\": \"john_snow3\",\n        \"email\": \"john3@snow.com\",\n        \"first_name\": \"John3\",\n        \"last_name\": \"Snow3\",\n        \"image_url\": null\n    },\n    \"members\": [\n        8,\n        7\n    ],\n    \"members_count\": 2\n}"
+				},
+				{
+					"name": "ADMIN delete group",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3MzkxLCJpYXQiOjE2NzA2NzU1OTEsImp0aSI6IjQyZDQ2ODgzZmNkYTQxOTU4MjA0YWY5ZDBiNDNmNzc2IiwidXNlcl9pZCI6MX0.ElTibBKO9m3z3HrUWrfZTNAKw2IC28CcHtSkk0BNec0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/21",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"21"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:34:41 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You do not have sufficient permissions.\"\n}"
+				},
+				{
+					"name": "ADMIN delete group",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/21",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"21"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:34:55 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Update group",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "new group name",
+							"type": "text"
+						},
+						{
+							"key": "decription",
+							"value": "hello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/groups/22",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"22"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update group",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new group name",
+									"type": "text"
+								},
+								{
+									"key": "decription",
+									"value": "hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/22",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"22"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:37:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"new group name\",\n    \"description\": \"hello group\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get tasks from a group",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4MDM5LCJpYXQiOjE2NzA2NzYyMzksImp0aSI6IjMyNDJkY2I5MWVhYjQ5MDc4NWMwNDAwMmFlNWViZjhlIiwidXNlcl9pZCI6OH0.YhHBQgofXTEmNs6CpA5EUQScRsvVrrS2Ygx1bsGNxC0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "group_id",
+							"value": "22",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/groups/tasks/22",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"tasks",
+						"22"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get tasks from a group",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4MDM5LCJpYXQiOjE2NzA2NzYyMzksImp0aSI6IjMyNDJkY2I5MWVhYjQ5MDc4NWMwNDAwMmFlNWViZjhlIiwidXNlcl9pZCI6OH0.YhHBQgofXTEmNs6CpA5EUQScRsvVrrS2Ygx1bsGNxC0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "group_id",
+									"value": "22",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/tasks/22",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"tasks",
+								"22"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:46:14 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "298"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 8,\n            \"author\": \"John3 Snow3\",\n            \"assigned_user\": \"John3 Snow3\",\n            \"posted\": \"2022-12-10T12:39:24.251190Z\",\n            \"deadline\": \"2022-12-16T09:15:00Z\",\n            \"title\": \"Buy 1l Milk\",\n            \"content\": \"hello, please buy some milk today after school\",\n            \"reward\": 3,\n            \"priority\": 1,\n            \"status\": \"to do\",\n            \"color\": \"white\",\n            \"emoji\": \"none\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Update task",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "emoji",
+							"value": ":0",
+							"type": "text"
+						},
+						{
+							"key": "color",
+							"value": "green",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "new title",
+							"type": "text"
+						},
+						{
+							"key": "deadline",
+							"value": "2022-12-30 12:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks/8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks",
+						"8"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update task",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks/22",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"22"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:58:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "PATCH, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "30"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Nonexistent task\"\n}"
+				},
+				{
+					"name": "Update task",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "emoji",
+									"value": ":0",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "green",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "new title",
+									"type": "text"
+								},
+								{
+									"key": "deadline",
+									"value": "2022-12-30 12:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks/8",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"8"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 13:00:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "PATCH, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "279"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 8,\n    \"group_id\": 22,\n    \"author_id\": 8,\n    \"assigned_user_id\": 8,\n    \"posted\": \"2022-12-10T12:39:24.251190Z\",\n    \"deadline\": \"2022-12-30T12:00:00Z\",\n    \"title\": \"new title\",\n    \"content\": \"hello, please buy some milk today after school\",\n    \"reward\": 3,\n    \"priority\": 1,\n    \"status\": \"to do\",\n    \"emoji\": \":0\",\n    \"color\": \"green\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get task",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/tasks/8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks",
+						"8"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get task",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/tasks/8",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"8"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 13:25:04 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PATCH, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "404"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 8,\n    \"group_id\": 22,\n    \"author_id\": 8,\n    \"assigned_user_id\": 1,\n    \"posted\": \"2022-12-10T12:39:24.251190Z\",\n    \"deadline\": \"2022-12-30T12:00:00Z\",\n    \"title\": \"new title\",\n    \"content\": \"hello, please buy some milk today after school\",\n    \"reward\": 3,\n    \"priority\": 1,\n    \"status\": \"to do\",\n    \"emoji\": \":0\",\n    \"color\": \"green\",\n    \"assigned_user\": {\n        \"id\": 1,\n        \"username\": \"admin\",\n        \"email\": \"admincelmaitare@mail.com\",\n        \"first_name\": \"\",\n        \"last_name\": \"\",\n        \"image_url\": \"\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

@@ -134,11 +134,15 @@ class TaskSerializer(serializers.ModelSerializer):
     status = serializers.ChoiceField(required=False, choices=StatusType.choices)
     emoji = serializers.CharField(required=False)
     color = serializers.CharField(required=False)
+    assigned_user = serializers.SerializerMethodField(method_name='get_user')
 
+    def get_user(self, obj):
+        serializer = CustomUserSerializer(obj.assigned_user)
+        return serializer.data
     class Meta:
         model = Task
         fields = ['id', 'group_id', 'author_id', 'assigned_user_id', 'posted', 'deadline', 'title', 'content', 'reward',
-                  'priority', 'status', 'emoji', 'color']
+                  'priority', 'status', 'emoji', 'color', 'assigned_user']
         extra_kwargs = {
             'posted': {'required': False},
             'status': {'required': False},

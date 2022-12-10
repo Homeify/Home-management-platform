@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup, UserToGroup, AdminUserToGroup, GetGroupsForCurrentUser, GetUsersFromGroup, GroupDetailAPIView, TaskAPI, EditTaskContent, EditTaskPriority, EditTaskDeadline, EditTaskAssignee, EditTaskTitle, EditTaskStatus, EditTaskEmoji, EditTaskColor, GetTasksForGroup
+from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup, \
+    UserToGroup, AdminUserToGroup, GetGroupsForCurrentUser, GetUsersFromGroup, GroupDetailAPIView, TaskAPI, \
+    EditTaskAssignee, UpdateTaskAPI, GetTasksForGroup
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -34,19 +36,13 @@ urlpatterns = [
     path('groups/add', AddGroup.as_view(), name='add_group'),
     path('groups/user', UserToGroup.as_view(), name='user_to_group'),
     path('groups/user/admin', AdminUserToGroup.as_view(), name='admin_add_user_to_group'),
-    path('groups/tasks', GetTasksForGroup.as_view(), name='get_group_tasks'),
+    path('groups/tasks/<int:group_id>', GetTasksForGroup.as_view(), name='get_group_tasks'),
     path('groups', GetGroupsForCurrentUser.as_view(), name='get_groups'),
     path('groups/users/<int:group_id>', GetUsersFromGroup.as_view(), name='get_users_for_group'),
     path('groups/<int:pk>', GroupDetailAPIView.as_view()),
     path('groups/users', GetUsersFromGroup.as_view(), name='get_users_for_group'),
-    path('tasks/edit/deadline', EditTaskDeadline.as_view(), name='edit_task_deadline'),
-    path('tasks/edit/content', EditTaskContent.as_view(), name='edit_task_content'),
-    path('tasks/edit/priority', EditTaskPriority.as_view(), name='edit_task_priority'),
-    path('tasks/edit/title', EditTaskTitle.as_view(), name='edit_task_title'),
     path('tasks/edit/assignee', EditTaskAssignee.as_view(), name='edit_task_assignee'),
-    path('tasks/edit/status', EditTaskStatus.as_view(), name='edit_task_status'),
-    path('tasks/edit/color', EditTaskColor.as_view(), name='edit_task_color'),
-    path('tasks/edit/emoji', EditTaskEmoji.as_view(), name='edit_task_emoji'),
     path('tasks', TaskAPI.as_view(), name='task'),
+    path('tasks/<int:pk>', UpdateTaskAPI.as_view(), name='update_task'),
     path('', admin.site.urls),
 ]
