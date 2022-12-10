@@ -16,6 +16,11 @@ const authReducer = (state = AuthState, action) => {
       authenticated: false,
       currentUser: undefined
     };
+  } else if (action.type === AUTH_ACTION_TYPES.GET_CURRENT_USER) {
+    return {
+      ...state,
+      currentUser: action.payload
+    };
   }
   return state;
 };

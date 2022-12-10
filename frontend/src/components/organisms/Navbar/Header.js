@@ -19,7 +19,7 @@ import { store } from '../../../state';
 export default function Header({ onOpen, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
-    const authState = store.getState().authReducer;
+    const authState = store.getState().auth;
     const { first_name: firstName, last_name: lastName } =
         authState.currentUser;
 

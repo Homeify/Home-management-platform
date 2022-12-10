@@ -9,7 +9,7 @@ function UnauthRoute({ authenticated, children }) {
 
 const mapStateToProps = (state) => {
     return {
-        authenticated: state.authReducer.authenticated,
+        authenticated: state.auth.authenticated,
     };
 };
 
