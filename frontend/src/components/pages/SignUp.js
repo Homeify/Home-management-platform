@@ -14,14 +14,17 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Link,
 } from '@chakra-ui/react';
 import {useState} from 'react';
 import ROUTES from '../../utils/routes.js';
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
 import {useNavigate} from 'react-router-dom';
+// import {ReactComponent as UserCircle} from '../../assets/icons/user-circle.svg';
 import {signUp as signUpAction} from '../../state/actions/auth.js';
 import {signIn as signInAction} from '../../state/actions/auth.js';
 import {connect} from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function Signup({signUp, signIn}) {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,10 +39,11 @@ function Signup({signUp, signIn}) {
     username: ''
   });
 
+  const { t } = useTranslation();
   const passwordMatch = newUser.password === newUser.checkedPassword;
   const submitHandler = async (e) => {
     e.preventDefault();
-    const {..._user} = newUser;
+    const {checkedPassword, ..._user} = newUser;
     await signUp(_user);
     await signIn({username: _user.username, password: _user.password});
     setTimeout(navigate(ROUTES.HOME), 0);
@@ -65,10 +69,10 @@ function Signup({signUp, signIn}) {
         bg={useColorModeValue('white', 'gray.700')}>
         <Stack>
           <Heading fontSize={'xl'}>
-            Getting Started
+            {t('gettingStarted')}
           </Heading>
           <Text fontSize={'md'} color={'gray.600'}>
-            Create an account to enjoy all of our cool features
+            {t('createAccountDesc')}
           </Text>
         </Stack>
         <Box
@@ -78,7 +82,7 @@ function Signup({signUp, signIn}) {
             <HStack gap="4">
               <Box flexGrow="1">
                 <FormControl id="first_name" isRequired>
-                  <FormLabel fontSize={'md'} color="gray.600">First Name</FormLabel>
+                  <FormLabel fontSize={'md'} color="gray.600">{t('firstName')}</FormLabel>
                   <Input
                     size="md"
                     borderRadius="xl"
@@ -93,7 +97,7 @@ function Signup({signUp, signIn}) {
               <Box flexGrow="1">
                 <FormControl id="last_name">
                   {/* <InputGroup> */}
-                  <FormLabel fontSize={'md'} color="gray.600">Last Name</FormLabel>
+                  <FormLabel fontSize={'md'} color="gray.600">{t('lastName')}</FormLabel>
                   {/* <InputLeftElement
                       pointerEvents='none'
                     >
@@ -115,7 +119,7 @@ function Signup({signUp, signIn}) {
               </Box>
             </HStack>
             <FormControl id="username" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Username</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('username')}</FormLabel>
               <Input
                 size="md"
                 borderRadius="xl"
@@ -127,7 +131,7 @@ function Signup({signUp, signIn}) {
               />
             </FormControl>
             <FormControl id="email" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Email address</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('emailAddress')}</FormLabel>
               <Input
                 size="md"
                 borderRadius="xl"
@@ -139,7 +143,7 @@ function Signup({signUp, signIn}) {
               />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Password</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('password')}</FormLabel>
               <InputGroup>
                 <Input
                   size="md"
@@ -163,7 +167,7 @@ function Signup({signUp, signIn}) {
               </InputGroup>
             </FormControl>
             <FormControl id="checkedPassword" isRequired>
-              <FormLabel fontSize={'md'} color="gray.600">Confirm Password</FormLabel>
+              <FormLabel fontSize={'md'} color="gray.600">{t('confirmPassword')}</FormLabel>
               <InputGroup>
                 <Input
                   size="md"
@@ -188,7 +192,7 @@ function Signup({signUp, signIn}) {
             </FormControl>
             <Stack spacing="2">
               <Text fontSize={'md'} mb="2" color={'gray.400'}>
-              By joining, I agree to terms and conditions
+                {t('termsAndConditions')}
               </Text>
               <Button
                 loadingText="Submitting"
@@ -202,12 +206,18 @@ function Signup({signUp, signIn}) {
                 onClick={submitHandler}
                 isDisabled={!passwordMatch}
               >
-                Sign up
+                {t('signUp')}
               </Button>
             </Stack>
             <Stack>
-              <Text fontSize={'md'} m="0" color={'gray.600'}>
-                {/* Already have an account? <Link color={'primary.300'} href={ROUTES.SIGN_IN}>Sign In</Link> */}
+              <Text fontSize={'md'} m='0' color={'gray.600'}>
+                {t('alreadyHaveAccount')}{' '}
+                <Link
+                  color={'primary.300'}
+                  href={ROUTES.SIGN_IN}
+                >
+                  {t('signIn')}
+                </Link>
               </Text>
             </Stack>
           </Stack>
@@ -219,7 +229,7 @@ function Signup({signUp, signIn}) {
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.authReducer.authenticated,
+    authenticated: state.auth.authenticated,
   };
 };
 

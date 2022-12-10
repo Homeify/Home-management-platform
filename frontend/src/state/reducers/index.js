@@ -6,9 +6,9 @@ import userReducer from './user.js';
 import counterReducer from './../../features/counter/counterSlice';
 
 export default combineReducers({
-  authReducer,
-  taskReducer,
-  userReducer,
-  groupReducer,
+  auth: authReducer,
+  task: taskReducer,
+  user: userReducer,
+  group: groupReducer,
   counter: counterReducer,
 });

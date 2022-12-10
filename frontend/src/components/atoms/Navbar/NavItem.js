@@ -1,12 +1,20 @@
 import React from 'react';
 import { Box, Flex, Icon, Link, Text } from '@chakra-ui/react';
 
-export default function NavItem({ link, icon, name, iconSize, ...rest }) {
+export default function NavItem({
+    link = '#',
+    icon,
+    name,
+    iconSize,
+    onClick = () => {},
+    ...rest
+}) {
     return (
         <Link
             href={link}
             style={{ textDecoration: 'none' }}
             _focus={{ boxShadow: 'none' }}
+            onClick={onClick}
         >
             <Flex
                 align='center'
