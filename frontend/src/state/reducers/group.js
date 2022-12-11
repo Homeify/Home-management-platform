@@ -1,8 +1,7 @@
 import { GROUP_ACTION_TYPES } from '../types';
 
 export const GroupState = {
-  groups: [],
-  tasks: [],
+  groups: []
 };
 
 const groupReducer = (state = GroupState, action) => {
@@ -48,11 +47,6 @@ const groupReducer = (state = GroupState, action) => {
         ...state.groups,
         action.payload
       ]
-    };
-  } else if (action.type === GROUP_ACTION_TYPES.GET_GROUP_TASKS) {
-    return {
-      ...state,
-      tasks: action.payload
     };
   } else if (action.type === GROUP_ACTION_TYPES.REMOVE_USER) {
     const { groupId, userId } = action.payload;

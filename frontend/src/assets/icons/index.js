@@ -23,6 +23,7 @@ import PersonAddIcon from './PersonAddIcon';
 import PersonRemoveIcon from './PersonRemoveIcon';
 import PlusIcon from './PlusIcon';
 import ArrowDownIcon from './ArrowDownIcon';
+import DeclineTaskIcon from './DeclineTaskIcon';
 
 export {
     AddTaskIcon,
@@ -50,4 +51,5 @@ export {
     SettingsIcon,
     TaskIcon,
     TrashIcon,
+    DeclineTaskIcon
 };

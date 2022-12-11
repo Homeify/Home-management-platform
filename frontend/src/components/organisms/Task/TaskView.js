@@ -56,7 +56,7 @@ function TaskView({ task, updateTask, groupId, deselectAll }) {
     };
 
     const updateStatus = (newStatus) => {
-        updateTask(parseInt(id), groupId, { status: newStatus });
+        updateTask(parseInt(id), { status: newStatus });
     };
 
     return (
@@ -168,8 +168,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        updateTask: (taskId, groupId, newData) =>
-            dispatch(updateTaskAction(taskId, groupId, newData)),
+        updateTask: (taskId, newData) =>
+            dispatch(updateTaskAction(taskId, newData)),
     };
 };
 

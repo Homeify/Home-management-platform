@@ -565,7 +565,7 @@ class EditTaskAssignee(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
-            user = CustomUser.objects.get(id=user_id)
+            user = CustomUser.objects.get(id=request.user.id)
 
             try:
                 task_id = request.data['task_id']
@@ -613,12 +613,12 @@ class GetTasksForGroup(generics.GenericAPIView):
             tasks = Task.objects.all().filter(group=group)
 
             list_of_tasks = []
-
+           
             for task in tasks:
                 item = {
                     'id': task.id,
                     'author': task.author.get_full_name(),
-                    'assigned_user': task.assigned_user.get_full_name(),
+                    'assigned_user': (None if task.assigned_user is None else task.assigned_user.get_full_name()),
                     'posted': task.posted,
                     'deadline': task.deadline,
                     'title': task.title,
@@ -631,7 +631,7 @@ class GetTasksForGroup(generics.GenericAPIView):
                 }
 
                 list_of_tasks.append(item)
-
+           
             return Response(data={'data': list_of_tasks}, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
@@ -645,7 +645,7 @@ class UpdateTaskAPI(generics.GenericAPIView):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
-        user = CustomUser.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=request.user.id)
         # validate there is a task
         try:
             task = Task.objects.get(id=pk)
@@ -672,12 +672,9 @@ class UpdateTaskAPI(generics.GenericAPIView):
         assigned_user_id = request.data.get('assigned_user_id')
         if assigned_user_id is not None:
             try:
-                if assigned_user_id == 'null':
-                    task.assigned_user = None
-                else:     
-                    assigned_user = CustomUser.objects.get(id=assigned_user_id)
-                    Membership.objects.get(group=task.group, user=assigned_user)
-                    task.assigned_user = assigned_user
+                assigned_user = CustomUser.objects.get(id=assigned_user_id)
+                Membership.objects.get(group=task.group, user=assigned_user)
+                task.assigned_user = assigned_user
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -687,7 +684,7 @@ class UpdateTaskAPI(generics.GenericAPIView):
                                     context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
