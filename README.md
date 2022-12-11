@@ -162,7 +162,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+## Run tests
+* ```python manage.py tests```
+* ```coverage run manage.py test```
+* ```coverage run manage.py test```
 
 <!-- ROADMAP -->
 ## Roadmap
