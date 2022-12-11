@@ -32,9 +32,9 @@ class Membership(models.Model):
 
 
 class StatusType(models.TextChoices):
-    to_do = 'to do'
-    in_progress = 'in progress'
-    on_hold = 'on hold'
+    to_do = 'todo'
+    in_progress = 'inprogress'
+    on_hold = 'onhold'
     done = 'done'
 
 

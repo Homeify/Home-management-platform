@@ -14,14 +14,14 @@ import { AvatarWithPopover } from '../../atoms/Avatar';
 import { BellIcon, BurgerIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
-import { store } from '../../../state';
+import { connect } from 'react-redux';
 
-export default function Header({ onOpen, ...rest }) {
+function Header({ onOpen, currentUser, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
-    const authState = store.getState().auth;
-    const { first_name: firstName, last_name: lastName } =
-        authState.currentUser;
+    const { first_name: firstName, last_name: lastName } = currentUser
+        ? currentUser
+        : {};
 
     return (
         <Flex
@@ -89,3 +89,11 @@ export default function Header({ onOpen, ...rest }) {
         </Flex>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.auth.currentUser,
+    };
+};
+
+export default connect(mapStateToProps)(Header);

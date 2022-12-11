@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { SidebarWithHeader } from '../organisms/Navbar';
-import TASKS from '../../utils/tasks';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../styles/tasks.scss';
@@ -18,14 +17,15 @@ import {
 } from '@chakra-ui/react';
 import { GroupDetails } from '../organisms/Group';
 import { SearchAndFilter } from '../organisms/SearchAndFilter';
+import { getGroupTasks as getGroupTasksAction } from '../../state/actions/group';
 
-const Group = ({}) => {
+const Group = ({ tasks, readTasks }) => {
     const params = useParams();
     const [selectedTask, setSelectedTask] = useState();
-    const [filteredTasks, setFilteredTasks] = useState(TASKS);
+    const [filteredTasks, setFilteredTasks] = useState([]);
     const { onClose } = useDisclosure();
     const { isSmall } = useWindowWidth();
-    const tasks = TASKS;
+    const groupId = params.uid;
 
     const deselectAll = () => {
         setSelectedTask(undefined);
@@ -35,15 +35,18 @@ const Group = ({}) => {
         if (!isSmall) {
             setSelectedTask(0);
         }
-        // FIX ME
-        //   readTasks(params.uid);
+        readTasks(groupId);
     }, []);
+
+    useEffect(() => {
+        setFilteredTasks(tasks);
+    }, [tasks]);
 
     return (
         <SidebarWithHeader>
             <Box display='flex' flexDir='row'>
                 <Box flexGrow='1' height='100%'>
-                    <GroupDetails id={params.uid} />
+                    <GroupDetails id={groupId} />
                     <SearchAndFilter
                         tasks={tasks}
                         setTasks={setFilteredTasks}
@@ -65,6 +68,7 @@ const Group = ({}) => {
                                 <TaskView
                                     task={filteredTasks[selectedTask]}
                                     deselectAll={deselectAll}
+                                    groupId={groupId}
                                 />
                             </Card>
                         </Box>
@@ -76,6 +80,7 @@ const Group = ({}) => {
                                     <TaskView
                                         task={filteredTasks[selectedTask]}
                                         deselectAll={deselectAll}
+                                        groupId={groupId}
                                     />
                                 </ModalBody>
                             </ModalContent>
@@ -86,14 +91,24 @@ const Group = ({}) => {
     );
 };
 
-function mapStateToProps(state, ownProps) {
-    return {};
-}
+const mapStateToProps = (state) => {
+    const newTasks = state.group.tasks.map((item) => {
+        return {
+            ...item,
+            deadline: new Date(item.deadline),
+            posted: new Date(item.posted),
+        };
+    });
+
+    return {
+        tasks: newTasks,
+    };
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        //   readTasks
+        readTasks: (groupId) => dispatch(getGroupTasksAction(groupId)),
     };
 };
 
