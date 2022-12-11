@@ -74,7 +74,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
               {group.members?.length > 0 && <AvatarGroup max={2}>
                 {
                   group.members.map((member, i) => (
-                    <Avatar height='42px' width='42px' key={`group-members-${group.id}-${i}`} name={member.first_name + ' ' + member.last_name} src='' />
+                    <Avatar ml="0" height='42px' width='42px' key={`group-members-${group.id}-${i}`} name={member.first_name + ' ' + member.last_name} src='' />
                   ))
                 }
               </AvatarGroup> }
@@ -93,7 +93,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
         </Box>
       </Box>
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
-      <GroupMembers onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
+      <GroupMembers groupId={group.id} onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
       </>}
     </>
   );
