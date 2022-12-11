@@ -1,0 +1,585 @@
+openapi: 3.0.0
+info:
+  title: Users
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /users/register:
+    post:
+      tags:
+        - default
+      summary: Register users
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: john2
+                last_name:
+                  type: string
+                  example: Snow2
+                first_name:
+                  type: string
+                  example: John2
+                password1:
+                  type: string
+                  example: you_know_nothing
+                password2:
+                  type: string
+                  example: you_know_nothing
+                email:
+                  type: string
+                  example: john2@snow.com
+                image_url:
+                  type: string
+                  example: None
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Dec 2022 19:34:12 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '37'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User succesfully added.
+  /users/login:
+    post:
+      tags:
+        - default
+      summary: Login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: admin
+                password:
+                  type: string
+                  example: admin
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Dec 2022 20:46:49 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '483'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                refresh: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3MDEwMDQwOSwiaWF0IjoxNjcwMDE0MDA5LCJqdGkiOiI1M2ZlNTAwNTI3YTk0ZWE5YTFkZTMwMzEwMjM5MzAwYiIsInVzZXJfaWQiOjR9._-nmi6OZKGdk814A6-je4LJglig3Kg8FR02259HOV2w
+                access: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDE1ODA5LCJpYXQiOjE2NzAwMTQwMDksImp0aSI6ImQ0ZGNmMTVlN2ZlMjQzYWQ4NDUwNzAzYzkzOWRjYWJmIiwidXNlcl9pZCI6NH0.IPK48-K1JlUCrG0whDAF7g6UYamaCFF44UNNk4w0FKY
+  /token/refresh:
+    post:
+      tags:
+        - default
+      summary: Refresh token
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                refresh:
+                  type: string
+                  example: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3MDEwMTY2NywiaWF0IjoxNjcwMDE1MjY3LCJqdGkiOiJlMDM2N2UzM2UzNzk0ZmIzODYxNGNiODE2Y2I4Y2NlNSIsInVzZXJfaWQiOjF9.Ra3ReepowzZQkMGg-RsZDPmu8kZ_xpMC0GiqCOcXMNE
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Dec 2022 20:45:03 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '241'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                access: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDE1NzAzLCJpYXQiOjE2NzAwMDk3OTIsImp0aSI6IjBmOThlNmEzZDI1MDRhM2Y5YjM4MGE0OGIyZTNiMDI5IiwidXNlcl9pZCI6NH0.fBdhs0Ryarr3rOfR4kkVEXEl4QrYBCq75E06lDC6ps4
+  /users/edit/username:
+    patch:
+      tags:
+        - default
+      summary: Edit username
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: new_username5
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDE3MDY3LCJpYXQiOjE2NzAwMTUyNjcsImp0aSI6ImU1MTk3MjI0ZjNiZDRlZmFiNThjZTI0YzgzODhlNTNiIiwidXNlcl9pZCI6MX0.VQAxTvaI_Kul4sB9zJOM2oqZe-mMG03oT7PI9y7DOWw
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Dec 2022 20:45:12 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '44'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Username successfully updated.
+  /users/edit/password:
+    patch:
+      tags:
+        - default
+      summary: Edit password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                password1:
+                  type: integer
+                  example: '1234'
+                password2:
+                  type: integer
+                  example: '1234'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDE1NzAzLCJpYXQiOjE2NzAwMDk3OTIsImp0aSI6IjBmOThlNmEzZDI1MDRhM2Y5YjM4MGE0OGIyZTNiMDI5IiwidXNlcl9pZCI6NH0.fBdhs0Ryarr3rOfR4kkVEXEl4QrYBCq75E06lDC6ps4
+      responses:
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Dec 2022 20:47:08 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '150'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message:
+                  - >-
+                    This password is too short. It must contain at least 8
+                    characters.
+                  - This password is too common.
+                  - This password is entirely numeric.
+  /users/logout:
+    post:
+      tags:
+        - default
+      summary: Logout
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDE3MDY3LCJpYXQiOjE2NzAwMTUyNjcsImp0aSI6ImU1MTk3MjI0ZjNiZDRlZmFiNThjZTI0YzgzODhlNTNiIiwidXNlcl9pZCI6MX0.VQAxTvaI_Kul4sB9zJOM2oqZe-mMG03oT7PI9y7DOWw
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/view/current_user:
+    get:
+      tags:
+        - default
+      summary: Get current user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDc0NTAwLCJpYXQiOjE2NzAwNzI3MDAsImp0aSI6ImRmNmZkMDMwN2M0NDQyMGRhYWVmMDYzMWFiZjdhNzNjIiwidXNlcl9pZCI6MX0.ghxiHaekfqAxtKqtFAcu9Rl_xxwxT11L7ll4x-dclEo
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 03 Dec 2022 13:22:13 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '104'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                username: admin
+                email: admincelmaitare@email.com
+                last_name: ''
+                first_name: ''
+                profile_img: ''
+  /users/edit/email:
+    patch:
+      tags:
+        - default
+      summary: Edit email
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admincelmaitare@mail.com
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMDc0NTAwLCJpYXQiOjE2NzAwNzI3MDAsImp0aSI6ImRmNmZkMDMwN2M0NDQyMGRhYWVmMDYzMWFiZjdhNzNjIiwidXNlcl9pZCI6MX0.ghxiHaekfqAxtKqtFAcu9Rl_xxwxT11L7ll4x-dclEo
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 03 Dec 2022 13:21:52 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '41'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Email successfully updated.
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 03 Dec 2022 13:32:00 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '33'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Wrong email address

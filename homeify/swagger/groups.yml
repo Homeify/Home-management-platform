@@ -1,0 +1,846 @@
+openapi: 3.0.0
+info:
+  title: Groups
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /groups/add:
+    post:
+      tags:
+        - default
+      summary: ADMIN add group
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test new group
+                description:
+                  type: string
+                  example: hello group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjY2ODc5LCJpYXQiOjE2NzA2NjUwNzksImp0aSI6ImU3OWYwNzFiNWEzYzQ3NjA5ZTQ2YTFkNGY5MGYxNDE4IiwidXNlcl9pZCI6OH0.YIK51qm3W3RfNc198PCyGkTkxDnWiamSDFCw_oYmvMM
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 09:45:33 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '341'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 21
+                name: test new group
+                description: hello group
+                owner:
+                  id: 8
+                  username: john_snow3
+                  email: john3@snow.com
+                  first_name: John3
+                  last_name: Snow3
+                  image_url: null
+                members:
+                  - id: 8
+                    username: john_snow3
+                    email: john3@snow.com
+                    first_name: John3
+                    last_name: Snow3
+                    image_url: null
+                date_created: '2022-12-10'
+  /groups/user:
+    post:
+      tags:
+        - default
+      summary: Add current user to group
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: '19'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDM3MTE5LCJpYXQiOjE2NzA0MzUzMTksImp0aSI6IjEzMDQ2YzBhNGFkNzRiZmZiMmVlNmY5M2FkNTZkODkyIiwidXNlcl9pZCI6MX0.gk_uR-59ifv96QQz4a6bmWiQLBdP1gGdSU5Mk_SREJk
+      responses:
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 18:17:07 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '48'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User was already part of the group
+    delete:
+      tags:
+        - default
+      summary: Remove current user from group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDM4OTQzLCJpYXQiOjE2NzA0MzcxNDMsImp0aSI6IjgxNDJlY2I4YjA4NTQ1YzJhZGRmZmQ0YjQxMzM0YWQxIiwidXNlcl9pZCI6MX0.wbLrLh6YsM4nrDqgfKuxHVHLFso9uBGvAJhAVRIwwDE
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 18:22:18 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '41'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User removed from the group
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 18:19:45 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '36'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Missing parameter code
+  /groups/user/admin:
+    post:
+      tags:
+        - default
+      summary: ADMIN add user to group
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: '18'
+                user_id:
+                  type: integer
+                  example: '7'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDQxNjg5LCJpYXQiOjE2NzA0Mzk4ODksImp0aSI6IjJmMjFiYjg1ZTc5MzQyOGFiMmY4OGM4MDdmMmVjYmY1IiwidXNlcl9pZCI6MX0.TZdioYhNWtkjdrUUDw3a0weXvE88zJFoFGwba2tdb9w
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:07:17 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '37'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User added to the group
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:05:54 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '45'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: ADMIN add user to group
+                  value:
+                    message: Current user is not group owner
+                example-1:
+                  summary: ADMIN add user to group
+                  value:
+                    message: User was already part of the group
+    delete:
+      tags:
+        - default
+      summary: ADMIN remove user to group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDQxNjg5LCJpYXQiOjE2NzA0Mzk4ODksImp0aSI6IjJmMjFiYjg1ZTc5MzQyOGFiMmY4OGM4MDdmMmVjYmY1IiwidXNlcl9pZCI6MX0.TZdioYhNWtkjdrUUDw3a0weXvE88zJFoFGwba2tdb9w
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:11:24 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '41'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User removed from the group
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:11:17 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: POST, DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '38'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User is not in the group
+  /groups:
+    get:
+      tags:
+        - default
+      summary: Get user groups
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDQyNzY3LCJpYXQiOjE2NzA0NDA5NjcsImp0aSI6IjJkNTg2MjFmZTg2NzQ4ZWZiZGExZmRmNDVkZWYwNWZlIiwidXNlcl9pZCI6MX0.JQvtHd-g8ZkShFvBPEHgis0e9tbmnST1vCL2oyPi7Bs
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:36:24 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '709'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 16
+                    name: home group
+                    description: test description
+                    owner: 1
+                  - id: 17
+                    name: home group
+                    description: test description
+                    owner: 1
+                  - id: 18
+                    name: test owner group
+                    description: test description
+                    owner: 1
+  /groups/users/21:
+    get:
+      tags:
+        - default
+      summary: Get users form group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjY3NjI3LCJpYXQiOjE2NzA2NjU4MjcsImp0aSI6IjYwYWEyMTQ2M2RjNzQ4NTBhZTgyYThjMTBkYzAzOGQ4IiwidXNlcl9pZCI6OH0.JdKHufmovIbsXbn_c9ZtrI4KAd2LrOOh0mSpNgEy-1E
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Wed, 07 Dec 2022 19:55:08 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '535'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Get users form group
+                  value:
+                    data:
+                      - id: 1
+                        last_name: ''
+                        frist_name: ''
+                        email: admincelmaitare@mail.com
+                example-1:
+                  summary: Get users form group
+                  value:
+                    - id: 17
+                      awards: 0
+                      date_joined: '2022-12-10'
+                      owner: true
+                      user:
+                        id: 8
+                        username: john_snow3
+                        email: john3@snow.com
+                        first_name: John3
+                        last_name: Snow3
+                        image_url: null
+                    - id: 18
+                      awards: 0
+                      date_joined: '2022-12-10'
+                      owner: false
+                      user:
+                        id: 7
+                        username: john2
+                        email: john2@snow.com
+                        first_name: John2
+                        last_name: Snow2
+                        image_url: None
+  /groups/21:
+    get:
+      tags:
+        - default
+      summary: Get group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3MzkxLCJpYXQiOjE2NzA2NzU1OTEsImp0aSI6IjQyZDQ2ODgzZmNkYTQxOTU4MjA0YWY5ZDBiNDNmNzc2IiwidXNlcl9pZCI6MX0.ElTibBKO9m3z3HrUWrfZTNAKw2IC28CcHtSkk0BNec0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 10:00:46 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '219'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 21
+                name: test new group
+                description: hello group
+                owner:
+                  id: 8
+                  username: john_snow3
+                  email: john3@snow.com
+                  first_name: John3
+                  last_name: Snow3
+                  image_url: null
+                members:
+                  - 8
+                  - 7
+                members_count: 2
+  /groups/22:
+    patch:
+      tags:
+        - default
+      summary: Update group
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: new group name
+                decription:
+                  type: string
+                  example: hello
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:37:48 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '53'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                name: new group name
+                description: hello group
