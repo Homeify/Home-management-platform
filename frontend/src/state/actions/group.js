@@ -80,9 +80,34 @@ const deleteGroup = (groupId) =>
         })
   );
 
+const removeUserFromGroup = ({groupId, userId}) =>
+  async (dispatch) => (
+    axios
+        .delete(`${BASE_URL}/groups/user/admin`,
+            {
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN)}`
+              },
+              data: {
+                code: groupId,
+                user_id: userId
+              }
+            })
+        .then((res) => {
+          dispatch({
+            type: GROUP_ACTION_TYPES.REMOVE_USER,
+            payload: {
+              groupId,
+              userId
+            }
+          });
+        })
+  );
+
 export {
   addGroup,
   getUserGroups,
   getMembers,
-  deleteGroup
+  deleteGroup,
+  removeUserFromGroup
 };

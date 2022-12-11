@@ -16,36 +16,21 @@ const signUp = (newUser) => async (dispatch) => {
 
 const signIn = (newUser) => (
   async (dispatch) => {
-    return axios
-        .post(`${BASE_URL}/users/login`, newUser)
-        .then((res) => {
-          const payload = res.data;
-          if (payload?.access) {
-            localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN, payload.access);
-            dispatch({
-              type: AUTH_ACTION_TYPES.SIGN_IN,
-            });
-            dispatch(getCurrentUser());
-          }
-        });
-  }
-);
+    const res = await axios
+        .post(`${BASE_URL}/users/login`, newUser);
+    const payload = res.data;
+    if (payload?.access) {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN, payload.access);
+      const userResponse = await axios.get(`${BASE_URL}/users/view/current_user`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN)}`
+        }});
 
-const getCurrentUser = () => (
-  async (dispatch) => {
-    const authToken = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
-    axios.get(`${BASE_URL}/users/view/current_user`, {
-      headers: {
-        'Authorization': `Bearer ${authToken}`
-      }}).then((res) => {
-      if (res.status === 201 || res.status === 200) {
-        const payload = res.data;
-        dispatch({
-          type: AUTH_ACTION_TYPES.GET_CURRENT_USER,
-          payload
-        });
-      }
-    });
+      dispatch({
+        type: AUTH_ACTION_TYPES.SIGN_IN,
+        payload: userResponse.data
+      });
+    }
   }
 );
 
@@ -69,7 +54,6 @@ const signOut = () => (
 export {
   signIn,
   signUp,
-  signOut,
-  getCurrentUser
+  signOut
 };
 
