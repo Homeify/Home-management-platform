@@ -2,7 +2,7 @@ import React from 'react';
 import { Tag } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-export default function StatusTag({ status }) {
+export default function StatusTag({ status, ...rest }) {
   const { t } = useTranslation();
   return (
     <Tag
@@ -28,6 +28,7 @@ export default function StatusTag({ status }) {
                     'blue.900' :
                     'green.900'
       }
+      {...rest}
     >
       {status === 0 ?
                 t('todo') :

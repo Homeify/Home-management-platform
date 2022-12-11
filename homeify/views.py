@@ -673,14 +673,15 @@ class UpdateTaskAPI(generics.GenericAPIView):
             try:
                 assigned_user = CustomUser.objects.get(id=assigned_user_id)
                 Membership.objects.get(group=task.group, user=assigned_user)
+                task.assigned_user = assigned_user
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
+
+        self.updateUserProfile(task, request.data.get('status'))
         serializer = TaskSerializer(task, data=request.data, partial=True,
                                     context={'request': request})
         if serializer.is_valid():
-            task.assigned_user = assigned_user
-            serializer.assigned_user = assigned_user
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
@@ -694,16 +695,46 @@ class UpdateTaskAPI(generics.GenericAPIView):
         serializer = TaskSerializer(task, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def updateUserProfile(self, task, new_status):
+        if new_status is not None and task.status != 'done' and new_status == 'done':
+            # update membership
+            membership = Membership.objects.get(group=task.group, user=task.assigned_user)
+            membership.awards += task.reward
+            membership.save()
+
+
+class DeclineTask(generics.GenericAPIView):
+    def post(self, request, pk):
+        if pk is None:
+            return Response(data={'message': "Missing parameter task_id"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            task = Task.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response(data={'message': "Nonexistent task"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # verify if user has enough points to decline task
+        membership = Membership.objects.get(user=task.assigned_user, group=task.group)
+        if membership.awards >= task.reward and task.status != 'done':
+            membership.awards -= task.reward
+            membership.save()
+            task.assigned_user = None
+            task.save()
+            return Response(data={'message': "Successfully declined task"}, status=status.HTTP_200_OK)
+
+        return Response(data={'message': "User doesn't have enough points to decline this task"},
+                        status=status.HTTP_400_BAD_REQUEST)
+
+
 class CommentAPI(generics.GenericAPIView):
     def post(self, request):
-        
+
         try:
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
             user = CustomUser.objects.get(id=user_id) #Select this user as master of comment.
             serializer = CommentSerializer(data=request.data)
-            
+
             if serializer.is_valid():
                 #Get context
                 print("Inainte de body")
@@ -713,12 +744,12 @@ class CommentAPI(generics.GenericAPIView):
                 #Create comment
                 new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=datetime.now())
                 print("Dupa new commnt")
-                
+
                 new_comment.save()
                 serializer_comment = CommentSerializer(new_comment)
                 return Response(data={'message': serializer_comment.data}, status=status.HTTP_201_CREATED)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         except Exception:
             return Response(data={'message': 'Missing authorization header on comment'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -778,6 +809,7 @@ class CommentAPI(generics.GenericAPIView):
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
+
 class UpdateCommentAPI(generics.GenericAPIView):
     def patch(self, request, pk):
         if pk is None:
@@ -811,7 +843,7 @@ class UpdateCommentAPI(generics.GenericAPIView):
 
                 if comment.author != user:
                     return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
-                
+
                 comment.body = new_body
                 comment.date_posted= date_meta
                 comment.save()

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar,
+import {
   AvatarGroup,
   Box,
   Flex,
@@ -11,13 +11,14 @@ import { Avatar,
   PopoverContent,
   PopoverBody
 } from '@chakra-ui/react';
-import { IoEllipsisHorizontal, IoTrashOutline, IoPersonAddOutline } from 'react-icons/io5';
-import ROUTES from '../../utils/routes';
-import {useNavigate} from 'react-router-dom';
-import {connect} from 'react-redux';
-import { deleteGroup } from '../../state/actions/group';
-import ShareCode from './ShareCode';
+import ROUTES from '../../../utils/routes';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deleteGroup } from '../../../state/actions/group';
+import { ShareCode } from './';
 import { useTranslation } from 'react-i18next';
+import { DotsIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
+import { Avatar } from '../../atoms/Avatar';
 
 const GroupListItem = ({ deleteGroup, group}) => {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
   const ACTIONS = [
     {
       name: 'invite',
-      icon: IoPersonAddOutline,
+      icon: PersonAddIcon,
       color: 'grey.700',
       action: (e) => {
         e.stopPropagation();
@@ -40,8 +41,8 @@ const GroupListItem = ({ deleteGroup, group}) => {
       }
     },
     {
-      name: 'delete',
-      icon: IoTrashOutline,
+      name: 'deleteGroup',
+      icon: TrashIcon,
       color: 'red.500',
       action: async (e) => {
         e.stopPropagation();
@@ -60,7 +61,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
         {group.members?.length > 0 && <AvatarGroup max={2}>
           {
             group.members.map((member, i) => (
-              <Avatar height='36px' width='36px' key={`group-members-${group.id}-${i}`} name={member.username} src='' />
+              <Avatar height='36px' width='36px' key={`group-members-${group.id}-${i}`} name={member.first_name + ' ' + member.last_name} src='' m='0'/>
             ))
           }
         </AvatarGroup> }
@@ -70,7 +71,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
               borderRadius="full"
               variant="ghost"
               onClick={openGroupOptions}
-              icon={<IoEllipsisHorizontal/>}></IconButton>
+              icon={<DotsIcon size='14pt'/>}></IconButton>
           </PopoverTrigger>
           <PopoverContent width="200px" borderRadius="md" style={{overflow: 'hidden'}}>
             <PopoverBody bgColor="white" p="0">
@@ -88,7 +89,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
                         color={action.color}
                         variant="ghost"
                         onClick={action.action}
-                        leftIcon={<action.icon/>}><Text fontSize="14" fontWeight="400">{t(action.name)}</Text></Button>
+                        leftIcon={<action.icon size='12pt'/>}><Text fontSize="14" fontWeight="400">{t(action.name)}</Text></Button>
                     </Flex>
                   ))
                 }

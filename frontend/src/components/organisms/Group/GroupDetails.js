@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, AvatarGroup, Box, Divider, Text, IconButton } from '@chakra-ui/react';
-import { IoTrashOutline, IoPencil, IoPersonAddOutline } from 'react-icons/io5';
-import {connect} from 'react-redux';
+import { AvatarGroup, Box, Divider, Text, IconButton } from '@chakra-ui/react';
+import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { InfoBox } from '../atoms';
-import { getFormattedDate } from '../../utils/functions';
-import ShareCode from '../molecules/ShareCode';
-import GroupMembers from '../molecules/GroupMembers';
-import { deleteGroup, getMembers } from '../../state/actions/group';
+import { InfoBox } from '../../atoms';
+import { getFormattedDate } from '../../../utils/functions';
+import {
+    deleteGroup as deleteGroupAction,
+    getMembers as getMembersAction
+} from '../../../state/actions/group';
 import { useNavigate } from 'react-router-dom';
-import ROUTES from '../../utils/routes';
+import ROUTES from '../../../utils/routes';
+import { EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
+import { Avatar } from '../../atoms/Avatar';
+import { GroupMembers, ShareCode } from '../../molecules/Group';
 
 const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => {
   const { t } = useTranslation();
@@ -24,13 +27,13 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
   const ACTIONS = [
     {
       name: 'edit',
-      icon: IoPencil,
+      icon: EditIcon,
       color: 'grey.500',
       action: () => {}
     },
     {
       name: 'delete',
-      icon: IoTrashOutline,
+      icon: TrashIcon,
       color: 'red.500',
       action: async () => {
         await deleteGroup(group.id);
@@ -54,7 +57,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
                   color={action.color}
                   variant="ghost"
                   onClick={action.action}
-                  icon={<action.icon/>}></IconButton>
+                  icon={<action.icon size='14pt'/>}></IconButton>
               ))
             }
           </Box>
@@ -71,7 +74,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
               {group.members?.length > 0 && <AvatarGroup max={2}>
                 {
                   group.members.map((member, i) => (
-                    <Avatar height='36px' width='36px' key={`group-members-${group.id}-${i}`} name={member.username} src='' />
+                    <Avatar ml="0" height='42px' width='42px' key={`group-members-${group.id}-${i}`} name={member.first_name + ' ' + member.last_name} src='' />
                   ))
                 }
               </AvatarGroup> }
@@ -85,12 +88,12 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
               size="md"
               color="gray.500"
               variant="solid"
-              icon={<IoPersonAddOutline/>}></IconButton>
+              icon={<PersonAddIcon size='14pt'/>}></IconButton>
           </Box>
         </Box>
       </Box>
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
-      <GroupMembers onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
+      <GroupMembers groupId={group.id} onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
       </>}
     </>
   );
@@ -107,8 +110,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
-    readMembers: (groupId) => dispatch(getMembers(groupId)),
-    deleteGroup: (groupId) => dispatch(deleteGroup(groupId))
+    readMembers: (groupId) => dispatch(getMembersAction(groupId)),
+    deleteGroup: (groupId) => dispatch(deleteGroupAction(groupId))
     //   readTasks
   };
 };

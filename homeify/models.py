@@ -32,15 +32,15 @@ class Membership(models.Model):
 
 
 class StatusType(models.TextChoices):
-    to_do = 'to do'
-    in_progress = 'in progress'
-    on_hold = 'on hold'
+    to_do = 'todo'
+    in_progress = 'inprogress'
+    on_hold = 'onhold'
     done = 'done'
 
 
 class Task(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author')
-    assigned_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assignedUser')
+    assigned_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assignedUser', null=True)
     group = models.ForeignKey(HomeGroup, on_delete=models.CASCADE)
     posted = models.DateTimeField()
     deadline = models.DateTimeField()

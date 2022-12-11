@@ -17,9 +17,16 @@ import BurgerIcon from './BurgerIcon';
 import BellIcon from './BellIcon';
 import EditIcon from './EditIcon';
 import AddTaskIcon from './AddTaskIcon';
+import SearchIcon from './SearchIcon';
+import TrashIcon from './TrashIcon';
+import PersonAddIcon from './PersonAddIcon';
+import PersonRemoveIcon from './PersonRemoveIcon';
+import PlusIcon from './PlusIcon';
+import ArrowDownIcon from './ArrowDownIcon';
 
 export {
     AddTaskIcon,
+    ArrowDownIcon,
     BellIcon,
     BurgerIcon,
     CloseIcon,
@@ -35,7 +42,12 @@ export {
     LogOutIcon,
     LowPriorityIcon,
     MediumPriorityIcon,
+    PersonAddIcon,
+    PersonRemoveIcon,
+    PlusIcon,
+    SearchIcon,
     SendIcon,
     SettingsIcon,
     TaskIcon,
+    TrashIcon,
 };

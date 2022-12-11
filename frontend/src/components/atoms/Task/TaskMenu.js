@@ -7,7 +7,12 @@ import {
     MenuList,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { AddTaskIcon, DotsIcon, EditIcon } from '../../../assets/icons';
+import {
+    AddTaskIcon,
+    DotsIcon,
+    EditIcon,
+    TrashIcon,
+} from '../../../assets/icons';
 
 export default function TaskMenu({ showEditModal }) {
     const { t } = useTranslation();
@@ -19,6 +24,8 @@ export default function TaskMenu({ showEditModal }) {
                 aria-label='Options'
                 icon={<DotsIcon />}
                 variant='ghost'
+                borderRadius='full'
+                mr='2'
             />
             <MenuList>
                 <MenuItem icon={<AddTaskIcon size='14pt' />}>
@@ -29,6 +36,9 @@ export default function TaskMenu({ showEditModal }) {
                     onClick={showEditModal}
                 >
                     {t('edit')}
+                </MenuItem>
+                <MenuItem icon={<TrashIcon size='14pt' />} color='red.300'>
+                    {t('deleteTask')}
                 </MenuItem>
             </MenuList>
         </Menu>
