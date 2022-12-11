@@ -19,7 +19,7 @@ import { GroupDetails } from '../organisms/Group';
 import { SearchAndFilter } from '../organisms/SearchAndFilter';
 import { getGroupTasks as getGroupTasksAction } from '../../state/actions/group';
 
-const Group = ({ tasks, readTasks }) => {
+const Group = ({ tasks, readTasks, userId }) => {
     const params = useParams();
     const [selectedTask, setSelectedTask] = useState();
     const [filteredTasks, setFilteredTasks] = useState([]);
@@ -31,6 +31,15 @@ const Group = ({ tasks, readTasks }) => {
         setSelectedTask(undefined);
     };
 
+    const setNewFilteredTasks = (tsks) => {
+        setFilteredTasks(tsks);
+        if (!tsks || tsks.length === 0) {
+            setSelectedTask();
+        } else if (!isSmall) {
+            setSelectedTask(0);
+        }
+    };
+
     useEffect(() => {
         if (!isSmall) {
             setSelectedTask(0);
@@ -39,17 +48,17 @@ const Group = ({ tasks, readTasks }) => {
     }, []);
 
     useEffect(() => {
-        setFilteredTasks(tasks);
+        setNewFilteredTasks(tasks);
     }, [tasks]);
 
     return (
-        <SidebarWithHeader>
+        <SidebarWithHeader userId={userId} groupId={groupId}>
             <Box display='flex' flexDir='row'>
                 <Box flexGrow='1' height='100%'>
                     <GroupDetails id={groupId} />
                     <SearchAndFilter
                         tasks={tasks}
-                        setTasks={setFilteredTasks}
+                        setTasks={setNewFilteredTasks}
                     />
                     <TaskList
                         tasks={filteredTasks}
@@ -102,6 +111,7 @@ const mapStateToProps = (state) => {
 
     return {
         tasks: newTasks,
+        userId: state.auth.currentUser.id
     };
 };
 
