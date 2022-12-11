@@ -821,30 +821,3 @@ class UpdateCommentAPI(generics.GenericAPIView):
 
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
-
-
-# def post(self, request, *args, **kwargs):
-#         new_comment = BlogComment(content=request.POST.get('content'),
-#                                   author=self.request.user,
-#                                   blogpost_connected=self.get_object())
-#         new_comment.save()
-#         return self.get(self, request, *args, **kwargs)
-
-#   def get_context_data(self, **kwargs):
-#         data = super().get_context_data(**kwargs)
-
-#         comments_connected = BlogComment.objects.filter(
-#             blogpost_connected=self.get_object()).order_by('-date_posted')
-#         data['comments'] = comments_connected
-#         if self.request.user.is_authenticated:
-#             data['comment_form'] = NewCommentForm(instance=self.request.user)
-
-#         return data
-
-# ---------
-# def get_context(self, **kwargs):
-#                     data = super().get_context(**kwargs)
-
-#                     comments_on_task = Comment.objects.filter(task=self.get_object().orderby
-# new_comment = Comment(content=request.POST.get('body'),
-#                                          author=request.data['author'])
