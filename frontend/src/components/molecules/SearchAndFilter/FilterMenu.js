@@ -13,23 +13,32 @@ import { ApplyButton } from '../../atoms/SearchAndFilter';
 const FilterMenu = ({ name, filters, setValue, onSubmit }) => {
     return (
         <Menu closeOnSelect={false}>
-            <MenuButton
-                as={Button}
-                rightIcon={<ArrowDownIcon size='14pt' />}
-                bgColor='white.300'
-            >
-                {name}
-            </MenuButton>
-            <MenuList>
-                <MenuOptionGroup type='checkbox' onChange={setValue}>
-                    {filters.map((filter, index) => (
-                        <MenuItemOption key={index} value={index}>
-                            {filter}
-                        </MenuItemOption>
-                    ))}
-                </MenuOptionGroup>
-                <ApplyButton onClick={onSubmit} />
-            </MenuList>
+            {({ onClose }) => (
+                <>
+                    <MenuButton
+                        as={Button}
+                        rightIcon={<ArrowDownIcon size='14pt' />}
+                        bgColor='white.300'
+                    >
+                        {name}
+                    </MenuButton>
+                    <MenuList>
+                        <MenuOptionGroup type='checkbox' onChange={setValue}>
+                            {filters.map((filter, index) => (
+                                <MenuItemOption key={index} value={index}>
+                                    {filter}
+                                </MenuItemOption>
+                            ))}
+                        </MenuOptionGroup>
+                        <ApplyButton
+                            onClick={() => {
+                                onSubmit();
+                                onClose();
+                            }}
+                        />
+                    </MenuList>
+                </>
+            )}
         </Menu>
     );
 };

@@ -16,7 +16,7 @@ import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { connect } from 'react-redux';
 
-function Header({ onOpen, currentUser, ...rest }) {
+function Header({ onOpen, currentUser, groupId, award, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
     const { first_name: firstName, last_name: lastName } = currentUser
@@ -56,7 +56,7 @@ function Header({ onOpen, currentUser, ...rest }) {
             )}
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                {!isMobile && <RewardCounter count={6969} />}
+                {!isMobile && award !== null && <RewardCounter count={award} />}
                 <IconButton
                     size='sm'
                     variant='ghost'
