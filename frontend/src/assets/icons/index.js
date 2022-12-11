@@ -23,12 +23,19 @@ import PersonAddIcon from './PersonAddIcon';
 import PersonRemoveIcon from './PersonRemoveIcon';
 import PlusIcon from './PlusIcon';
 import ArrowDownIcon from './ArrowDownIcon';
+import ArrowRightIcon from './ArrowRightIcon';
+import LanguageIcon from './LanguageIcon';
+import HeartbeatIcon from './HeartbeatIcon';
+import CalendarTimeIcon from './CalendarTimeIcon';
+import PriorityIcon from './PriorityIcon';
 
 export {
     AddTaskIcon,
     ArrowDownIcon,
+    ArrowRightIcon,
     BellIcon,
     BurgerIcon,
+    CalendarTimeIcon,
     CloseIcon,
     CommentsIcon,
     DeadlineIcon,
@@ -38,13 +45,16 @@ export {
     EditIcon,
     GroupAddIcon,
     GroupsIcon,
+    HeartbeatIcon,
     HighPriorityIcon,
+    LanguageIcon,
     LogOutIcon,
     LowPriorityIcon,
     MediumPriorityIcon,
     PersonAddIcon,
     PersonRemoveIcon,
     PlusIcon,
+    PriorityIcon,
     SearchIcon,
     SendIcon,
     SettingsIcon,
