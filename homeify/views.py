@@ -196,7 +196,7 @@ class UserToGroup(generics.GenericAPIView):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
-        user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+        user = CustomUser.objects.get(id=user_id)
         valid, message = self.validateRequest(request)
         if not valid:
             return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -242,7 +242,7 @@ class AdminUserToGroup(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
-            user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+            user = CustomUser.objects.get(id=user_id)
             valid, message = self.validateRequest(request, user)
             if not valid:
                 return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -344,13 +344,12 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             groupIdx = [membership.group.id for membership in Membership.objects.filter(user=request.user)]
-            print("GROUPS", groupIdx)
             queryset = HomeGroup.objects.filter(id__in=groupIdx)
             try:
                 serializer = HomeGroupSerializer(queryset, many=True, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            except Exception as e:
-                print(e)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
