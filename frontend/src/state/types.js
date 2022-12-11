@@ -15,7 +15,7 @@ const GROUP_ACTION_TYPES = {
 
 const TASK_ACTION_TYPES = {
   UPDATE_TASK: 'UPDATE_TASK'
-}
+};
 
 export {
   AUTH_ACTION_TYPES,

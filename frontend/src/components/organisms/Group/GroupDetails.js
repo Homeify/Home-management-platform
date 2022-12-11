@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { InfoBox } from '../../atoms';
 import { getFormattedDate } from '../../../utils/functions';
-import { deleteGroup, getMembers } from '../../../state/actions/group';
+import {
+    deleteGroup as deleteGroupAction,
+    getMembers as getMembersAction
+} from '../../../state/actions/group';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../../utils/routes';
 import { EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
@@ -107,8 +110,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
-    readMembers: (groupId) => dispatch(getMembers(groupId)),
-    deleteGroup: (groupId) => dispatch(deleteGroup(groupId))
+    readMembers: (groupId) => dispatch(getMembersAction(groupId)),
+    deleteGroup: (groupId) => dispatch(deleteGroupAction(groupId))
     //   readTasks
   };
 };
