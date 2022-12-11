@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarGroup, Box, Divider, Text, IconButton } from '@chakra-ui/react';
-import { IoTrashOutline, IoPencil, IoPersonAddOutline } from 'react-icons/io5';
+import { IoAdd, IoTrashOutline, IoPencil, IoPersonAddOutline } from 'react-icons/io5';
 import {connect} from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { InfoBox } from '../atoms';
 import { getFormattedDate } from '../../utils/functions';
 import ShareCode from '../molecules/ShareCode';
 import GroupMembers from '../molecules/GroupMembers';
+import CreateTask from './Task/CreateTask';
 import { deleteGroup, getMembers } from '../../state/actions/group';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../utils/routes';
@@ -18,10 +19,18 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
   const onClose = () => setOpen(false);
   const [showMembers, setShowMembers] = useState(false);
   const onHideMembers = () => setShowMembers(false);
+  const [createTaskVisible, setCreateTaskVisible] = useState(false);
+  const onHideCreateTask = () => setCreateTaskVisible(false);
   useEffect(() => {
     readMembers(parseInt(id));
   }, []);
   const ACTIONS = [
+    {
+      name: 'create',
+      icon: IoAdd,
+      color: 'black.500',
+      action: () => setCreateTaskVisible(true)
+    },
     {
       name: 'edit',
       icon: IoPencil,
@@ -91,6 +100,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
       </Box>
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
       <GroupMembers onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
+      <CreateTask onClose={onHideCreateTask} open={createTaskVisible} members={group.members}/>
       </>}
     </>
   );

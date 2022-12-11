@@ -3,7 +3,7 @@ import { Modal, ModalBody, ModalCloseButton, ModalHeader, ModalContent, ModalOve
 import { useTranslation } from 'react-i18next';
 import MemberListItem from './MembersListItem';
 
-const GroupMembers = ({ groupId, members, open, onClose, isCurrentUserOwner }) => {
+const GroupMembers = ({ groupId, members, open, onClose, isCurrentUserOwner, isSelecting=false, selectMember=()=>{} }) => {
   const { t } = useTranslation();
   return (
     <Modal size="md" isOpen={open} onClose={onClose} isCentered={true}>
@@ -17,7 +17,9 @@ const GroupMembers = ({ groupId, members, open, onClose, isCurrentUserOwner }) =
               <MemberListItem
                 key={`group-member-${groupId}-${index}`}
                 member={member}
-                canRemove={isCurrentUserOwner}/>
+                canRemove={isCurrentUserOwner}
+                isSelecting={isSelecting}
+                selectMember={selectMember}/>
             ))
           }
         </ModalBody>

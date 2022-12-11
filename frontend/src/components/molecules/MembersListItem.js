@@ -1,10 +1,11 @@
 import React from 'react';
 import { Avatar, Badge, Flex, Text, IconButton } from '@chakra-ui/react';
-import { IoPersonRemoveOutline } from 'react-icons/io5';
+import { IoPersonAddOutline, IoPersonRemoveOutline } from 'react-icons/io5';
 
-export default function MemberListItem({ member, canRemove }) {
+export default function MemberListItem({ member, canRemove, isSelecting=false, selectMember=()=>{} }) {
   const removeMember = () => {};
-  const showRemoveAction = member.owner === false && canRemove;
+  const chooseMember = () => selectMember(member.id);
+  const showRemoveAction = member.owner === false && canRemove && !isSelecting;
   return (
     <Flex direction="row" gap={3} alignItems="center">
       <Avatar size="md" name={member.username} src='' />
@@ -19,6 +20,12 @@ export default function MemberListItem({ member, canRemove }) {
         </Flex>
         <Text fontSize='sm'>{member.username}</Text>
       </Flex>
+      {isSelecting && <IconButton
+        borderRadius="full"
+        colorScheme="green"
+        variant="ghost"
+        onClick={chooseMember}
+        icon={<IoPersonAddOutline/>}></IconButton> }
       {showRemoveAction && <IconButton
         borderRadius="full"
         colorScheme="red"
