@@ -14,7 +14,7 @@ import {
     TrashIcon,
 } from '../../../assets/icons';
 
-export default function TaskMenu({ showEditModal }) {
+export default function TaskMenu({ showEditModal, taskId }) {
     const { t } = useTranslation();
 
     return (

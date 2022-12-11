@@ -14,6 +14,7 @@ export default function TaskView({ task, deselectAll }) {
     if (!task) return <></>;
     const { t } = useTranslation();
     const {
+        id,
         title,
         priority,
         assigned,
@@ -50,7 +51,7 @@ export default function TaskView({ task, deselectAll }) {
                 <Box flexGrow='1'>
                     <PriorityIcon priority={priority} />
                 </Box>
-                <TaskMenu showEditModal={showEditModal} />
+                <TaskMenu showEditModal={showEditModal} taskId={id}/>
                 <IconButton
                     onClick={deselectAll}
                     icon={<CloseIcon />}

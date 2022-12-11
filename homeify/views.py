@@ -453,8 +453,9 @@ class TaskAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 # create task
-                assigned_user_id = request.data['assigned_user_id']
-                assigned_user = CustomUser.objects.get(id=assigned_user_id)
+                assigned_user = None
+                if hasattr(request.data, 'assigned_user_id'):
+                    assigned_user = CustomUser.objects.get(id=request.data['assigned_user_id'])
 
                 group_id = request.data['group_id']
                 group = HomeGroup.objects.get(id=group_id)
@@ -671,9 +672,12 @@ class UpdateTaskAPI(generics.GenericAPIView):
         assigned_user_id = request.data.get('assigned_user_id')
         if assigned_user_id is not None:
             try:
-                assigned_user = CustomUser.objects.get(id=assigned_user_id)
-                Membership.objects.get(group=task.group, user=assigned_user)
-                task.assigned_user = assigned_user
+                if assigned_user_id == 'null':
+                    task.assigned_user = None
+                else:     
+                    assigned_user = CustomUser.objects.get(id=assigned_user_id)
+                    Membership.objects.get(group=task.group, user=assigned_user)
+                    task.assigned_user = assigned_user
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
