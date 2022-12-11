@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { AvatarWithPopover } from '../../atoms/Avatar';
 import { BellIcon, BurgerIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
-import useWindowWidth from '../../../hooks/useWindowWidth';
+import { useWindowWidth } from '../../../hooks';
 import { connect } from 'react-redux';
 
 function Header({ onOpen, currentUser, groupId, award, ...rest }) {

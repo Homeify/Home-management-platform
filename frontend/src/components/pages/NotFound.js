@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '../../utils/routes';
-import { NotFoundAnimation } from '../atoms';
+import { NotFoundAnimation } from '../atoms/Animations';
 
 export default function NotFound() {
     const { t } = useTranslation();

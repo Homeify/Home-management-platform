@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import EmptyBoxAnimation from '../EmptyBoxAnimation';
+import { EmptyBoxAnimation } from '../Animations';
 import { TaskListItem } from './';
 
 export default function TaskList({ tasks, selectTask, selectedTask }) {

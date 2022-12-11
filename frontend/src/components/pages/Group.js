@@ -3,7 +3,7 @@ import { SidebarWithHeader } from '../organisms/Navbar';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../styles/tasks.scss';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import { useWindowWidth } from '../../hooks';
 import { Card } from '../atoms';
 import { TaskList } from '../atoms/Task';
 import { TaskView } from '../organisms/Task';
@@ -111,7 +111,7 @@ const mapStateToProps = (state) => {
 
     return {
         tasks: newTasks,
-        userId: state.auth.currentUser.id
+        userId: state.auth.currentUser.id,
     };
 };
 
