@@ -16,11 +16,11 @@ export default function TaskView({ task, deselectAll }) {
     const {
         title,
         priority,
-        assigned,
+        assigned_user: assignedUser,
         deadline,
-        created,
-        description,
-        authorName,
+        posted,
+        content,
+        author,
         reward,
         status,
     } = task;
@@ -28,8 +28,8 @@ export default function TaskView({ task, deselectAll }) {
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [value, setValue] = useState('');
     const deadlineFormattedDate = getFormattedDate(deadline, months, false);
-    const createdFormattedDate = getFormattedDate(created, months, true);
-    const assignedName = assigned ? assigned : t('unknown');
+    const createdFormattedDate = getFormattedDate(posted, months, true);
+    const assignedName = assignedUser ? assignedUser : t('unknown');
 
     const handleInputChange = (e) => {
         const inputValue = e.target.value;
@@ -73,13 +73,13 @@ export default function TaskView({ task, deselectAll }) {
             </Box>
 
             {/* Description */}
-            <Text color='grey.500'>{description}</Text>
+            <Text color='grey.500'>{content}</Text>
 
             {/* Details */}
             <DetailsHeader />
 
             <DetailsItem itemName={t('created')} info={createdFormattedDate}>
-                <AvatarWithPopover name={authorName} />
+                <AvatarWithPopover name={author} />
             </DetailsItem>
             <DetailsItem itemName={t('reward')} info={reward}>
                 <Box w='30px'>

@@ -34,7 +34,7 @@ const signIn = (newUser) => (
 const getCurrentUser = () => (
   async (dispatch) => {
     const authToken = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
-    axios.get(`${BASE_URL}/users/view/current_user`, {
+    return axios.get(`${BASE_URL}/users/view/current_user`, {
       headers: {
         'Authorization': `Bearer ${authToken}`
       }}).then((res) => {
@@ -60,6 +60,7 @@ const signOut = () => (
       },
     });
     localStorage.removeItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
+    localStorage.removeItem('persist:root');
     dispatch({
       type: AUTH_ACTION_TYPES.SIGN_OUT,
     });
