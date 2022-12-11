@@ -11,7 +11,7 @@ const MembersListItem = ({ member, canRemove, groupId, removeUserFromGroup, isSe
   const removeMember = () => {
     removeUserFromGroup({groupId, userId: member.id});
   };
-  const chooseMember = () => selectMember(member.id);
+  const chooseMember = () => selectMember(member.id)
   const showRemoveAction = member.owner === false && canRemove && !isSelecting;
   return (
     <Flex direction="row" gap={3} alignItems="center">

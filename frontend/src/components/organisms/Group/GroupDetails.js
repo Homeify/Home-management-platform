@@ -102,7 +102,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
         </Box>
       </Box>
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
-      <CreateTask onClose={onHideCreateTask} open={createTaskVisible} members={group.members}/>
+      <CreateTask onClose={onHideCreateTask} open={createTaskVisible} members={group.members} groupId={group.id}/>
       <GroupMembers groupId={group.id} onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
       </>}
     </>
