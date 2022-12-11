@@ -673,15 +673,15 @@ class UpdateTaskAPI(generics.GenericAPIView):
             try:
                 assigned_user = CustomUser.objects.get(id=assigned_user_id)
                 Membership.objects.get(group=task.group, user=assigned_user)
+                task.assigned_user = assigned_user
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
-            task.assigned_user = assigned_user
 
+        self.updateUserProfile(task, request.data.get('status'))
         serializer = TaskSerializer(task, data=request.data, partial=True,
                                     context={'request': request})
         if serializer.is_valid():
-            serializer.assigned_user = assigned_user
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
@@ -694,3 +694,11 @@ class UpdateTaskAPI(generics.GenericAPIView):
             return Response(data={'message': "Nonexistent task"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = TaskSerializer(task, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def updateUserProfile(self, task, new_status):
+        if new_status is not None and task.status != 'done' and new_status == 'done':
+            # update membership
+            membership = Membership.objects.get(group=task.group, user=task.assigned_user)
+            membership.awards += task.reward
+            membership.save()
+
