@@ -291,7 +291,7 @@ class GroupViewTestCase(APITestCase):
         }
 
         url = "groups/"
-        req = self.factory.post(url, data, **self.auth_headers)
+        req = self.factory.patch(url, data, **self.auth_headers)
         see_group_view = GroupDetailAPIView.as_view()
         resp = see_group_view(req, pk=group_id)
         self.assertEqual(status.HTTP_200_OK, resp.status_code)
