@@ -1,5 +1,5 @@
 from django.db import models
-from .models import CustomUser, HomeGroup, Membership, Task
+from .models import CustomUser, HomeGroup, Membership, Task, Comment
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -35,3 +35,4 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(HomeGroup)
 admin.site.register(Membership)
 admin.site.register(Task)
+admin.site.register(Comment)

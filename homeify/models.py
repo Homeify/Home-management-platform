@@ -54,3 +54,12 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title + " - " + self.group.name
+
+class Comment(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
+    task = models.ForeignKey(Task, on_delete = models.CASCADE)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    body = models.CharField(max_length=500)
+
+    def __str__(self):
+        return '{} by {}'.format(self.body, self.author)
