@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import EmptyBoxAnimation from '../EmptyBoxAnimation';
 import { TaskListItem } from './';
 
 export default function TaskList({ tasks, selectTask, selectedTask }) {
@@ -16,14 +17,17 @@ export default function TaskList({ tasks, selectTask, selectedTask }) {
                 </Box>
             ))}
             {(!tasks || tasks.length === 0) && (
-                <Flex>
-                    <Text
-                        fontSize='3xl'
-                        color='primary.100'
-                        as='b'
-                        w='100%'
-                        textAlign='center'
-                    >
+                <Flex
+                    alignItems='center'
+                    bgColor='white.300'
+                    w='auto'
+                    display='inline-flex'
+                    pr='10'
+                    py='3'
+                    borderRadius='10'
+                >
+                    <EmptyBoxAnimation />
+                    <Text fontSize='3xl' color='primary.100' as='b'>
                         {t('noTask')}
                     </Text>
                 </Flex>
