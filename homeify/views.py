@@ -254,7 +254,6 @@ class AdminUserToGroup(generics.GenericAPIView):
                 return Response(data={'message': "User not found"}, status=status.HTTP_400_BAD_REQUEST)
 
             number_of_members_in_group = Membership.objects.filter(user=requested_user, group=message).count()
-            print(number_of_members_in_group)
             if number_of_members_in_group != 0:
                 return Response(data={'message': "User was already part of the group"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -348,8 +347,8 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
             try:
                 serializer = HomeGroupSerializer(queryset, many=True, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            except Exception:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -473,8 +472,8 @@ class TaskAPI(generics.GenericAPIView):
                 return Response(data={'message': serializer_task.data}, status=status.HTTP_201_CREATED)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
-        except Exception:
-            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+        except Exception as e:
+            return Response(data={'message': e}, status=status.HTTP_403_FORBIDDEN)
 
     def validateRequest(self, request, user):
         group_id = request.data.get('group_id')
@@ -736,13 +735,11 @@ class CommentAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 #Get context
-                print("Inainte de body")
                 body = request.data['body']
                 task = Task.objects.get(id=request.data['task_id'])
-                print("Dupa task")
+
                 #Create comment
                 new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=datetime.now())
-                print("Dupa new commnt")
 
                 new_comment.save()
                 serializer_comment = CommentSerializer(new_comment)
@@ -752,7 +749,7 @@ class CommentAPI(generics.GenericAPIView):
         except Exception:
             return Response(data={'message': 'Missing authorization header on comment'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request): #-----------!!!
+    def get(self, request):
         try:
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
