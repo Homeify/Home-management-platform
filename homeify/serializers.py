@@ -1,4 +1,4 @@
-from .models import CustomUser, HomeGroup, Membership, Task, StatusType
+from .models import CustomUser, HomeGroup, Membership, Task, StatusType, Comment
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
@@ -137,8 +137,9 @@ class TaskSerializer(serializers.ModelSerializer):
     assigned_user = serializers.SerializerMethodField(method_name='get_user')
 
     def get_user(self, obj):
-        serializer = CustomUserSerializer(obj.assigned_user)
+        serializer = MemberSerializer(Membership.objects.filter(group=obj.group, user=obj.assigned_user).first())
         return serializer.data
+
     class Meta:
         model = Task
         fields = ['id', 'group_id', 'author_id', 'assigned_user_id', 'posted', 'deadline', 'title', 'content', 'reward',
@@ -149,3 +150,18 @@ class TaskSerializer(serializers.ModelSerializer):
             'emoji': {'required': False},
             'color': {'required': False}
         }
+
+class CommentSerializer(serializers.ModelSerializer):
+    author_id = serializers.ReadOnlyField()
+    task_id = serializers.ReadOnlyField()
+    date_posted = serializers.DateTimeField(required=False, format=None)
+    body = serializers.CharField(required=True, min_length=2, max_length=500)
+    id = serializers.ReadOnlyField()
+
+    def get_user(self, obj):
+        serializer = CustomUserSerializer(obj.author)
+        return serializer.data
+
+    class Meta:
+        model = Comment
+        fields = ('author_id', 'body', 'task_id', 'date_posted', 'id')

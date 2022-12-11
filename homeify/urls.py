@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup, \
     UserToGroup, AdminUserToGroup, GetGroupsForCurrentUser, GetUsersFromGroup, GroupDetailAPIView, TaskAPI, \
-    EditTaskAssignee, UpdateTaskAPI, GetTasksForGroup
+    EditTaskAssignee, UpdateTaskAPI, GetTasksForGroup, DeclineTask, CommentAPI, UpdateCommentAPI
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
 
 urlpatterns = [
     path('admin', admin.site.urls),
@@ -44,5 +45,8 @@ urlpatterns = [
     path('tasks/edit/assignee', EditTaskAssignee.as_view(), name='edit_task_assignee'),
     path('tasks', TaskAPI.as_view(), name='task'),
     path('tasks/<int:pk>', UpdateTaskAPI.as_view(), name='update_task'),
+    path('tasks/decline/<int:pk>', DeclineTask.as_view(), name='decline_task'),
+    path('comments', CommentAPI.as_view(), name='comment'),
+    path('comments/<int:pk>', UpdateCommentAPI.as_view(), name='update_comment'),
     path('', admin.site.urls),
 ]

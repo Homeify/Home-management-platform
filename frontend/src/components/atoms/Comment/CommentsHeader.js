@@ -1,5 +1,5 @@
-import { Box, Divider, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Box, Divider, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { CommentsIcon } from '../../../assets/icons';
 

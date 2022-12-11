@@ -7,7 +7,7 @@ import { Card } from '..';
 import { DeadlineIcon } from '../../../assets/icons';
 import { getFormattedDate } from '../../../utils/functions';
 import { PriorityIcon } from '..';
-import StatusTag from './StatusTag';
+import { StatusTag } from './';
 
 export default function TaskListItem({ item, selected }) {
   const { t } = useTranslation();

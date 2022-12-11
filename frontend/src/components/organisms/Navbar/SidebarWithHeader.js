@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   useColorModeValue,
@@ -6,15 +6,26 @@ import {
   DrawerContent,
   useDisclosure,
 } from '@chakra-ui/react';
-import Header from './Header';
+import { Header } from './';
 import { SidebarContent } from '../../atoms/Navbar';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '../../../utils/routes';
 import { GroupsIcon } from '../../../assets/icons';
+import { getUserAwards } from '../../../utils/functions';
 
-export default function SidebarWithHeader({ children }) {
+export default function SidebarWithHeader({ userId, groupId, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
+    const [award, setAward] = useState(null);
+
+    const getAward = async () => {
+      const res = await getUserAwards(userId, groupId);
+      setAward(res);
+    };
+
+    useEffect(() => {
+        getAward();
+    }, []);
 
   const linkItems = [
     {
@@ -33,6 +44,7 @@ export default function SidebarWithHeader({ children }) {
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
         linkItems={linkItems}
+        award={award}
       />
 
       {/* mobile nav */}
@@ -46,11 +58,11 @@ export default function SidebarWithHeader({ children }) {
         size='full'
       >
         <DrawerContent>
-          <SidebarContent linkItems={linkItems} onClose={onClose} />
+          <SidebarContent linkItems={linkItems} onClose={onClose} award={award}/>
         </DrawerContent>
       </Drawer>
 
-      <Header onOpen={onOpen} />
+      <Header onOpen={onOpen} award={award}/>
       <Box ml={{ base: 0, md: 60 }} p='4'>
         {children}
       </Box>

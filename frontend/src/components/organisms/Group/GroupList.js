@@ -1,6 +1,6 @@
 import React from 'react';
-import GroupListItem from '../molecules/GroupListItem';
 import { Box } from '@chakra-ui/react';
+import { GroupListItem } from '../../molecules/Group';
 
 export default function GroupList({ groups }) {
   return (

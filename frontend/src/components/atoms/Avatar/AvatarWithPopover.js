@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
   Text,
 } from '@chakra-ui/react';
-import Avatar from './Avatar';
+import { Avatar } from './';
 
 export default function AvatarWithPopover({ name }) {
   return (

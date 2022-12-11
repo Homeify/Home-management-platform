@@ -14,14 +14,14 @@ import { AvatarWithPopover } from '../../atoms/Avatar';
 import { BellIcon, BurgerIcon } from '../../../assets/icons';
 import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
-import { store } from '../../../state';
+import { connect } from 'react-redux';
 
-export default function Header({ onOpen, ...rest }) {
+function Header({ onOpen, currentUser, groupId, award, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
-    const authState = store.getState().auth;
-    const { first_name: firstName, last_name: lastName } =
-        authState.currentUser;
+    const { first_name: firstName, last_name: lastName } = currentUser
+        ? currentUser
+        : {};
 
     return (
         <Flex
@@ -36,7 +36,6 @@ export default function Header({ onOpen, ...rest }) {
                 'secondary.300'
             )}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
-            boxShadow='0 3px 5px #eee'
             {...rest}
         >
             <IconButton
@@ -57,12 +56,13 @@ export default function Header({ onOpen, ...rest }) {
             )}
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                {!isMobile && <RewardCounter count={6969} />}
+                {!isMobile && award !== null && <RewardCounter count={award} />}
                 <IconButton
                     size='sm'
                     variant='ghost'
                     aria-label='open menu'
                     icon={<BellIcon size='14pt' />}
+                    borderRadius='full'
                 />
                 <Flex alignItems={'center'}>
                     <HStack>
@@ -89,3 +89,11 @@ export default function Header({ onOpen, ...rest }) {
         </Flex>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.auth.currentUser,
+    };
+};
+
+export default connect(mapStateToProps)(Header);

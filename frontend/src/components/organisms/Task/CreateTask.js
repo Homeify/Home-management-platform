@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 // import { getFormattedDate } from '../../../utils/functions';
-import GroupMembers from '../../molecules/GroupMembers';
+import GroupMembers from '../../molecules/Group/GroupMembers';
 import Assigned from '../../atoms/Task/Assigned';
 
 export default function CreateTask({ onClose, open, members }) {
@@ -85,7 +85,7 @@ export default function CreateTask({ onClose, open, members }) {
       <ModalOverlay />
       <ModalContent p='20px 10px'>
         <ModalHeader textAlign='center' fontSize='2xl'>
-          {t('create')}
+          {t('createTask')}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>

@@ -1,3 +1,5 @@
 import TaskView from './TaskView';
+import EditTask from './EditTask';
+import CreateTask from './CreateTask';
 
-export { TaskView };
+export { TaskView, EditTask, CreateTask };
