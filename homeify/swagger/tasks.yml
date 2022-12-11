@@ -1,0 +1,991 @@
+openapi: 3.0.0
+info:
+  title: Tasks
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /tasks:
+    post:
+      tags:
+        - default
+      summary: Add task
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                assigned_user_id:
+                  type: integer
+                  example: '8'
+                group_id:
+                  type: integer
+                  example: '22'
+                deadline:
+                  type: string
+                  example: 2022-12-16 09:15
+                title:
+                  type: string
+                  example: Buy 1l Milk
+                content:
+                  type: string
+                  example: hello, please buy some milk today after school
+                reward:
+                  type: integer
+                  example: '3'
+                priority:
+                  type: integer
+                  example: '1'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:03:35 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, POST, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '277'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message:
+                  id: 6
+                  group_id: 21
+                  author_id: 8
+                  assigned_user_id: 8
+                  posted: '2022-12-10T12:03:35.180477'
+                  deadline: 2022-12-12 10:00
+                  title: Water the plants
+                  content: all the plants in the garden
+                  reward: 3
+                  priority: 1
+                  status: to do
+                  emoji: none
+                  color: white
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 10:53:31 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, POST, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '77'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Add task
+                  value:
+                    message: >-
+                      Incorrect deadline value, must be greater than current
+                      datetime
+                example-1:
+                  summary: Add task
+                  value:
+                    message: Incorrect datetime format, should be DD-MM-YYYY HH:MM
+    get:
+      tags:
+        - default
+      summary: Get tasks for a user in a group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc1MDEzLCJpYXQiOjE2NzA2NzMyMTMsImp0aSI6Ijc3NTA4MWUwYzdkYjRiNGFhZmIyZjQ5YmIzZWZlYjQzIiwidXNlcl9pZCI6OH0.6kGfVx0wnl3jwRZO2dofcRWPFJsMEY2YxR9KABqGVhI
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:04:37 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, POST, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '1635'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 1
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T00:00:00Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Buy 1l Milk
+                    content: hello, please buy some milk today after school
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+                  - id: 2
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T00:00:00Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Water the plants
+                    content: all the plants in the garden
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+                  - id: 3
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T11:44:40.570743Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Water the plants
+                    content: all the plants in the garden
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+                  - id: 4
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T11:55:49.315422Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Water the plants
+                    content: all the plants in the garden
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+                  - id: 5
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T11:57:39.409689Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Water the plants
+                    content: all the plants in the garden
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+                  - id: 6
+                    group_id: 21
+                    author_id: 8
+                    assigned_user_id: 8
+                    posted: '2022-12-10T12:03:35.180477Z'
+                    deadline: '2022-12-12T10:00:00Z'
+                    title: Water the plants
+                    content: all the plants in the garden
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    emoji: none
+                    color: white
+    delete:
+      tags:
+        - default
+      summary: Delete task from group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:23:47 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, POST, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '38'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Task succesfully deleted
+  /tasks/edit/assignee:
+    patch:
+      tags:
+        - default
+      summary: Edit assignee
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  type: integer
+                  example: '7'
+                assigned_user_id:
+                  type: integer
+                  example: '4'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc2NzkzLCJpYXQiOjE2NzA2NzQ5OTMsImp0aSI6IjRjZTVmNDQ2ZDY3ZjQ4ZWZhYjQ0NGRmMGIzMGNmZWVlIiwidXNlcl9pZCI6OH0.wRMrkHxtVOYZ0zhDLB_-NUDlu-3x0XUIOvmo7t7p898
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:31:30 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '44'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Assignee successfully updated.
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:30:21 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '0'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+  /groups/21:
+    delete:
+      tags:
+        - default
+      summary: ADMIN delete group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 10:00:46 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '219'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 21
+                name: test new group
+                description: hello group
+                owner:
+                  id: 8
+                  username: john_snow3
+                  email: john3@snow.com
+                  first_name: John3
+                  last_name: Snow3
+                  image_url: null
+                members:
+                  - 8
+                  - 7
+                members_count: 2
+        '204':
+          description: No Content
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:34:55 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '0'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+        '403':
+          description: Forbidden
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:34:41 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '53'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: You do not have sufficient permissions.
+  /groups/tasks/22:
+    get:
+      tags:
+        - default
+      summary: Get tasks from a group
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4MDM5LCJpYXQiOjE2NzA2NzYyMzksImp0aSI6IjMyNDJkY2I5MWVhYjQ5MDc4NWMwNDAwMmFlNWViZjhlIiwidXNlcl9pZCI6OH0.YhHBQgofXTEmNs6CpA5EUQScRsvVrrS2Ygx1bsGNxC0
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:46:14 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '298'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 8
+                    author: John3 Snow3
+                    assigned_user: John3 Snow3
+                    posted: '2022-12-10T12:39:24.251190Z'
+                    deadline: '2022-12-16T09:15:00Z'
+                    title: Buy 1l Milk
+                    content: hello, please buy some milk today after school
+                    reward: 3
+                    priority: 1
+                    status: to do
+                    color: white
+                    emoji: none
+  /tasks/8:
+    patch:
+      tags:
+        - default
+      summary: Update task
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                emoji:
+                  type: string
+                  example: ':0'
+                color:
+                  type: string
+                  example: green
+                title:
+                  type: string
+                  example: new title
+                deadline:
+                  type: string
+                  example: 2022-12-30 12:00
+                status:
+                  type: string
+                  example: done
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzUxODUwLCJpYXQiOjE2NzA3NTAwNTAsImp0aSI6ImYyMDg4ODJjNWZhZDQ5ZjY5MmE1N2E4ZWM1YTAxYjA2IiwidXNlcl9pZCI6OH0.x7u8vKm02KolISMH5XhxGtgo1H8T7TbC8hufFEm7_wo
+      responses:
+        '204':
+          description: No Content
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sun, 11 Dec 2022 09:32:07 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PATCH, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '478'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 8
+                group_id: 22
+                author_id: 8
+                assigned_user_id: 8
+                posted: '2022-12-10T12:39:24.251190Z'
+                deadline: '2022-12-30T12:00:00Z'
+                title: new title
+                content: hello, please buy some milk today after school
+                reward: 3
+                priority: 1
+                status: done
+                emoji: ':0'
+                color: green
+                assigned_user:
+                  id: 19
+                  awards: 3
+                  date_joined: '2022-12-10'
+                  owner: true
+                  user:
+                    id: 8
+                    username: john_snow3
+                    email: john3@snow.com
+                    first_name: John3
+                    last_name: Snow3
+                    image_url: null
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 12:58:32 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: PATCH, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '30'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Nonexistent task
+    get:
+      tags:
+        - default
+      summary: Get task
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc4ODk0LCJpYXQiOjE2NzA2NzcwOTQsImp0aSI6ImVjNTQyMDNmOGZmZDRmZmNiZjY2NWE3ZjgzM2NjNzgwIiwidXNlcl9pZCI6OH0.fUnYpFxJxPW5X_q5DWQwrOSDUYpCN-AJwryQ6aqpgLk
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Sat, 10 Dec 2022 13:25:04 GMT
+            Server:
+              schema:
+                type: string
+                example: WSGIServer/0.2 CPython/3.10.6
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Vary:
+              schema:
+                type: string
+                example: Accept, Origin
+            Allow:
+              schema:
+                type: string
+                example: GET, PATCH, HEAD, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Content-Length:
+              schema:
+                type: integer
+                example: '404'
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 8
+                group_id: 22
+                author_id: 8
+                assigned_user_id: 1
+                posted: '2022-12-10T12:39:24.251190Z'
+                deadline: '2022-12-30T12:00:00Z'
+                title: new title
+                content: hello, please buy some milk today after school
+                reward: 3
+                priority: 1
+                status: to do
+                emoji: ':0'
+                color: green
+                assigned_user:
+                  id: 1
+                  username: admin
+                  email: admincelmaitare@mail.com
+                  first_name: ''
+                  last_name: ''
+                  image_url: ''
+  /tasks/decline/8:
+    post:
+      tags:
+        - default
+      summary: Decline task
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzU0NTQzLCJpYXQiOjE2NzA3NTI3NDMsImp0aSI6IjkwMjBiNDFiNDk3ZjRkOWJiMWE2YzUyNTVhZGFhOTM2IiwidXNlcl9pZCI6OH0.KpC42htjU8ldIE8N9-jHS8Xbnd94i85-D3e7BktKdPs
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
