@@ -25,6 +25,7 @@ const Group = ({ tasks, readTasks }) => {
     const [filteredTasks, setFilteredTasks] = useState([]);
     const { onClose } = useDisclosure();
     const { isSmall } = useWindowWidth();
+    const groupId = params.uid;
 
     const deselectAll = () => {
         setSelectedTask(undefined);
@@ -34,7 +35,7 @@ const Group = ({ tasks, readTasks }) => {
         if (!isSmall) {
             setSelectedTask(0);
         }
-        readTasks(params.uid);
+        readTasks(groupId);
     }, []);
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const Group = ({ tasks, readTasks }) => {
         <SidebarWithHeader>
             <Box display='flex' flexDir='row'>
                 <Box flexGrow='1' height='100%'>
-                    <GroupDetails id={params.uid} />
+                    <GroupDetails id={groupId} />
                     <SearchAndFilter
                         tasks={tasks}
                         setTasks={setFilteredTasks}
@@ -67,6 +68,7 @@ const Group = ({ tasks, readTasks }) => {
                                 <TaskView
                                     task={filteredTasks[selectedTask]}
                                     deselectAll={deselectAll}
+                                    groupId={groupId}
                                 />
                             </Card>
                         </Box>
@@ -78,6 +80,7 @@ const Group = ({ tasks, readTasks }) => {
                                     <TaskView
                                         task={filteredTasks[selectedTask]}
                                         deselectAll={deselectAll}
+                                        groupId={groupId}
                                     />
                                 </ModalBody>
                             </ModalContent>

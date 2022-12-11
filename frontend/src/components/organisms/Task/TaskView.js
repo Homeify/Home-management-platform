@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, IconButton, Text } from '@chakra-ui/react';
-import { CloseIcon, DiamondIcon } from '../../../assets/icons';
+import {
+    Box,
+    Button,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Text,
+} from '@chakra-ui/react';
+import { ArrowDownIcon, CloseIcon, DiamondIcon } from '../../../assets/icons';
 import { getFormattedDate } from '../../../utils/functions';
 import { AvatarWithPopover } from '../../atoms/Avatar';
 import { CommentInput, CommentsHeader } from '../../atoms/Comment';
@@ -9,11 +18,14 @@ import { DetailsHeader, DetailsItem } from '../../atoms/Details';
 import { PriorityIcon } from '../../atoms';
 import { StatusTag, TaskMenu, Assigned, Deadline } from '../../atoms/Task';
 import { EditTask } from './';
+import { connect } from 'react-redux';
+import { updateTask as updateTaskAction } from '../../../state/actions/task';
 
-export default function TaskView({ task, deselectAll }) {
+function TaskView({ task, updateTask, groupId, deselectAll }) {
     if (!task) return <></>;
     const { t } = useTranslation();
     const {
+        id,
         title,
         priority,
         assigned_user: assignedUser,
@@ -31,6 +43,9 @@ export default function TaskView({ task, deselectAll }) {
     const createdFormattedDate = getFormattedDate(posted, months, true);
     const assignedName = assignedUser ? assignedUser : t('unknown');
 
+    const statusButtonBgColor =
+        status === 0 ? 'grey.100' : status === 1 ? 'blue.100' : 'green.100';
+
     const handleInputChange = (e) => {
         const inputValue = e.target.value;
         setValue(inputValue);
@@ -38,6 +53,10 @@ export default function TaskView({ task, deselectAll }) {
 
     const showEditModal = () => {
         setEditModalVisible(true);
+    };
+
+    const updateStatus = (newStatus) => {
+        updateTask(parseInt(id), groupId, { status: newStatus });
     };
 
     return (
@@ -87,7 +106,37 @@ export default function TaskView({ task, deselectAll }) {
                 </Box>
             </DetailsItem>
             <DetailsItem itemName={t('status')}>
-                <StatusTag status={status} />
+                <Menu>
+                    <MenuButton
+                        as={Button}
+                        rightIcon={<ArrowDownIcon size='14pt' />}
+                        size='sm'
+                        bgColor={statusButtonBgColor}
+                        _hover={{
+                            bgColor: statusButtonBgColor,
+                        }}
+                        _active={{
+                            bgColor: statusButtonBgColor,
+                        }}
+                    >
+                        <StatusTag
+                            status={status}
+                            bgColor='transparent'
+                            w='auto'
+                        />
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem onClick={() => updateStatus('todo')}>
+                            {t('todo')}
+                        </MenuItem>
+                        <MenuItem onClick={() => updateStatus('inprogress')}>
+                            {t('inprogress')}
+                        </MenuItem>
+                        <MenuItem onClick={() => updateStatus('done')}>
+                            {t('done')}
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </DetailsItem>
 
             {/* Comments */}
@@ -103,8 +152,25 @@ export default function TaskView({ task, deselectAll }) {
                     isVisible={editModalVisible}
                     setIsVisible={setEditModalVisible}
                     task={task}
+                    groupId={groupId}
                 />
             )}
         </>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        status: state.task.status,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        updateTask: (taskId, groupId, newData) =>
+            dispatch(updateTaskAction(taskId, groupId, newData)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskView);
