@@ -702,3 +702,24 @@ class UpdateTaskAPI(generics.GenericAPIView):
             membership.awards += task.reward
             membership.save()
 
+
+class DeclineTask(generics.GenericAPIView):
+    def post(self, request, pk):
+        if pk is None:
+            return Response(data={'message': "Missing parameter task_id"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            task = Task.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response(data={'message': "Nonexistent task"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # verify if user has enough points to decline task
+        membership = Membership.objects.get(user=task.assigned_user, group=task.group)
+        if membership.awards >= task.reward and task.status != 'done':
+            membership.awards -= task.reward
+            membership.save()
+            task.assigned_user = None
+            task.save()
+            return Response(data={'message': "Successfully declined task"}, status=status.HTTP_200_OK)
+
+        return Response(data={'message': "User doesn't have enough points to decline this task"},
+                        status=status.HTTP_400_BAD_REQUEST)

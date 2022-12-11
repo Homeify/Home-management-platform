@@ -1497,6 +1497,141 @@
 					"body": "{\n    \"id\": 21,\n    \"name\": \"test new group\",\n    \"description\": \"hello group\",\n    \"owner\": {\n        \"id\": 8,\n        \"username\": \"john_snow3\",\n        \"email\": \"john3@snow.com\",\n        \"first_name\": \"John3\",\n        \"last_name\": \"Snow3\",\n        \"image_url\": null\n    },\n    \"members\": [\n        8,\n        7\n    ],\n    \"members_count\": 2\n}"
 				}
 			]
+		},
+		{
+			"name": "Update group",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "new group name",
+							"type": "text"
+						},
+						{
+							"key": "decription",
+							"value": "hello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/groups/22",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"22"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update group",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNjc3NDg3LCJpYXQiOjE2NzA2NzU2ODcsImp0aSI6IjAyNDBhOGFiZDNkMTQ1Yzc4MWNjMzg4YzU4YzRhZDVlIiwidXNlcl9pZCI6OH0.MC5upKk15uSesIGRkRZayTg_rIzP5vhrpqnP34q5veI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new group name",
+									"type": "text"
+								},
+								{
+									"key": "decription",
+									"value": "hello",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/groups/22",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"groups",
+								"22"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 10 Dec 2022 12:37:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.10.6"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "53"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"new group name\",\n    \"description\": \"hello group\"\n}"
+				}
+			]
 		}
 	]
 }

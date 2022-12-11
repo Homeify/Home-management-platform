@@ -40,7 +40,7 @@ class StatusType(models.TextChoices):
 
 class Task(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author')
-    assigned_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assignedUser')
+    assigned_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assignedUser', null=True)
     group = models.ForeignKey(HomeGroup, on_delete=models.CASCADE)
     posted = models.DateTimeField()
     deadline = models.DateTimeField()
