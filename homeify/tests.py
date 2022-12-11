@@ -3,7 +3,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .views import RegisterAPI, LogoutAPI
+from .views import RegisterAPI, LogoutAPI, SeeCurrentUserAPI
 from rest_framework.test import APIRequestFactory
 
 
@@ -19,9 +19,11 @@ class UsersAPIViewTestCase(APITestCase):
         self.register_url = reverse("register")
         self.login_url = reverse("token_obtain_pair")
         self.logout_url = reverse("logout_user")
+        self.get_user_url = reverse("see_current_user")
         self.register_view = RegisterAPI.as_view()
         self.login_view = TokenObtainPairView.as_view()
         self.logout_view = LogoutAPI.as_view()
+        self.current_user_view = SeeCurrentUserAPI.as_view()
 
     def post_data(self):
         data = {"username": self.username,
@@ -96,4 +98,32 @@ class UsersAPIViewTestCase(APITestCase):
         request = self.factory.post(self.logout_url, **auth_headers)
         response = self.logout_view(request)
         self.assertEqual(status.HTTP_200_OK, response.status_code)
+
+    def test_current_user(self):
+        response = self.post_data()
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
+
+        data = {
+            "username": self.username,
+            "password": self.password1
+        }
+
+        request = self.factory.post(self.login_url, data)
+        response = self.login_view(request)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+
+        auth_headers = {
+            'HTTP_AUTHORIZATION': 'Bearer ' + response.data.get('access')
+        }
+        request = self.factory.get(self.get_user_url, **auth_headers)
+        response = self.current_user_view(request)
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(self.username, response.data.get("username"))
+        self.assertEqual(self.email, response.data.get("email"))
+        self.assertEqual(self.last_name, response.data.get("last_name"))
+        self.assertEqual(self.first_name, response.data.get("first_name"))
+
+
+
+
 
