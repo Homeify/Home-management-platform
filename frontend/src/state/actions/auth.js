@@ -60,7 +60,6 @@ const signOut = () => async (dispatch) => {
     dispatch({
         type: AUTH_ACTION_TYPES.SIGN_OUT,
     });
-  }
-);
+  };
 
 export { signIn, signUp, signOut };
