@@ -85,5 +85,6 @@
     "criterion": "Criteriu",
     "sort": "Sorteaza",
     "noOfComments": "Numar de comentarii",
-    "deleteTask": "Sterge sarcina"
+    "deleteTask": "Sterge sarcina",
+    "declineTask": "Refuza sarcina"
 }

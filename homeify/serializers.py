@@ -137,8 +137,11 @@ class TaskSerializer(serializers.ModelSerializer):
     assigned_user = serializers.SerializerMethodField(method_name='get_user')
 
     def get_user(self, obj):
-        serializer = MemberSerializer(Membership.objects.filter(group=obj.group, user=obj.assigned_user).first())
-        return serializer.data
+        if obj.assigned_user:
+            return obj.assigned_user.get_full_name()
+            # serializer = MemberSerializer(Membership.objects.filter(group=obj.group, user=obj.assigned_user).first())
+            # return serializer.data
+        return None
 
     class Meta:
         model = Task
