@@ -89,5 +89,8 @@
     "deleteTask": "Sterge sarcina",
     "createTask": "Creeaza sarcina",
     "group-edit-title": "Editeaza grupul",
-    "declineTask": "Refuza sarcina"
+    "declineTask": "Refuza sarcina",
+    "group-join-title": "Alatura-te unui grup",
+    "group-join-subtitle": "Foloseste un cod unic pentru a te alatura unui grup deja existent.",
+    "join": "Intra"
 }

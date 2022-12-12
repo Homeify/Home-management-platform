@@ -25,6 +25,7 @@ import PlusIcon from './PlusIcon';
 import ArrowDownIcon from './ArrowDownIcon';
 import AddIcon from './AddIcon';
 import DeclineTaskIcon from './DeclineTaskIcon';
+import KeypadIcon from './KeypadIcon';
 
 export {
     AddIcon,
@@ -53,5 +54,6 @@ export {
     SettingsIcon,
     TaskIcon,
     TrashIcon,
-    DeclineTaskIcon
+    DeclineTaskIcon,
+    KeypadIcon
 };

@@ -62,6 +62,7 @@ const groupReducer = (state = GroupState, action) => {
         ...state.groups.slice(groupIndex + 1)
       ]
     };
+  } else if (action.type === GROUP_ACTION_TYPES.JOIN) {
   } else if (action.type === GROUP_ACTION_TYPES.REMOVE_USER) {
     const { groupId, userId } = action.payload;
     const index = state.groups.findIndex((item) => item.id === groupId);
