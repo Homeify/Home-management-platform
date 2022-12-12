@@ -27,7 +27,7 @@ const GroupJoin = ({ isOpen, close, joinGroup }) => {
     const reset = () => {
         setCode('');
         close();
-    }
+    };
     return (
         <>
             <Modal size='sm' isOpen={isOpen} onClose={reset} isCentered={true}>
