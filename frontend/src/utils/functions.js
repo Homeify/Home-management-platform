@@ -41,7 +41,7 @@ const getUserAwards = async (userId, groupId) => {
   return 0;
 };
 
-export { 
+export {
   getDateElements,
   getFormattedDate,
   getUserAwards

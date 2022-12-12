@@ -33,7 +33,7 @@ const taskReducer = (state = TaskState, action) => {
         },
         ...state.tasks.slice(index + 1)
       ]
-    }
+    };
   }
   return state;
 };

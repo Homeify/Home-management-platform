@@ -48,6 +48,20 @@ const groupReducer = (state = GroupState, action) => {
         action.payload
       ]
     };
+  } else if (action.type === GROUP_ACTION_TYPES.EDIT) {
+    const groupIndex = state.groups.findIndex((item) => item.id === action.payload.id);
+    const editedGroup = {
+      ...state.groups[groupIndex],
+      ...action.payload
+    };
+    return {
+      ...state,
+      groups: [
+        ...state.groups.slice(0, groupIndex),
+        editedGroup,
+        ...state.groups.slice(groupIndex + 1)
+      ]
+    };
   } else if (action.type === GROUP_ACTION_TYPES.REMOVE_USER) {
     const { groupId, userId } = action.payload;
     const index = state.groups.findIndex((item) => item.id === groupId);
