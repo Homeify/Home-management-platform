@@ -35,8 +35,8 @@
     "status": "Stare",
     "group-create-title": "Creeaza un grup",
     "group-create-subtitle": "Colaboreaza strans cu un grup de persoane pentru a imparti responsabilitatile si creste recompensele.",
-    "create-group-name-label": "Numele grupului",
-    "create-group-description-label": "Descrierea grupului",
+    "group-name-label": "Numele grupului",
+    "group-description-label": "Descrierea grupului",
     "dismiss": "Anuleaza",
     "create": "Creeaza",
     "myGroups": "Grupurile mele",
@@ -85,5 +85,6 @@
     "criterion": "Criteriu",
     "sort": "Sorteaza",
     "noOfComments": "Numar de comentarii",
-    "deleteTask": "Sterge sarcina"
+    "deleteTask": "Sterge sarcina",
+    "group-edit-title": "Editeaza grupul"
 }
