@@ -196,7 +196,7 @@ class UserToGroup(generics.GenericAPIView):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
-        user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+        user = CustomUser.objects.get(id=user_id)
         valid, message = self.validateRequest(request)
         if not valid:
             return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -242,7 +242,7 @@ class AdminUserToGroup(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
-            user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+            user = CustomUser.objects.get(id=user_id)
             valid, message = self.validateRequest(request, user)
             if not valid:
                 return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -254,7 +254,6 @@ class AdminUserToGroup(generics.GenericAPIView):
                 return Response(data={'message': "User not found"}, status=status.HTTP_400_BAD_REQUEST)
 
             number_of_members_in_group = Membership.objects.filter(user=requested_user, group=message).count()
-            print(number_of_members_in_group)
             if number_of_members_in_group != 0:
                 return Response(data={'message': "User was already part of the group"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -344,13 +343,12 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             groupIdx = [membership.group.id for membership in Membership.objects.filter(user=request.user)]
-            print("GROUPS", groupIdx)
             queryset = HomeGroup.objects.filter(id__in=groupIdx)
             try:
                 serializer = HomeGroupSerializer(queryset, many=True, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Exception as e:
-                print(e)
+                return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -453,8 +451,7 @@ class TaskAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 # create task
-                assigned_user_id = request.data['assigned_user_id']
-                assigned_user = CustomUser.objects.get(id=assigned_user_id)
+                assigned_user = CustomUser.objects.get(id=int(request.data['assigned_user_id']))
 
                 group_id = request.data['group_id']
                 group = HomeGroup.objects.get(id=group_id)
@@ -474,8 +471,8 @@ class TaskAPI(generics.GenericAPIView):
                 return Response(data={'message': serializer_task.data}, status=status.HTTP_201_CREATED)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
-        except Exception:
-            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+        except Exception as e:
+            return Response(data={'message': e}, status=status.HTTP_403_FORBIDDEN)
 
     def validateRequest(self, request, user):
         group_id = request.data.get('group_id')
@@ -564,7 +561,7 @@ class EditTaskAssignee(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
-            user = CustomUser.objects.get(id=user_id)
+            user = CustomUser.objects.get(id=request.user.id)
 
             try:
                 task_id = request.data['task_id']
@@ -612,12 +609,12 @@ class GetTasksForGroup(generics.GenericAPIView):
             tasks = Task.objects.all().filter(group=group)
 
             list_of_tasks = []
-
+           
             for task in tasks:
                 item = {
                     'id': task.id,
                     'author': task.author.get_full_name(),
-                    'assigned_user': task.assigned_user.get_full_name(),
+                    'assigned_user': (None if task.assigned_user is None else task.assigned_user.get_full_name()),
                     'posted': task.posted,
                     'deadline': task.deadline,
                     'title': task.title,
@@ -630,7 +627,7 @@ class GetTasksForGroup(generics.GenericAPIView):
                 }
 
                 list_of_tasks.append(item)
-
+           
             return Response(data={'data': list_of_tasks}, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
@@ -644,7 +641,7 @@ class UpdateTaskAPI(generics.GenericAPIView):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
-        user = CustomUser.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=request.user.id)
         # validate there is a task
         try:
             task = Task.objects.get(id=pk)
@@ -683,7 +680,7 @@ class UpdateTaskAPI(generics.GenericAPIView):
                                     context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -737,13 +734,11 @@ class CommentAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 #Get context
-                print("Inainte de body")
                 body = request.data['body']
                 task = Task.objects.get(id=request.data['task_id'])
-                print("Dupa task")
+
                 #Create comment
                 new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=datetime.now())
-                print("Dupa new commnt")
 
                 new_comment.save()
                 serializer_comment = CommentSerializer(new_comment)
@@ -753,7 +748,7 @@ class CommentAPI(generics.GenericAPIView):
         except Exception:
             return Response(data={'message': 'Missing authorization header on comment'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request): #-----------!!!
+    def get(self, request):
         try:
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)

@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../../utils/routes';
 import { AddIcon, EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
 import { Avatar } from '../../atoms/Avatar';
-import { GroupMembers, ShareCode } from '../../molecules/Group';
+import { GroupMembers, GroupEdit, ShareCode } from '../../molecules/Group';
 import { CreateTask } from '../Task';
 
 const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => {
@@ -24,21 +24,31 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
   const onHideMembers = () => setShowMembers(false);
   const [createTaskVisible, setCreateTaskVisible] = useState(false);
   const onHideCreateTask = () => setCreateTaskVisible(false);
+  const [showEditGroup, setShowEditGroup] = useState(false);
+  const onHideEditGroup = () => setShowEditGroup(false);
+
   useEffect(() => {
     readMembers(parseInt(id));
   }, []);
+
+  const isCurrentUserOwner = group?.owner.id === currentUserId;
+
   const ACTIONS = [
     {
       name: 'create',
       icon: AddIcon,
       color: 'black.500',
-      action: () => setCreateTaskVisible(true)
+      action: () => setCreateTaskVisible(true),
+      isVisible: true
     },
     {
       name: 'edit',
       icon: EditIcon,
       color: 'grey.500',
-      action: () => {}
+      action: () => {
+        setShowEditGroup(true);
+      },
+      isVisible: isCurrentUserOwner
     },
     {
       name: 'delete',
@@ -47,10 +57,10 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
       action: async () => {
         await deleteGroup(group.id);
         setTimeout(navigate(ROUTES.HOME), 0);
-      }
+      },
+      isVisible: isCurrentUserOwner
     }
   ];
-  const isCurrentUserOwner = group?.owner.id === currentUserId;
   return (
     <>
       { group && <> <Box p='6' rounded='2xl' bg='white' width="100%" display="flex" flexDirection="column" gap={3}>
@@ -59,7 +69,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
           <Box gap={1} display="flex" flexDirection="row" alignItems="center">
             {
               ACTIONS.map((action, index) => (
-                <IconButton
+                action.isVisible && <IconButton
                   key={`group-action-${index}`}
                   borderRadius="full"
                   size="md"
@@ -104,6 +114,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
       <CreateTask onClose={onHideCreateTask} open={createTaskVisible} members={group.members} groupId={group.id}/>
       <GroupMembers groupId={group.id} onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
+      <GroupEdit isOpen={showEditGroup} onClose={onHideEditGroup} group={group}/>
       </>}
     </>
   );

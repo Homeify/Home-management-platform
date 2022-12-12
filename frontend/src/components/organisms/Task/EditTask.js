@@ -40,7 +40,7 @@ function EditTask({ isVisible, setIsVisible, task, groupId, updateTask }) {
             reward: newReward,
             priority: newPriority,
         };
-        updateTask(parseInt(id), groupId, newData);
+        updateTask(parseInt(id), newData);
         setIsVisible(false);
     };
 
@@ -144,8 +144,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        updateTask: (taskId, groupId, newData) =>
-            dispatch(updateTaskAction(taskId, groupId, newData)),
+        updateTask: (taskId, newData) =>
+            dispatch(updateTaskAction(taskId, newData)),
     };
 };
 

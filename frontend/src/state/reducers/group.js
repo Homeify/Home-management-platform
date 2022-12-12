@@ -1,8 +1,7 @@
 import { GROUP_ACTION_TYPES } from '../types';
 
 export const GroupState = {
-  groups: [],
-  tasks: [],
+  groups: []
 };
 
 const groupReducer = (state = GroupState, action) => {
@@ -49,10 +48,19 @@ const groupReducer = (state = GroupState, action) => {
         action.payload
       ]
     };
-  } else if (action.type === GROUP_ACTION_TYPES.GET_GROUP_TASKS) {
+  } else if (action.type === GROUP_ACTION_TYPES.EDIT) {
+    const groupIndex = state.groups.findIndex((item) => item.id === action.payload.id);
+    const editedGroup = {
+      ...state.groups[groupIndex],
+      ...action.payload
+    };
     return {
       ...state,
-      tasks: action.payload
+      groups: [
+        ...state.groups.slice(0, groupIndex),
+        editedGroup,
+        ...state.groups.slice(groupIndex + 1)
+      ]
     };
   } else if (action.type === GROUP_ACTION_TYPES.REMOVE_USER) {
     const { groupId, userId } = action.payload;
