@@ -5,7 +5,19 @@ export const TaskState = {
 };
 
 const taskReducer = (state = TaskState, action) => {
-  if (action.type === TASK_ACTION_TYPES.UPDATE_TASK) {
+  if (action.type === TASK_ACTION_TYPES.ADD_TASK) {
+    const newTask = {
+      ...action.payload.message,
+      status: 0
+    }
+    return {
+      ...state,
+      tasks: [
+        ...state.tasks,
+        newTask
+      ]
+    }
+  } else if (action.type === TASK_ACTION_TYPES.UPDATE_TASK) {
     const updatedTask = action.payload;
     const index = state.tasks.findIndex((item) => item.id === updatedTask.id);
     return {

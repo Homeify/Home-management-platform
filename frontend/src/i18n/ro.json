@@ -28,6 +28,7 @@
     "writeComment": "Scrie un comentariu...",
     "noComments": "Niciun comentariu.",
     "assignTask": "Preia sarcina",
+    "assignTaskToOther": "Atribuie sarcina",
     "edit": "Editeaza",
     "description": "Descriere",
     "selectRewardValue": "Selecteaza valoarea recompensei",
@@ -86,6 +87,7 @@
     "sort": "Sorteaza",
     "noOfComments": "Numar de comentarii",
     "deleteTask": "Sterge sarcina",
+    "createTask": "Creeaza sarcina",
     "group-edit-title": "Editeaza grupul",
     "declineTask": "Refuza sarcina"
 }

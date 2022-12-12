@@ -451,9 +451,7 @@ class TaskAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 # create task
-                assigned_user = None
-                if hasattr(request.data, 'assigned_user_id'):
-                    assigned_user = CustomUser.objects.get(id=request.data['assigned_user_id'])
+                assigned_user = CustomUser.objects.get(id=int(request.data['assigned_user_id']))
 
                 group_id = request.data['group_id']
                 group = HomeGroup.objects.get(id=group_id)
