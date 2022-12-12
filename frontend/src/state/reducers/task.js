@@ -22,7 +22,7 @@ const taskReducer = (state = TaskState, action) => {
       tasks: action.payload
     };
   } else if (action.type === TASK_ACTION_TYPES.DECLINE_TASK) {
-    const index = state.tasks.findIndex((item) => item.id === action.payload);
+    const index = state.tasks.findIndex((item) => item.id === action.payload.id);
     return {
       ...state,
       tasks: [

@@ -48,29 +48,47 @@ const updateTask = (taskId, newTask) =>
               }
             })
         .then((res) => {
+          const item = res.data;
+          item.status = item.status === 'todo' ? 0 : (item.status === 'inprogress' ? 1 : 2);
+          item.posted = new Date(item.posted);
+          item.deadline = new Date(item.deadline);
           dispatch({
             type: TASK_ACTION_TYPES.UPDATE_TASK,
-            payload: res.data
+            payload: item
           });
+          return item;
         }).catch((error) => {
           return error;
         })
   );
 
-const declineTask = (taskId) =>
+const updateStatus = (taskId, newTask) =>
+  async (dispatch) => {
+    const task = await dispatch(updateTask(taskId, newTask));
+    dispatch({
+      type: TASK_ACTION_TYPES.UPDATE_STATUS,
+      payload: task
+    });
+  };
+
+const declineTask = (task) =>
   async (dispatch) => (
     axios.
-        post(`${BASE_URL}/tasks/decline/${taskId}`, null,
+        post(`${BASE_URL}/tasks/decline/${task.id}`, null,
             {
               headers: {
                 'Authorization': `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN)}`
               }
             })
         .then((res) => {
-          dispatch({
-            type: TASK_ACTION_TYPES.DECLINE_TASK,
-            payload: taskId
-          });
+          try {
+            dispatch({
+              type: TASK_ACTION_TYPES.DECLINE_TASK,
+              payload: task
+            });
+          } catch (e) {
+            console.log(e);
+          }
         }).catch((error) => {
           return 'Not enough points';
         })
@@ -78,5 +96,6 @@ const declineTask = (taskId) =>
 export {
   updateTask,
   getGroupTasks,
-  declineTask
+  declineTask,
+  updateStatus
 };

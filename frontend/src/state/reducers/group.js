@@ -1,4 +1,4 @@
-import { GROUP_ACTION_TYPES } from '../types';
+import { GROUP_ACTION_TYPES, TASK_ACTION_TYPES } from '../types';
 
 export const GroupState = {
   groups: []
@@ -74,6 +74,38 @@ const groupReducer = (state = GroupState, action) => {
           ...state.groups[index],
           members: [
             ...state.groups[index].members.slice(0, userIndex),
+            ...state.groups[index].members.slice(userIndex + 1),
+          ]
+        },
+        ...state.groups.slice(index + 1)
+      ] : state.groups
+    };
+  } else if (action.type === TASK_ACTION_TYPES.UPDATE_STATUS || action.type === TASK_ACTION_TYPES.DECLINE_TASK) {
+    const { assigned_user_id, group_id, status, reward } = action.payload;
+    const index = state.groups.findIndex((item) => item.id === group_id);
+    const userIndex = state.groups[index].members.findIndex((item) => item.id === assigned_user_id);
+    if (userIndex === -1) {
+      return state;
+    }
+    let currentAward = state.groups[index].members[userIndex].awards;
+    if (action.type === TASK_ACTION_TYPES.UPDATE_STATUS && status === 2) {
+      currentAward += reward;
+    }
+    if (action.type === TASK_ACTION_TYPES.DECLINE_TASK) {
+      currentAward -= reward;
+    }
+    return {
+      ...state,
+      groups: status === 2 ? [
+        ...state.groups.slice(0, index),
+        {
+          ...state.groups[index],
+          members: [
+            ...state.groups[index].members.slice(0, userIndex),
+            {
+              ...state.groups[index].members[userIndex],
+              awards: currentAward
+            },
             ...state.groups[index].members.slice(userIndex + 1),
           ]
         },

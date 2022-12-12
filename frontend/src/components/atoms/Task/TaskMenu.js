@@ -25,7 +25,7 @@ const TaskMenu = ({ showEditModal, taskId, task, updateTask, declineTask, curren
     if (!isAssigned) {
       updateTask(taskId, {assigned_user_id: currentUserId});
     } else {
-      const res = await declineTask(taskId);
+      const res = await declineTask(task);
       if (res) {
         alert(res);
       }
@@ -42,10 +42,10 @@ const TaskMenu = ({ showEditModal, taskId, task, updateTask, declineTask, curren
         mr='2'
       />
       <MenuList>
-        <MenuItem icon={!isAssigned ? <AddTaskIcon size='14pt' /> : <DeclineTaskIcon size='14pt'/>}
+        {task.status !== 2 && <MenuItem icon={!isAssigned ? <AddTaskIcon size='14pt' /> : <DeclineTaskIcon size='14pt'/>}
           onClick={toggleAssignee}>
           {t(!isAssigned ? 'assignTask' : 'declineTask')}
-        </MenuItem>
+        </MenuItem> }
         <MenuItem
           icon={<EditIcon size='14pt' />}
           onClick={showEditModal}
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     updateTask: (taskId, task) => dispatch(updateTask(taskId, task)),
-    declineTask: (taskId) => dispatch(declineTask(taskId))
+    declineTask: (task) => dispatch(declineTask(task))
   };
 };
 

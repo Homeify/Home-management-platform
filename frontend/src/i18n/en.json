@@ -82,5 +82,6 @@
     "group-create-title": "Create a group",
     "group-edit-title": "Edit the group",
     "group-name-label": "Group name",
-    "group-description-label": "Group description"
+    "group-description-label": "Group description",
+    "your-gems":"Your gems"
 }

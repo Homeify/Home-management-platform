@@ -28,6 +28,10 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
     const isDataValid = group.name.length >= 3 && group.description.length >= 3;
     const handleGroupCreate = async () => {
         await addGroup(group);
+        setGroup({
+            name: '',
+            description: ''
+        })
         close();
     };
     return (
