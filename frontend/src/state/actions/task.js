@@ -1,6 +1,25 @@
 import axios from 'axios';
-import {BASE_URL, LOCAL_STORAGE_KEYS} from '../../utils/constants';
-import {TASK_ACTION_TYPES} from '../types';
+import { BASE_URL, LOCAL_STORAGE_KEYS } from '../../utils/constants';
+import { TASK_ACTION_TYPES } from '../types';
+
+const addTask = (task) => async (dispatch) => {
+  return axios
+    .post(`${BASE_URL}/tasks`, task, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(
+          LOCAL_STORAGE_KEYS.AUTH_TOKEN
+        )}`,
+      },
+    })
+    .then((res) => {
+        if (res.status === 201 || res.status === 200) {
+          dispatch({
+            type: TASK_ACTION_TYPES.ADD_TASK,
+            payload: res.data,
+          });
+        }
+      });
+};
 
 const getGroupTasks = (groupId) =>
   async (dispatch) => (
@@ -94,6 +113,7 @@ const declineTask = (task) =>
         })
   );
 export {
+  addTask,
   updateTask,
   getGroupTasks,
   declineTask,

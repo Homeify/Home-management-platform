@@ -1,17 +1,18 @@
 import React from 'react';
 import { Badge, Flex, Text, IconButton } from '@chakra-ui/react';
-import { PersonRemoveIcon } from '../../../assets/icons';
+import { PersonAddIcon, PersonRemoveIcon } from '../../../assets/icons';
 import { Avatar } from '../../atoms/Avatar';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { removeUserFromGroup } from '../../../state/actions/group';
 
-const MembersListItem = ({ member, canRemove, groupId, removeUserFromGroup }) => {
+const MembersListItem = ({ member, canRemove, groupId, removeUserFromGroup, isSelecting=false, selectMember=()=>{} }) => {
   const { t } = useTranslation();
   const removeMember = () => {
     removeUserFromGroup({groupId, userId: member.id});
   };
-  const showRemoveAction = member.owner === false && canRemove;
+  const chooseMember = () => selectMember(member.id)
+  const showRemoveAction = member.owner === false && canRemove && !isSelecting;
   return (
     <Flex direction="row" gap={3} alignItems="center">
       <Avatar width="42px" height="42px" name={member.first_name + ' ' + member.last_name} src='' m='0' />
@@ -26,6 +27,12 @@ const MembersListItem = ({ member, canRemove, groupId, removeUserFromGroup }) =>
         </Flex>
         <Text fontSize='sm'>{member.username}</Text>
       </Flex>
+      {isSelecting && <IconButton
+        borderRadius="full"
+        colorScheme="green"
+        variant="ghost"
+        onClick={chooseMember}
+        icon={<PersonAddIcon/>}></IconButton> }
       {showRemoveAction && <IconButton
         borderRadius="full"
         colorScheme="red"

@@ -10,10 +10,11 @@ import {
 } from '../../../state/actions/group';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../../utils/routes';
-import { EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
+import { AddIcon, EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
 import { Avatar } from '../../atoms/Avatar';
 import { GroupMembers, GroupEdit, ShareCode } from '../../molecules/Group';
 import { DiamondIcon } from '../../../assets/icons';
+import { CreateTask } from '../Task';
 
 const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, currentUserAwards}) => {
   const { t } = useTranslation();
@@ -22,6 +23,8 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, curr
   const onClose = () => setOpen(false);
   const [showMembers, setShowMembers] = useState(false);
   const onHideMembers = () => setShowMembers(false);
+  const [createTaskVisible, setCreateTaskVisible] = useState(false);
+  const onHideCreateTask = () => setCreateTaskVisible(false);
   const [showEditGroup, setShowEditGroup] = useState(false);
   const onHideEditGroup = () => setShowEditGroup(false);
 
@@ -32,6 +35,13 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, curr
   const isCurrentUserOwner = group?.owner.id === currentUserId;
 
   const ACTIONS = [
+    {
+      name: 'create',
+      icon: AddIcon,
+      color: 'black.500',
+      action: () => setCreateTaskVisible(true),
+      isVisible: true
+    },
     {
       name: 'edit',
       icon: EditIcon,
@@ -113,6 +123,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, curr
         </Box>
       </Box>
       <ShareCode code={group.code ?? '1234'} onClose={onClose} open={open}/>
+      <CreateTask onClose={onHideCreateTask} open={createTaskVisible} members={group.members} groupId={group.id}/>
       <GroupMembers groupId={group.id} onClose={onHideMembers} open={showMembers} members={group.members} isCurrentUserOwner={isCurrentUserOwner}/>
       <GroupEdit isOpen={showEditGroup} onClose={onHideEditGroup} group={group}/>
       </>}
