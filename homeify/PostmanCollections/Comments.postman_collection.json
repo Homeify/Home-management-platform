@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "42aadadd-c830-4a9b-95b7-eb01463e1c92",
+		"name": "Add Comment + CommentView",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17433226"
+	},
+	"item": [
+		{
+			"name": "Make user",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Make Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE1NzI0LCJpYXQiOjE2NzA3MTM5MjQsImp0aSI6ImQ0NzgzMjhkMDRkZTQxYWY5ZGNjNWFiYjA4MzU5Mzk5IiwidXNlcl9pZCI6MX0.Cyt3_DwvVTEPQ9grN280a_nbrhKagw4rGWgr4pRTK_4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"TestGroup\",\n    \"description\": \"Group made for tests???\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/groups/add",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get group",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE1NzI0LCJpYXQiOjE2NzA3MTM5MjQsImp0aSI6ImQ0NzgzMjhkMDRkZTQxYWY5ZGNjNWFiYjA4MzU5Mzk5IiwidXNlcl9pZCI6MX0.Cyt3_DwvVTEPQ9grN280a_nbrhKagw4rGWgr4pRTK_4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8000/groups",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE5Njk3LCJpYXQiOjE2NzA3MTc4OTcsImp0aSI6ImFiYzEzMjZkNDE3ZTRhYWNiMTJlY2NlMmUzOTUxYTJjIiwidXNlcl9pZCI6MX0.zpBoiWGd8M71r4sg2Ix3gk7bfHFSXYxFNwN3qyMN40s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assigned_user_id\": 1,\n    \"group_id\": 2,\n    \"title\": \"test task task\",\n    \"content\": \"Task 123 ejfana\",\n    \"deadline\": \"2022-12-20\",\n    \"reward\": 2,\n    \"priority\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/tasks",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get comments",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE5Njk3LCJpYXQiOjE2NzA3MTc4OTcsImp0aSI6ImFiYzEzMjZkNDE3ZTRhYWNiMTJlY2NlMmUzOTUxYTJjIiwidXNlcl9pZCI6MX0.zpBoiWGd8M71r4sg2Ix3gk7bfHFSXYxFNwN3qyMN40s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"task_id\" : 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/comments",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE5Njk3LCJpYXQiOjE2NzA3MTc4OTcsImp0aSI6ImFiYzEzMjZkNDE3ZTRhYWNiMTJlY2NlMmUzOTUxYTJjIiwidXNlcl9pZCI6MX0.zpBoiWGd8M71r4sg2Ix3gk7bfHFSXYxFNwN3qyMN40s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"task_id\" : 5,\n    \"body\" : \"Inca Ceva\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/comments",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Comment",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE5Njk3LCJpYXQiOjE2NzA3MTc4OTcsImp0aSI6ImFiYzEzMjZkNDE3ZTRhYWNiMTJlY2NlMmUzOTUxYTJjIiwidXNlcl9pZCI6MX0.zpBoiWGd8M71r4sg2Ix3gk7bfHFSXYxFNwN3qyMN40s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment_id\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/comments",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Comments",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNzE5Njk3LCJpYXQiOjE2NzA3MTc4OTcsImp0aSI6ImFiYzEzMjZkNDE3ZTRhYWNiMTJlY2NlMmUzOTUxYTJjIiwidXNlcl9pZCI6MX0.zpBoiWGd8M71r4sg2Ix3gk7bfHFSXYxFNwN3qyMN40s",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment_id\" : 10,\n    \"body\" : \"Edited Comment\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/comments/10",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"comments",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

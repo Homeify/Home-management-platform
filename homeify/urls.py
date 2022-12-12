@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import RegisterAPI, EditUsernameAPI, EditPasswordAPI, LogoutAPI, SeeCurrentUserAPI, EditEmailAPI, AddGroup, \
     UserToGroup, AdminUserToGroup, GetGroupsForCurrentUser, GetUsersFromGroup, GroupDetailAPIView, TaskAPI, \
-    EditTaskAssignee, UpdateTaskAPI, GetTasksForGroup, DeclineTask
+    EditTaskAssignee, UpdateTaskAPI, GetTasksForGroup, DeclineTask, CommentAPI, UpdateCommentAPI
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -40,11 +40,13 @@ urlpatterns = [
     path('groups/tasks/<int:group_id>', GetTasksForGroup.as_view(), name='get_group_tasks'),
     path('groups', GetGroupsForCurrentUser.as_view(), name='get_groups'),
     path('groups/users/<int:group_id>', GetUsersFromGroup.as_view(), name='get_users_for_group'),
-    path('groups/<int:pk>', GroupDetailAPIView.as_view()),
+    path('groups/<int:pk>', GroupDetailAPIView.as_view(), name="see_group"),
     path('groups/users', GetUsersFromGroup.as_view(), name='get_users_for_group'),
     path('tasks/edit/assignee', EditTaskAssignee.as_view(), name='edit_task_assignee'),
     path('tasks', TaskAPI.as_view(), name='task'),
     path('tasks/<int:pk>', UpdateTaskAPI.as_view(), name='update_task'),
     path('tasks/decline/<int:pk>', DeclineTask.as_view(), name='decline_task'),
+    path('comments', CommentAPI.as_view(), name='comment'),
+    path('comments/<int:pk>', UpdateCommentAPI.as_view(), name='update_comment'),
     path('', admin.site.urls),
 ]

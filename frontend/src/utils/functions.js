@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { BASE_URL, LOCAL_STORAGE_KEYS } from './constants';
+
 const getDateElements = (date) => {
   return {
     day: date.getDate(),
@@ -21,4 +24,25 @@ const getFormattedDate = (date, months, hasYear = false, dashed = false) => {
   return formattedDate;
 };
 
-export { getDateElements, getFormattedDate };
+const getUserAwards = async (userId, groupId) => {
+  const res = await axios.get(`${BASE_URL}/groups/users/${groupId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN)}`
+    }
+  });
+
+  if (res.status === 200) {
+    const { data } = res;
+    const currentUser = data.filter((item) => item.user.id === userId)[0];
+    const award = currentUser.awards;
+    return award;
+  }
+  return 0;
+};
+
+export { 
+  getDateElements,
+  getFormattedDate,
+  getUserAwards
+};

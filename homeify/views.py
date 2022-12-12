@@ -12,7 +12,7 @@ from rest_framework.generics import (
 )
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework_simplejwt.tokens import AccessToken
-from .models import Membership, HomeGroup
+from .models import Membership, HomeGroup, Task, Comment
 from django.utils.dateparse import parse_datetime
 
 from .serializers import *
@@ -196,7 +196,7 @@ class UserToGroup(generics.GenericAPIView):
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
-        user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+        user = CustomUser.objects.get(id=user_id)
         valid, message = self.validateRequest(request)
         if not valid:
             return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -242,7 +242,7 @@ class AdminUserToGroup(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
-            user = CustomUser.objects.get(id=user_id)  # add current logged in user to group
+            user = CustomUser.objects.get(id=user_id)
             valid, message = self.validateRequest(request, user)
             if not valid:
                 return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
@@ -254,7 +254,6 @@ class AdminUserToGroup(generics.GenericAPIView):
                 return Response(data={'message': "User not found"}, status=status.HTTP_400_BAD_REQUEST)
 
             number_of_members_in_group = Membership.objects.filter(user=requested_user, group=message).count()
-            print(number_of_members_in_group)
             if number_of_members_in_group != 0:
                 return Response(data={'message': "User was already part of the group"},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -344,13 +343,12 @@ class GetGroupsForCurrentUser(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             groupIdx = [membership.group.id for membership in Membership.objects.filter(user=request.user)]
-            print("GROUPS", groupIdx)
             queryset = HomeGroup.objects.filter(id__in=groupIdx)
             try:
                 serializer = HomeGroupSerializer(queryset, many=True, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Exception as e:
-                print(e)
+                return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -475,8 +473,8 @@ class TaskAPI(generics.GenericAPIView):
                 return Response(data={'message': serializer_task.data}, status=status.HTTP_201_CREATED)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
-        except Exception:
-            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+        except Exception as e:
+            return Response(data={'message': e}, status=status.HTTP_403_FORBIDDEN)
 
     def validateRequest(self, request, user):
         group_id = request.data.get('group_id')
@@ -724,3 +722,131 @@ class DeclineTask(generics.GenericAPIView):
 
         return Response(data={'message': "User doesn't have enough points to decline this task"},
                         status=status.HTTP_400_BAD_REQUEST)
+
+
+class CommentAPI(generics.GenericAPIView):
+    def post(self, request):
+
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id) #Select this user as master of comment.
+            serializer = CommentSerializer(data=request.data)
+
+            if serializer.is_valid():
+                #Get context
+                body = request.data['body']
+                task = Task.objects.get(id=request.data['task_id'])
+
+                #Create comment
+                new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=datetime.now())
+
+                new_comment.save()
+                serializer_comment = CommentSerializer(new_comment)
+                return Response(data={'message': serializer_comment.data}, status=status.HTTP_201_CREATED)
+            return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception:
+            return Response(data={'message': 'Missing authorization header on comment'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            task_id = request.data['task_id']
+
+            if task_id is None:
+                return Response(data={'message': "Missing parameter task_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                task = Task.objects.get(id=task_id)
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Task does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+            comments = Comment.objects.all().filter(task=task)
+
+            list_of_comments = []
+
+            for com in comments:
+                serializer_comment = CommentSerializer(com)
+                list_of_comments.append(serializer_comment.data)
+
+            return Response(data={'data': list_of_comments}, status=status.HTTP_200_OK)
+
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+            comment_id = request.data['comment_id']
+
+            if comment_id is None:
+                return Response(data={'message': "Missing parameter comment_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                comment = Comment.objects.get(id=comment_id)
+                task = Task.objects.get(id=comment.task_id)
+
+                if comment.author == user or task.author:
+                    comment.delete()
+                    return Response(data={'message': 'Comment succesfully deleted'}, status=status.HTTP_200_OK)
+
+                return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class UpdateCommentAPI(generics.GenericAPIView):
+    def patch(self, request, pk):
+        if pk is None:
+            return Response(data={'message': "Missing parameter comment_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            #Check if comment exists
+            try:
+                comment = Comment.objects.get(id=pk)
+            except ObjectDoesNotExist:
+                return Response(data={'message': "Comment does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+            #Check if comment is in Task
+            try:
+                Task.objects.get(id=comment.task_id)
+            except ObjectDoesNotExist:
+                return Response(data={'message': "No such comment in task"}, status=status.HTTP_400_BAD_REQUEST)
+
+            #Update comment
+            try:
+                comment_id = request.data['comment_id']
+                comment = Comment.objects.get(id=comment_id)
+
+                new_body = request.data['body']
+                date_meta = datetime.now()
+
+                if comment.author != user:
+                    return Response(data={'message': 'Insufficient permission'}, status=status.HTTP_401_UNAUTHORIZED)
+
+                comment.body = new_body
+                comment.date_posted= date_meta
+                comment.save()
+                return Response(data={'message': 'Comment successfully updated.'}, status=status.HTTP_200_OK)
+            except Exception:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
