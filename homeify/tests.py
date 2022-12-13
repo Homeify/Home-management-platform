@@ -4,8 +4,7 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import Task
-from .views import RegisterAPI, LogoutAPI, SeeCurrentUserAPI, TaskAPI, AddGroup, UpdateTaskAPI
-from .views import RegisterAPI, LogoutAPI, SeeCurrentUserAPI, AddGroup, GetGroupsForCurrentUser, AdminUserToGroup, \
+from .views import TaskAPI, UpdateTaskAPI, RegisterAPI, LogoutAPI, SeeCurrentUserAPI, AddGroup, GetGroupsForCurrentUser, AdminUserToGroup, \
     GroupDetailAPIView
 from rest_framework.test import APIRequestFactory
 
@@ -226,6 +225,7 @@ class GroupViewTestCase(APITestCase):
         # get group from id
 
         # update group from id
+
     def test_get_groups(self):
         request = self.factory.get(self.get_groups, **self.auth_headers)
         response = self.get_group_view(request)
@@ -238,17 +238,17 @@ class GroupViewTestCase(APITestCase):
             "code": id,
             "user_id": self.id_user_2
         }
-        request = self.factory.post(self.add_member, data,  **self.auth_headers)
+        request = self.factory.post(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
 
-        request = self.factory.post(self.add_member, data,  **self.auth_headers)
+        request = self.factory.post(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
         self.assertEqual(response.data.get("message"), "User was already part of the group")
 
         data["user_id"] = 1222221111111111
-        request = self.factory.post(self.add_member, data,  **self.auth_headers)
+        request = self.factory.post(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
         self.assertEqual(response.data.get("message"), "User not found")
@@ -260,14 +260,14 @@ class GroupViewTestCase(APITestCase):
             "code": id,
             "user_id": self.id_user_2
         }
-        request = self.factory.post(self.add_member, data,  **self.auth_headers)
+        request = self.factory.post(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_201_CREATED, response.status_code)
-        request = self.factory.delete(self.add_member, data,  **self.auth_headers)
+        request = self.factory.delete(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(response.data.get("message"), "User removed from the group")
-        request = self.factory.delete(self.add_member, data,  **self.auth_headers)
+        request = self.factory.delete(self.add_member, data, **self.auth_headers)
         response = self.add_member_view(request)
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
         self.assertEqual(response.data.get("message"), "User is not in the group")
@@ -300,6 +300,7 @@ class GroupViewTestCase(APITestCase):
         self.assertEqual(group_id, resp.data.get("id"))
         self.assertEqual(data["name"], resp.data.get("name"))
         self.assertEqual(data["description"], resp.data.get("description"))
+
 
 class TaskAPIViewTestCase(APITestCase):
     def setUp(self):
@@ -457,7 +458,6 @@ class TaskAPIViewTestCase(APITestCase):
         url = "tasks/"
         request = self.factory.patch(url, data, **self.auth_headers)
         response = view(request, pk=task_id)
-        print(response.data)
         self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
         self.assertEqual(response.data["status"], new_status)
 
@@ -468,4 +468,3 @@ class TaskAPIViewTestCase(APITestCase):
         request = self.factory.patch(url, **self.auth_headers)
         response = view(request, pk=task_id)
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
-
