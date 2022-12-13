@@ -114,10 +114,9 @@
     "prioritize": "Prioritize",
     "discussTaskDesc": "You can discuss with other members through comments left for a task.",
     "prioritizeDesc": "It's essentially to know the priority of a task, to know what to do next.",
-    "setDueDateDesc": "With the due date feature, you will always progress with your task."
+    "setDueDateDesc": "With the due date feature, you will always progress with your task.",
     
     "createTask": "Create task",
-    "group-create-title": "Create a group",
     "group-edit-title": "Edit the group",
     "group-name-label": "Group name",
     "group-description-label": "Group description",

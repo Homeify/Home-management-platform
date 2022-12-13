@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
 import { SettingsIcon } from '../../../assets/icons';
-import { RewardCounter } from '../../molecules/Navbar';
 import { useWindowWidth } from '../../../hooks';
 import { SignOutButton } from '../';
 
