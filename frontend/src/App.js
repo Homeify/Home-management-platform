@@ -4,12 +4,13 @@ import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from './utils/routes.js';
 import {
-    Home,
-    Landing,
-    Group,
-    SignIn,
-    SignUp,
-    NotFound,
+  Home,
+  Settings,
+  Landing,
+  Group,
+  SignIn,
+  SignUp,
+  NotFound,
 } from './components/pages';
 import { PrivateRoute, UnauthRoute } from './components/atoms';
 
@@ -40,6 +41,14 @@ function App() {
                             <Group />
                         </PrivateRoute>
                     }
+                />
+                <Route
+                  path={ROUTES.SETTINGS}
+                  element={
+                    <PrivateRoute>
+                      <Settings />
+                    </PrivateRoute>
+                  }
                 />
                 <Route
                     path={ROUTES.SIGN_IN}

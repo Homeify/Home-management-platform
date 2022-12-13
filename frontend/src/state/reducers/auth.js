@@ -1,4 +1,4 @@
-import {AUTH_ACTION_TYPES} from '../types';
+import { AUTH_ACTION_TYPES } from '../types';
 
 export const AuthState = {
   authenticated: false,
@@ -16,6 +16,26 @@ const authReducer = (state = AuthState, action) => {
     return {
       authenticated: false,
       currentUser: undefined
+    };
+  } else if (action.type === AUTH_ACTION_TYPES.EDIT_USERNAME) {
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        username: action.payload.username
+      }
+    };
+  } else if (action.type === AUTH_ACTION_TYPES.EDIT_EMAIL) {
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        email: action.payload.email
+      }
+    };
+  } else if (action.type === AUTH_ACTION_TYPES.EDIT_PASSWORD) {
+    return {
+      ...state,
     };
   }
   return state;

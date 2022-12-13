@@ -31,7 +31,7 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
         setGroup({
             name: '',
             description: ''
-        })
+        });
         close();
     };
     return (
