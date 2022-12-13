@@ -83,7 +83,7 @@ const groupReducer = (state = GroupState, action) => {
   } else if (action.type === TASK_ACTION_TYPES.UPDATE_STATUS || action.type === TASK_ACTION_TYPES.DECLINE_TASK) {
     const { assigned_user_id, group_id, status, reward } = action.payload;
     const index = state.groups.findIndex((item) => item.id === group_id);
-    const userIndex = state.groups[index].members.findIndex((item) => item.id === assigned_user_id);
+    const userIndex = index !== -1 ? state.groups[index].members.findIndex((item) => item.id === assigned_user_id) : -1;
     if (userIndex === -1) {
       return state;
     }
@@ -96,7 +96,7 @@ const groupReducer = (state = GroupState, action) => {
     }
     return {
       ...state,
-      groups: status === 2 ? [
+      groups: [
         ...state.groups.slice(0, index),
         {
           ...state.groups[index],
@@ -110,7 +110,7 @@ const groupReducer = (state = GroupState, action) => {
           ]
         },
         ...state.groups.slice(index + 1)
-      ] : state.groups
+      ]
     };
   }
   return state;
