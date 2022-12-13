@@ -84,5 +84,11 @@
     "group-create-title": "Create a group",
     "group-edit-title": "Edit the group",
     "group-name-label": "Group name",
-    "group-description-label": "Group description"
+    "group-description-label": "Group description",
+    "edit-username-title": "Edit username",
+    "edit-email-title": "Edit email",
+    "edit-password-title": "Edit password",
+    "new-password": "New password",
+    "confirm-new-password": "Confirm new password"
+
 }
