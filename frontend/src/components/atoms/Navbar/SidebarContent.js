@@ -71,7 +71,7 @@ export default function SidebarContent({ onClose, linkItems, award, ...rest }) {
                     <NavItem
                         icon={SettingsIcon}
                         name={t('settings')}
-                        link={'#'}
+                        link={ROUTES.SETTINGS}
                         iconSize='14pt'
                     />
                     <SignOutButton />

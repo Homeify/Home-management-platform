@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import ROUTES from './utils/routes.js';
 import {
   Home,
+  Settings,
   Landing,
   Group,
   SignIn,
@@ -32,6 +33,14 @@ function App() {
           element={
             <PrivateRoute>
               <Group />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.SETTINGS}
+          element={
+            <PrivateRoute>
+              <Settings />
             </PrivateRoute>
           }
         />
