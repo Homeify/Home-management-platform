@@ -166,6 +166,7 @@ class CommentSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(required=False, format=None)
     body = serializers.CharField(required=True, min_length=2, max_length=500)
     id = serializers.ReadOnlyField()
+    author = serializers.ReadOnlyField()
 
     def get_user(self, obj):
         serializer = CustomUserSerializer(obj.author)
@@ -173,4 +174,4 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('author_id', 'body', 'task_id', 'date_posted', 'id')
+        fields = ('author_id', 'body', 'task_id', 'date_posted', 'id', 'author')

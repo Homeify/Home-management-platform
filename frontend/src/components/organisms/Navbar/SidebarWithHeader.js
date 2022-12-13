@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Box,
   useColorModeValue,
@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import ROUTES from '../../../utils/routes';
 import { GroupsIcon } from '../../../assets/icons';
 
-export default function SidebarWithHeader({ userId, groupId, children }) {
+export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
   const linkItems = [

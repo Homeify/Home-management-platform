@@ -52,7 +52,7 @@ const Group = ({ tasks, readTasks, userId }) => {
   }, [tasks]);
 
   return (
-    <SidebarWithHeader userId={userId} groupId={groupId}>
+    <SidebarWithHeader>
       <Box display='flex' flexDir='row'>
         <Box flexGrow='1' height='100%'>
           <GroupDetails id={groupId} />

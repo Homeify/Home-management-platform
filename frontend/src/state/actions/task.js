@@ -112,10 +112,58 @@ const declineTask = (task) =>
           return 'Not enough points';
         })
   );
+
+const getTaskComments = (taskId) => async (dispatch) =>
+    axios
+        .get(`${BASE_URL}/tasks/${taskId}/comments`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem(
+                    LOCAL_STORAGE_KEYS.AUTH_TOKEN
+                )}`,
+            },
+        })
+        .then((res) => {
+            if (res.status === 200) {
+                const payload = res.data.data.map((comm) => ({
+                  ...comm,
+                  date_posted: new Date(comm.date_posted)
+                }));
+                dispatch({
+                    type: TASK_ACTION_TYPES.GET_COMMENTS,
+                    payload,
+                });
+            }
+        });
+
+const addCommentToTask = (taskId, body) => async (dispatch) =>
+    axios
+      .post(`${BASE_URL}/comments`,
+            {task_id: taskId, body},
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem(
+                    LOCAL_STORAGE_KEYS.AUTH_TOKEN
+                )}`,
+              }
+            })
+      .then((res) => {
+          if (res.status === 201 || res.status === 200) {
+            const payload = res.data.data;
+            dispatch({
+              type: TASK_ACTION_TYPES.ADD_COMMENT,
+              payload,
+            });
+          }
+      });
+
 export {
   addTask,
   updateTask,
   getGroupTasks,
   declineTask,
-  updateStatus
+  updateStatus,
+  getTaskComments,
+  addCommentToTask
 };

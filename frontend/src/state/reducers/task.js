@@ -9,14 +9,14 @@ const taskReducer = (state = TaskState, action) => {
     const newTask = {
       ...action.payload.message,
       status: 0
-    }
+    };
     return {
       ...state,
       tasks: [
         ...state.tasks,
         newTask
       ]
-    }
+    };
   } else if (action.type === TASK_ACTION_TYPES.UPDATE_TASK) {
     const updatedTask = action.payload;
     const index = state.tasks.findIndex((item) => item.id === updatedTask.id);
@@ -45,6 +45,16 @@ const taskReducer = (state = TaskState, action) => {
         },
         ...state.tasks.slice(index + 1)
       ]
+    };
+  } else if (action.type === TASK_ACTION_TYPES.GET_COMMENTS) {
+    return {
+      ...state,
+      comments: action.payload
+    };
+  } else if (action.type === TASK_ACTION_TYPES.ADD_COMMENT) {
+    return {
+        ...state,
+        comments: [...state.comments, action.payload],
     };
   }
   return state;

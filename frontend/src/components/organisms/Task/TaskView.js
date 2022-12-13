@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Box,
@@ -19,10 +19,22 @@ import { PriorityIcon } from '../../atoms';
 import { StatusTag, TaskMenu, Assigned, Deadline } from '../../atoms/Task';
 import { EditTask } from './';
 import { connect } from 'react-redux';
-import { updateStatus } from '../../../state/actions/task';
+import {
+    updateStatus,
+    getTaskComments as getTaskCommentsAction,
+    addCommentToTask,
+} from '../../../state/actions/task';
 import { CommentList } from '../../atoms/Comment';
 
-function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
+function TaskView({
+    task,
+    updateStatusAction,
+    groupId,
+    deselectAll,
+    getTaskComments,
+    comments,
+    postComment,
+}) {
     if (!task) return <></>;
     const { t } = useTranslation();
     const {
@@ -44,7 +56,9 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
     const createdFormattedDate = getFormattedDate(posted, months, true);
     const assignedName = assignedUser ? assignedUser : t('unknown');
 
-    const comments = [];
+    useEffect(() => {
+        getTaskComments(id);
+    }, []);
 
     const statusButtonBgColor =
         status === 0 ? 'grey.100' : status === 1 ? 'blue.100' : 'green.100';
@@ -60,6 +74,11 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
 
     const handleUpdateStatus = (newStatus) => {
         updateStatusAction(parseInt(id), { status: newStatus });
+    };
+
+    const handlePostComment = () => {
+        postComment(id, value);
+        setValue('');
     };
 
     return (
@@ -156,7 +175,11 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
                     <Text color='grey.500'>{t('noComments')}</Text>
                 </Box>
             )}
-            <CommentInput value={value} handleInputChange={handleInputChange} />
+            <CommentInput
+                value={value}
+                handleInputChange={handleInputChange}
+                onSubmit={handlePostComment}
+            />
 
             {editModalVisible && (
                 <EditTask
@@ -173,6 +196,7 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
 const mapStateToProps = (state) => {
     return {
         status: state.task.status,
+        comments: state.task.comments,
     };
 };
 
@@ -181,6 +205,8 @@ const mapDispatchToProps = (dispatch) => {
         dispatch,
         updateStatusAction: (taskId, newData) =>
             dispatch(updateStatus(taskId, newData)),
+        getTaskComments: (taskId) => dispatch(getTaskCommentsAction(taskId)),
+        postComment: (taskId, body) => dispatch(addCommentToTask(taskId, body)),
     };
 };
 

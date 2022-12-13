@@ -31,7 +31,6 @@ function EditTask({ isVisible, setIsVisible, task, groupId, updateTask }) {
         getFormattedDate(deadline, months, true, true)
     );
     const [newReward, setNewReward] = useState(reward);
-    console.log(deadline, newDeadline);
 
     const handleOnSubmit = () => {
         const newData = {

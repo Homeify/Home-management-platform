@@ -741,11 +741,21 @@ class CommentAPI(generics.GenericAPIView):
                 task = Task.objects.get(id=request.data['task_id'])
 
                 #Create comment
-                new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=datetime.now())
+                date_posted = datetime.now()
+                new_comment = Comment.objects.create(author=user, body=body, task=task, date_posted=date_posted)
 
                 new_comment.save()
-                serializer_comment = CommentSerializer(new_comment)
-                return Response(data={'message': serializer_comment.data}, status=status.HTTP_201_CREATED)
+                serializer = CustomUserSerializer(user)
+                item = {
+                    'author_id': user_id,
+                    'task_id': request.data['task_id'],
+                    'date_posted': date_posted,
+                    'body': body,
+                    'author': serializer.data
+                }
+
+                serializer = CommentSerializer(item)
+                return Response(data={'data': serializer.data}, status=status.HTTP_201_CREATED)
             return Response(data={'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception:
@@ -804,6 +814,45 @@ class CommentAPI(generics.GenericAPIView):
 
             except ObjectDoesNotExist:
                 return Response(data={'message': 'Comment does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
+
+
+class TaskCommentsAPI(generics.GenericAPIView):
+     def get(self, request, task_id):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token_obj = AccessToken(token)
+            user_id = access_token_obj['user_id']
+            user = CustomUser.objects.get(id=user_id)
+
+            if task_id is None:
+                return Response(data={'message': "Missing parameter task_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                task = Task.objects.get(id=task_id)
+            except ObjectDoesNotExist:
+                return Response(data={'message': 'Task does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+            comments = Comment.objects.all().filter(task_id=task_id)
+
+            list_of_comments = []
+            
+            for comm in comments:
+                author_id = comm.author_id
+                author = CustomUser.objects.get(id=author_id)
+                serializer = CustomUserSerializer(author, context=self.get_serializer_context())
+                item = {
+                    'id': comm.id,
+                    'date_posted': comm.date_posted,
+                    'body': comm.body,
+                    'author': serializer.data
+                }
+
+                serializer_comment = CommentSerializer(item)
+                list_of_comments.append(serializer_comment.data)
+            
+            return Response(data={'data': list_of_comments}, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 

@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { BASE_URL, LOCAL_STORAGE_KEYS } from './constants';
-
 const getDateElements = (date) => {
   return {
     day: date.getDate(),
@@ -10,6 +7,8 @@ const getDateElements = (date) => {
 };
 
 const getFormattedDate = (date, months, hasYear = false, dashed = false) => {
+  if (!date) return '';
+
   const monthsArr = months.split(' ');
   const dateElements = getDateElements(date);
   const day = dateElements.day;
@@ -24,7 +23,4 @@ const getFormattedDate = (date, months, hasYear = false, dashed = false) => {
   return formattedDate;
 };
 
-export {
-  getDateElements,
-  getFormattedDate
-};
+export { getFormattedDate };

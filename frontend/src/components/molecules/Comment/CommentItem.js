@@ -18,8 +18,10 @@ import { DotsIcon, EditIcon, TrashIcon } from '../../../assets/icons';
 const CommentItem = ({ comment, currentUser }) => {
     const { t } = useTranslation();
     const [showAll, setShowAll] = useState(false);
-    const { author, body, posted } = comment;
-    const { authorName, id } = author;
+    const { author, body, date_posted: datePosted } = comment;
+    const { first_name: firstName, last_name: lastName, id } = author;
+    const authorName = firstName + ' ' + lastName;
+    const posted = new Date(datePosted);
 
     return (
         <Box bgColor='white.300' p='5' borderRadius='10' shadow='lg'>
