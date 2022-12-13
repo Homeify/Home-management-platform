@@ -5,7 +5,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Text,
     Modal,
     ModalContent,
     ModalHeader,
@@ -17,34 +16,44 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import { connect } from 'react-redux';
-import { addGroup } from '../../../state/actions/group';
+import { editGroup } from '../../../state/actions/group';
 
-const GroupCreate = ({ isOpen, close, addGroup }) => {
+const GroupEdit = ({ isOpen, onClose, group, editGroup }) => {
+    if (!group) return <></>;
+
     const { t } = useTranslation();
-    const [group, setGroup] = useState({
-        name: '',
-        description: '',
+    const { name, description, id } = group;
+    const [editedGroup, setEditedGroup] = useState({
+        id: id,
+        name: name,
+        description: description
     });
-    const isDataValid = group.name.length >= 3 && group.description.length >= 3;
+    const isDataValid = editedGroup.name.length >= 3 && editedGroup.description.length >= 3;
+
     const handleGroupCreate = async () => {
-        await addGroup(group);
-        setGroup({
-            name: '',
-            description: ''
-        })
-        close();
+        await editGroup(editedGroup);
+        onClose();
     };
+
+    const resetState = async () => {
+        setEditedGroup({
+            id: id,
+            name: name,
+            description: description
+        });
+        onClose();
+    };
+
     return (
         <>
-            <Modal size='lg' isOpen={isOpen} onClose={close} isCentered={true}>
+            <Modal size='lg' isOpen={isOpen} onClose={resetState} isCentered={true}>
                 <ModalOverlay />
                 <ModalContent borderRadius='16' boxShadow='xl'>
                     <ModalHeader mt='2' pb='0'>
-                        {t('group-create-title')}
+                        {t('group-edit-title')}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' size='md' />
                     <ModalBody>
-                        <Text fontSize='sm'>{t('group-create-subtitle')}</Text>
                         <Stack gap='6' mt='8'>
                             <FormControl id='name' isRequired>
                                 <FormLabel fontSize={'md'} color='gray.600'>
@@ -53,10 +62,10 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
                                 <Input
                                     size='md'
                                     borderRadius='xl'
-                                    value={group.name}
+                                    value={editedGroup.name}
                                     onChange={(e) =>
-                                        setGroup({
-                                            ...group,
+                                        setEditedGroup({
+                                            ...editedGroup,
                                             name: e.target.value,
                                         })
                                     }
@@ -67,11 +76,11 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
                                     {t('group-description-label')}
                                 </FormLabel>
                                 <Textarea
-                                    value={group.description}
+                                    value={editedGroup.description}
                                     borderRadius='xl'
                                     onChange={(e) =>
-                                        setGroup({
-                                            ...group,
+                                        setEditedGroup({
+                                            ...editedGroup,
                                             description: e.target.value,
                                         })
                                     }
@@ -81,7 +90,7 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
                         </Stack>
                     </ModalBody>
                     <ModalFooter>
-                        <Button variant='ghost' mr={3} onClick={close}>
+                        <Button variant='ghost' mr={3} onClick={onClose}>
                             {t('dismiss')}
                         </Button>
                         <Button
@@ -90,7 +99,7 @@ const GroupCreate = ({ isOpen, close, addGroup }) => {
                             borderRadius='lg'
                             onClick={handleGroupCreate}
                         >
-                            {t('create')}
+                            {t('edit')}
                         </Button>
                     </ModalFooter>
                 </ModalContent>
@@ -106,8 +115,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        addGroup: (group) => dispatch(addGroup(group)),
+        editGroup: (group) => dispatch(editGroup(group)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupEdit);

@@ -17,7 +17,7 @@ import { RewardCounter } from '../../molecules/Navbar';
 import { useWindowWidth } from '../../../hooks';
 import { SignOutButton } from '../';
 
-export default function SidebarContent({ onClose, linkItems, award, ...rest }) {
+export default function SidebarContent({ onClose, linkItems, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
 
@@ -65,8 +65,6 @@ export default function SidebarContent({ onClose, linkItems, award, ...rest }) {
                         iconSize='14pt'
                     />
                 ))}
-
-                <Box>{isMobile && <RewardCounter count={award} m='5' />}</Box>
                 <Box mt='auto' mb='5'>
                     <NavItem
                         icon={SettingsIcon}

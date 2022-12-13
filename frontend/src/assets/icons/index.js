@@ -28,8 +28,11 @@ import LanguageIcon from './LanguageIcon';
 import HeartbeatIcon from './HeartbeatIcon';
 import CalendarTimeIcon from './CalendarTimeIcon';
 import PriorityIcon from './PriorityIcon';
+import AddIcon from './AddIcon';
+import DeclineTaskIcon from './DeclineTaskIcon';
 
 export {
+    AddIcon,
     AddTaskIcon,
     ArrowDownIcon,
     ArrowRightIcon,
@@ -39,6 +42,7 @@ export {
     CloseIcon,
     CommentsIcon,
     DeadlineIcon,
+    DeclineTaskIcon,
     DetailsIcon,
     DiamondIcon,
     DotsIcon,

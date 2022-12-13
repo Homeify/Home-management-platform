@@ -28,6 +28,7 @@
     "writeComment": "Scrie un comentariu...",
     "noComments": "Niciun comentariu.",
     "assignTask": "Preia sarcina",
+    "assignTaskToOther": "Atribuie sarcina",
     "edit": "Editeaza",
     "description": "Descriere",
     "selectRewardValue": "Selecteaza valoarea recompensei",
@@ -35,8 +36,8 @@
     "status": "Stare",
     "group-create-title": "Creeaza un grup",
     "group-create-subtitle": "Colaboreaza strans cu un grup de persoane pentru a imparti responsabilitatile si creste recompensele.",
-    "create-group-name-label": "Numele grupului",
-    "create-group-description-label": "Descrierea grupului",
+    "group-name-label": "Numele grupului",
+    "group-description-label": "Descrierea grupului",
     "dismiss": "Anuleaza",
     "create": "Creeaza",
     "myGroups": "Grupurile mele",
@@ -86,6 +87,7 @@
     "sort": "Sorteaza",
     "noOfComments": "Numar de comentarii",
     "deleteTask": "Sterge sarcina",
+    
     "landingPageTitle": "Gestionati-va sarcinile de acasa cu",
     "landingPageDesc": "Atribuiti sarcini eficient si organizati-va treburile, astfel incat munca sa fie distribuita in mod egal intre membrii familiei.",
     "getStarted": "Incepe",
@@ -113,4 +115,9 @@
     "discussTaskDesc": "Puteti discuta cu alti membri prin comentariile lasate unei sarcini.",
     "prioritizeDesc": "Este esential sa cunosti prioritatea unei sarcini, ca sa stii ce sa faci in continuare.",
     "setDueDateDesc": "Setand termenul limita, veti progresa intotdeauna in sarcina dvs."
+    
+    "createTask": "Creeaza sarcina",
+    "group-edit-title": "Editeaza grupul",
+    "declineTask": "Refuza sarcina",
+    "your-gems": "Recompensele tale"
 }
