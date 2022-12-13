@@ -60,7 +60,7 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
     };
 
     return (
-        <>
+       <> { task && <>
             {/* Card title */}
             <Box display='flex' flexDir='row' alignItems='center'>
                 <Text fontSize='2xl' as='b' mr='20px' maxW='80%'>
@@ -155,7 +155,8 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
                     groupId={groupId}
                 />
             )}
-        </>
+        </> }
+    </>
     );
 }
 
