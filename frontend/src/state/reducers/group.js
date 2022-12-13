@@ -40,7 +40,7 @@ const groupReducer = (state = GroupState, action) => {
         ...state.groups.slice(groupIndex + 1)
       ]
     };
-  } else if (action.type === GROUP_ACTION_TYPES.ADD) {
+  } else if (action.type === GROUP_ACTION_TYPES.ADD || action.type === GROUP_ACTION_TYPES.JOIN) {
     return {
       ...state,
       groups: [

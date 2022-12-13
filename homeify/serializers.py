@@ -60,7 +60,7 @@ class HomeGroupSerializer(serializers.ModelSerializer):
     date_created = serializers.SerializerMethodField(method_name='get_date_created')
 
     def get_owner(self, obj):
-        serializer = CustomUserSerializer(Membership.objects.filter(owner=True).first().user)
+        serializer = CustomUserSerializer(Membership.objects.filter(group=obj, owner=True).first().user)
         return serializer.data
 
     def get_members(self, obj):
@@ -74,7 +74,12 @@ class HomeGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HomeGroup
-        fields = ['id', 'name', 'description', 'owner', 'members', 'date_created']
+        fields = ['id', 'name', 'code','description', 'owner', 'members', 'date_created']
+        
+class HomeGroupUpsertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomeGroup
+        fields = ['name', 'description']
 
 
 class HomeGroupDetailSerializer(serializers.ModelSerializer):

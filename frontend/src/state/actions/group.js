@@ -21,6 +21,27 @@ const addGroup = (group) => async (dispatch) => {
       });
 };
 
+const joinGroup = (code) => async (dispatch) => {
+  return axios
+      .post(`${BASE_URL}/groups/user`, {code: code}, {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem(
+                  LOCAL_STORAGE_KEYS.AUTH_TOKEN
+              )}`,
+          },
+      })
+      .then((res) => {
+          if (res.status === 201 || res.status === 200) {
+              dispatch({
+                  type: GROUP_ACTION_TYPES.JOIN,
+                  payload: {
+                      ...res.data
+                  }
+              });
+          }
+      });
+};
+
 const editGroup = (group) => async (dispatch) => {
     return axios
         .patch(`${BASE_URL}/groups/${group.id}`, group, {
@@ -130,6 +151,7 @@ const removeUserFromGroup = ({groupId, userId}) =>
 export {
   addGroup,
   editGroup,
+  joinGroup,
   getUserGroups,
   getMembers,
   deleteGroup,
