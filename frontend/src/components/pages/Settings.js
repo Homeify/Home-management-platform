@@ -36,7 +36,6 @@ const Settings = ({ currentUser, updateUsername, updateEmail, updatePassword }) 
     const [password2, setPassword2] = useState('');
 
     const savePassword = async () => {
-        console.log(password1, password2);
         await updatePassword(password1, password2);
         setPassword1('');
         setPassword2('');
