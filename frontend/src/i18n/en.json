@@ -87,7 +87,7 @@
     "sort": "Sort",
     "noOfComments": "Number of comments",
     "deleteTask": "Delete task",
-    
+
     "landingPageTitle": "Manage your home tasks with",
     "landingPageDesc": "Assign tasks efficiently and organise your chores so work is spread equally amongst family members.",
     "getStarted": "Get started",
@@ -115,11 +115,13 @@
     "discussTaskDesc": "You can discuss with other members through comments left for a task.",
     "prioritizeDesc": "It's essentially to know the priority of a task, to know what to do next.",
     "setDueDateDesc": "With the due date feature, you will always progress with your task.",
-    
+
     "createTask": "Create task",
     "group-edit-title": "Edit the group",
     "group-name-label": "Group name",
     "group-description-label": "Group description",
-    "your-gems":"Your gems"
-    
+    "your-gems": "Your gems",
+    "deleteComment": "Delete comment",
+    "showLess": "Show less",
+    "showMore": "Show more"
 }

@@ -69,7 +69,7 @@ const Group = ({ tasks, readTasks, userId }) => {
 
         {selectedTask !== undefined &&
                     (!isSmall ? (
-                        <Box w='40%' px='10px'>
+                        <Box w='80%' px='10px'>
                           <Card
                             className='task-details'
                             containerClassName='task-details-container'
@@ -84,7 +84,7 @@ const Group = ({ tasks, readTasks, userId }) => {
                     ) : (
                         <Modal isOpen={true} onClose={onClose}>
                           <ModalOverlay />
-                          <ModalContent p='20px 10px'>
+                          <ModalContent p='20px 10px 50pt 10px'>
                             <ModalBody>
                               <TaskView
                                 task={filteredTasks[selectedTask]}

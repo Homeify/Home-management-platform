@@ -98,7 +98,7 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, curr
         </Box>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <InfoBox label={t('description')} info={group.description}></InfoBox>
-          <Box display="flex" flexDirection="row" alignItems="center">
+          <Box display="flex" flexDirection="row" alignItems="center" ml='5'>
             <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems='center'
               onClick={() => setShowMembers(true)}>
               {group.members?.length > 0 && <AvatarGroup max={2}>

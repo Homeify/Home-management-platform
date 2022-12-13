@@ -31,6 +31,7 @@ function EditTask({ isVisible, setIsVisible, task, groupId, updateTask }) {
         getFormattedDate(deadline, months, true, true)
     );
     const [newReward, setNewReward] = useState(reward);
+    console.log(deadline, newDeadline);
 
     const handleOnSubmit = () => {
         const newData = {
@@ -116,7 +117,7 @@ function EditTask({ isVisible, setIsVisible, task, groupId, updateTask }) {
                     </Text>
                     <Input
                         placeholder={t('deadline')}
-                        type='datetime-local'
+                        type='date'
                         min={new Date().toISOString().slice(0, 10)}
                         value={newDeadline}
                         onChange={(e) => setNewDeadline(e.target.value)}

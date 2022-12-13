@@ -55,7 +55,7 @@ const GroupListItem = ({ deleteGroup, group}) => {
     <Box cursor="pointer" p='6' rounded='2xl' bg='white' w={250} h={250} display="flex" flexDirection="column" gap={3}
       onClick={openGroup}>
       <Text fontSize='xl' fontWeight='600'>{group.name}</Text>
-      <Text fontSize='sm' fontWeight='500'>{group.description}</Text>
+      <Text fontSize='sm' fontWeight='500' noOfLines={4}>{group.description}</Text>
       <Box flexGrow={1}/>
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems='center'>
         {group.members?.length > 0 && <AvatarGroup max={2}>

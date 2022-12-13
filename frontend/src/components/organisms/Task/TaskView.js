@@ -20,6 +20,7 @@ import { StatusTag, TaskMenu, Assigned, Deadline } from '../../atoms/Task';
 import { EditTask } from './';
 import { connect } from 'react-redux';
 import { updateStatus } from '../../../state/actions/task';
+import { CommentList } from '../../atoms/Comment';
 
 function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
     if (!task) return <></>;
@@ -42,6 +43,8 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
     const deadlineFormattedDate = getFormattedDate(deadline, months, false);
     const createdFormattedDate = getFormattedDate(posted, months, true);
     const assignedName = assignedUser ? assignedUser : t('unknown');
+
+    const comments = [];
 
     const statusButtonBgColor =
         status === 0 ? 'grey.100' : status === 1 ? 'blue.100' : 'green.100';
@@ -69,7 +72,7 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
                 <Box flexGrow='1'>
                     <PriorityIcon priority={priority} />
                 </Box>
-                <TaskMenu showEditModal={showEditModal} taskId={id}/>
+                <TaskMenu showEditModal={showEditModal} taskId={id} />
                 <IconButton
                     onClick={deselectAll}
                     icon={<CloseIcon />}
@@ -129,7 +132,9 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
                         <MenuItem onClick={() => handleUpdateStatus('todo')}>
                             {t('todo')}
                         </MenuItem>
-                        <MenuItem onClick={() => handleUpdateStatus('inprogress')}>
+                        <MenuItem
+                            onClick={() => handleUpdateStatus('inprogress')}
+                        >
                             {t('inprogress')}
                         </MenuItem>
                         <MenuItem onClick={() => handleUpdateStatus('done')}>
@@ -140,11 +145,17 @@ function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
             </DetailsItem>
 
             {/* Comments */}
-            <CommentsHeader count={0} />
+            <CommentsHeader count={comments.length} />
             {/* Comments list */}
-            <Box mb='20pt' p='20px 0'>
-                <Text color='grey.500'>{t('noComments')}</Text>
-            </Box>
+            {comments.length ? (
+                <Box my='20px'>
+                    <CommentList comments={comments} />
+                </Box>
+            ) : (
+                <Box mb='20pt' p='20px 0'>
+                    <Text color='grey.500'>{t('noComments')}</Text>
+                </Box>
+            )}
             <CommentInput value={value} handleInputChange={handleInputChange} />
 
             {editModalVisible && (
