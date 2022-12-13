@@ -3,7 +3,7 @@ import { SidebarWithHeader } from '../organisms/Navbar';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../styles/tasks.scss';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import { useWindowWidth } from '../../hooks';
 import { Card } from '../atoms';
 import { TaskList } from '../atoms/Task';
 import { TaskView } from '../organisms/Task';
@@ -67,7 +67,7 @@ const Group = ({ tasks, readTasks, userId }) => {
           />
         </Box>
 
-        {selectedTask !== undefined &&
+        {selectedTask !== undefined && tasks?.length > 0 &&
                     (!isSmall ? (
                         <Box w='40%' px='10px'>
                           <Card
@@ -105,7 +105,7 @@ const mapStateToProps = (state) => {
     ...item,
     deadline: new Date(item.deadline),
     posted: new Date(item.posted)})) : [];
-
+    
   return {
     tasks: newTasks,
     userId: state.auth.currentUser.id

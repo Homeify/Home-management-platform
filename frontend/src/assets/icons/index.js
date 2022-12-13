@@ -23,35 +23,47 @@ import PersonAddIcon from './PersonAddIcon';
 import PersonRemoveIcon from './PersonRemoveIcon';
 import PlusIcon from './PlusIcon';
 import ArrowDownIcon from './ArrowDownIcon';
+import ArrowRightIcon from './ArrowRightIcon';
+import LanguageIcon from './LanguageIcon';
+import HeartbeatIcon from './HeartbeatIcon';
+import CalendarTimeIcon from './CalendarTimeIcon';
+import PriorityIcon from './PriorityIcon';
 import AddIcon from './AddIcon';
 import DeclineTaskIcon from './DeclineTaskIcon';
+import KeypadIcon from './KeypadIcon';
 
 export {
     AddIcon,
     AddTaskIcon,
     ArrowDownIcon,
+    ArrowRightIcon,
     BellIcon,
     BurgerIcon,
+    CalendarTimeIcon,
     CloseIcon,
     CommentsIcon,
     DeadlineIcon,
+    DeclineTaskIcon,
     DetailsIcon,
     DiamondIcon,
     DotsIcon,
     EditIcon,
     GroupAddIcon,
     GroupsIcon,
+    HeartbeatIcon,
     HighPriorityIcon,
+    KeypadIcon,
+    LanguageIcon,
     LogOutIcon,
     LowPriorityIcon,
     MediumPriorityIcon,
     PersonAddIcon,
     PersonRemoveIcon,
     PlusIcon,
+    PriorityIcon,
     SearchIcon,
     SendIcon,
     SettingsIcon,
     TaskIcon,
     TrashIcon,
-    DeclineTaskIcon
 };

@@ -34,6 +34,12 @@
     "selectRewardValue": "Select reward value",
     "save": "Save",
     "status": "Status",
+    "group-create-title": "Create a group",
+    "group-create-subtitle": "Collaborate closely with a group of people to share responsibilities and increase rewards.",
+    "create-group-name-label": "Group name",
+    "create-group-description-label": "Group description",
+    "dismiss": "Cancel",
+    "create": "Create",
     "myGroups": "My groups",
     "myTasks": "My tasks",
     "createGroup": "Create group",
@@ -74,21 +80,56 @@
     "priorityHigh": "High",
     "priorityMedium": "Medium",
     "priorityLow": "Low",
+    "order": "Order",
     "ascending": "Ascending",
     "descending": "Descending",
     "criterion": "Criterion",
     "sort": "Sort",
     "noOfComments": "Number of comments",
     "deleteTask": "Delete task",
+    
+    "landingPageTitle": "Manage your home tasks with",
+    "landingPageDesc": "Assign tasks efficiently and organise your chores so work is spread equally amongst family members.",
+    "getStarted": "Get started",
+
+    "presItemTitle1": "Organise the work that needs to be done into different tasks",
+    "presItemTitle2": "Set a deadline for the tasks created, so that they can be prioritised",
+    "presItemTitle3": "You have the ability to create private groups for assigning task",
+    "presItemTitle4": "You have the option to invite friends into various groups",
+
+    "presItemDesc1": "You can write tasks so that work that needs to be done can be broken down in smaller tasks, for a more efficient completion",
+    "presItemDesc2": "Deadlines can also be set when creating various tasks, so that users know which tasks can be postponed, and to also know how to manage their time",
+    "presItemDesc3": "You can create private groups, and thus becoming the owner, so that you can separate various environments in which you need to manage multipme people with multiple tasks",
+    "presItemDesc4": "After you have created a group, you have the ability to invite friends into your group, streamlining the process of creating teams",
+
+    "taskManagement": "Task Management",
+    "motivatingRewards": "Motivating Rewards",
+    "progressTracking": "Progress Tracking",
+    "groups": "Groups",
+    "readyToStart": "Are you ready to start?",
+    "bringEfficiency": "Bring efficiency in your home.",
+
+    "setDueDate": "Set due date",
+    "discussTasks": "Discuss tasks",
+    "prioritize": "Prioritize",
+    "discussTaskDesc": "You can discuss with other members through comments left for a task.",
+    "prioritizeDesc": "It's essentially to know the priority of a task, to know what to do next.",
+    "setDueDateDesc": "With the due date feature, you will always progress with your task.",
+    
     "createTask": "Create task",
-    "group-create-title": "Create a group",
     "group-edit-title": "Edit the group",
     "group-name-label": "Group name",
     "group-description-label": "Group description",
+
     "edit-username-title": "Edit username",
     "edit-email-title": "Edit email",
     "edit-password-title": "Edit password",
     "new-password": "New password",
-    "confirm-new-password": "Confirm new password"
+    "confirm-new-password": "Confirm new password",
 
+    "group-join-title": "Join a group",
+    "group-join-subtitle": "Use a code given by your housemate to join an existing group.",
+    "join": "Join",
+    "your-gems":"Your gems"
+    
 }
