@@ -12,11 +12,10 @@ import logoImage from '../../../assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { AvatarWithPopover } from '../../atoms/Avatar';
 import { BellIcon, BurgerIcon } from '../../../assets/icons';
-import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { connect } from 'react-redux';
 
-function Header({ onOpen, currentUser, groupId, award, ...rest }) {
+function Header({ onOpen, currentUser, groupId, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
     const { first_name: firstName, last_name: lastName } = currentUser
@@ -56,7 +55,6 @@ function Header({ onOpen, currentUser, groupId, award, ...rest }) {
             )}
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                {!isMobile && award !== null && <RewardCounter count={award} />}
                 <IconButton
                     size='sm'
                     variant='ghost'

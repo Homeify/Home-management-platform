@@ -13,11 +13,10 @@ import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
 import { SettingsIcon } from '../../../assets/icons';
-import { RewardCounter } from '../../molecules/Navbar';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { SignOutButton } from '../';
 
-export default function SidebarContent({ onClose, linkItems, award, ...rest }) {
+export default function SidebarContent({ onClose, linkItems, ...rest }) {
     const { t } = useTranslation();
     const { isMobile } = useWindowWidth();
 
@@ -65,8 +64,6 @@ export default function SidebarContent({ onClose, linkItems, award, ...rest }) {
                         iconSize='14pt'
                     />
                 ))}
-
-                <Box>{isMobile && <RewardCounter count={award} m='5' />}</Box>
                 <Box mt='auto' mb='5'>
                     <NavItem
                         icon={SettingsIcon}

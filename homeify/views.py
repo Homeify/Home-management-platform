@@ -1,6 +1,7 @@
 # registers endpoints
 
 from datetime import date, datetime, timezone
+from django.utils.crypto import get_random_string
 
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
@@ -152,13 +153,14 @@ class AddGroup(generics.GenericAPIView):
             token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
             access_token_obj = AccessToken(token)
             user_id = access_token_obj['user_id']
+            print("USER", user_id)
             user = CustomUser.objects.get(id=user_id)  # the user that adds the group is the admin
-            serializer = HomeGroupSerializer(data=request.data)
+            serializer = HomeGroupUpsertSerializer(data=request.data)
             if serializer.is_valid():
                 # create group
                 name = request.data['name']
                 descr = request.data['description']
-                code = ''  # @TODO generate code at the moment Id is used maybe we should leave it like that
+                code = get_random_string(length=7)
                 new_group = HomeGroup.objects.create(name=name, description=descr, code=code)
                 # create membership
                 Membership.objects.create(user=user, group=new_group, owner=True,
@@ -188,7 +190,8 @@ class UserToGroup(generics.GenericAPIView):
                                       date_joined=date.today())
             message.members.add(user)
             message.save()
-            return Response(data={'message': 'User added to the group'}, status=status.HTTP_201_CREATED)
+            serializer = HomeGroupSerializer(message)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception:
             return Response(data={'message': 'Missing authorization header'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -197,14 +200,15 @@ class UserToGroup(generics.GenericAPIView):
         access_token_obj = AccessToken(token)
         user_id = access_token_obj['user_id']
         user = CustomUser.objects.get(id=user_id)
-        valid, message = self.validateRequest(request)
-        if not valid:
-            return Response(data={'message': message}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            home_group = HomeGroup.objects.get(id=request.data['group_id'])
+        except Exception:
+            return Response(data={'message': 'Group is invalid'}, status=status.HTTP_400_BAD_REQUEST)
 
         # create membership
-        Membership.objects.filter(user=user, group=message).delete()
-        message.members.remove(user)
-        message.save()
+        Membership.objects.filter(user=user, group=home_group).delete()
+        home_group.members.remove(user)
+        home_group.save()
         return Response(data={'message': 'User removed from the group'}, status=status.HTTP_200_OK)
 
     def validateRequest(self, request):
@@ -213,12 +217,12 @@ class UserToGroup(generics.GenericAPIView):
             return False, "Missing parameter code"
 
         try:
-            code_numer = int(code)
+            code_number = code
         except ValueError:
             return False, "Wrong code format"
 
         try:
-            home_group = HomeGroup.objects.get(id=code_numer)
+            home_group = HomeGroup.objects.get(code=code_number)
         except ObjectDoesNotExist:
             return False, "Group not found"
 
@@ -451,7 +455,9 @@ class TaskAPI(generics.GenericAPIView):
 
             if serializer.is_valid():
                 # create task
-                assigned_user = CustomUser.objects.get(id=int(request.data['assigned_user_id']))
+                assigned_user = None
+                if 'assigned_user_id' in request.data:
+                    assigned_user = CustomUser.objects.get(id=int(request.data['assigned_user_id']))
 
                 group_id = request.data['group_id']
                 group = HomeGroup.objects.get(id=group_id)
@@ -674,8 +680,9 @@ class UpdateTaskAPI(generics.GenericAPIView):
             except ObjectDoesNotExist:
                 return Response(data={'message': "Wrong user assigned"},
                                 status=status.HTTP_400_BAD_REQUEST)
-
-        self.updateUserProfile(task, request.data.get('status'))
+        if task.assigned_user:
+            self.updateUserProfile(task, request.data.get('status'))
+        
         serializer = TaskSerializer(task, data=request.data, partial=True,
                                     context={'request': request})
         if serializer.is_valid():
