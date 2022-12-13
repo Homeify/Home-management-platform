@@ -87,6 +87,35 @@
     "sort": "Sorteaza",
     "noOfComments": "Numar de comentarii",
     "deleteTask": "Sterge sarcina",
+    
+    "landingPageTitle": "Gestionati-va sarcinile de acasa cu",
+    "landingPageDesc": "Atribuiti sarcini eficient si organizati-va treburile, astfel incat munca sa fie distribuita in mod egal intre membrii familiei.",
+    "getStarted": "Incepe",
+
+    "presItemTitle1": "Organizati munca ce trebuie facuta in diferite sarcini",
+    "presItemTitle2": "Stabiliti un termen limita pentru sarcinile create, astfel incat acestea sa poata fi prioritizate",
+    "presItemTitle3": "Aveti abilitatea de a crea grupuri private pentru atribuirea sarcinilor",
+    "presItemTitle4": "Aveti optiunea de a invita prieteni in diferite grupuri",
+
+    "presItemDesc1": "Puteti scrie sarcini, astfel incat munca care trebuie facuta sa poata fi impartita in sarcini mai mici, pentru o finalizare mai eficienta",
+    "presItemDesc2": "Termenele limita pot fi, de asemenea, setate atunci cand creeaza diverse sarcini, astfel incat utilizatorii sa stie ce sarcini pot fi amanate si, de asemenea, sa stie cum sa-si gestioneze timpul",
+    "presItemDesc3": "Puteti crea grupuri private, si astfel deveniti proprietar, astfel incat sa puteti separa diverse medii in care trebuie sa gestionati mai multe persoane cu mai multe sarcini",
+    "presItemDesc4": "Dupa ce ati creat un grup, aveti posibilitatea de a invita prieteni in grupul dvs., simplificand procesul de creare a echipelor",
+
+    "taskManagement": "Management al Sarcinilor",
+    "motivatingRewards": "Recompense Motivante",
+    "progressTracking": "Urmarirea Progresului",
+    "groups": "Grupuri",
+    "readyToStart": "Esti gata sa incepi?",
+    "bringEfficiency": "Eficientizarea sarcinilor din casa ta te asteapta.",
+
+    "setDueDate": "Seteaza termenul limita",
+    "discussTasks": "Discuta sarcinile",
+    "prioritize": "Prioritizeaza",
+    "discussTaskDesc": "Puteti discuta cu alti membri prin comentariile lasate unei sarcini.",
+    "prioritizeDesc": "Este esential sa cunosti prioritatea unei sarcini, ca sa stii ce sa faci in continuare.",
+    "setDueDateDesc": "Setand termenul limita, veti progresa intotdeauna in sarcina dvs.",
+    
     "createTask": "Creeaza sarcina",
     "group-edit-title": "Editeaza grupul",
     "declineTask": "Refuza sarcina",
