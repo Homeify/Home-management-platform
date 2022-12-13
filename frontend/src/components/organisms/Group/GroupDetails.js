@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { AvatarGroup, Box, Divider, Text, IconButton } from '@chakra-ui/react';
+import { AvatarGroup, Box, Divider, Tag, Text, Tooltip, IconButton } from '@chakra-ui/react';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { InfoBox } from '../../atoms';
 import { getFormattedDate } from '../../../utils/functions';
 import {
-    deleteGroup as deleteGroupAction,
-    getMembers as getMembersAction
+  deleteGroup as deleteGroupAction,
+  getMembers as getMembersAction
 } from '../../../state/actions/group';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../../utils/routes';
 import { AddIcon, EditIcon, PersonAddIcon, TrashIcon } from '../../../assets/icons';
 import { Avatar } from '../../atoms/Avatar';
 import { GroupMembers, GroupEdit, ShareCode } from '../../molecules/Group';
+import { DiamondIcon } from '../../../assets/icons';
 import { CreateTask } from '../Task';
 
-const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => {
+const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId, currentUserAwards}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -65,7 +66,17 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
     <>
       { group && <> <Box p='6' rounded='2xl' bg='white' width="100%" display="flex" flexDirection="column" gap={3}>
         <Box display="flex" flexDirection="row" gap="3" alignItems="center" justifyContent="space-between">
-          <Text fontSize='2xl' fontWeight='600'>{group.name}</Text>
+          <Box display="flex" direction="row" gap={3} alignItems="center">
+            <Text fontSize='2xl' fontWeight='600'>{group.name}</Text>
+            <Tooltip label={t('your-gems')} borderRadius="md">
+              <Tag py="4px" size="md" color="white" borderRadius='full' colorScheme="primary">
+                <Box display="flex" direction="row" alignItems="center" gap={1}>
+                  <DiamondIcon size="16pt"/>
+                  {currentUserAwards}
+                </Box>
+              </Tag>
+            </Tooltip>
+          </Box>
           <Box gap={1} display="flex" flexDirection="row" alignItems="center">
             {
               ACTIONS.map((action, index) => (
@@ -122,9 +133,15 @@ const GroupDetails = ({ group, readMembers, id, deleteGroup, currentUserId}) => 
 
 function mapStateToProps(state, ownProps) {
   const group = state.group.groups.find((item) => item.id === parseInt(ownProps.id));
+  let currentUserAwards = 0;
+  const currentMemberIndex = group.members ? group.members?.findIndex((item) => item.id === state.auth.currentUser?.id) : -1;
+  if (currentMemberIndex > -1) {
+    currentUserAwards = group.members[currentMemberIndex].awards;
+  }
   return {
     group,
-    currentUserId: state.auth.currentUser?.id
+    currentUserId: state.auth.currentUser?.id,
+    currentUserAwards
   };
 };
 
@@ -133,7 +150,6 @@ const mapDispatchToProps = (dispatch) => {
     dispatch,
     readMembers: (groupId) => dispatch(getMembersAction(groupId)),
     deleteGroup: (groupId) => dispatch(deleteGroupAction(groupId))
-    //   readTasks
   };
 };
 export default connect(
