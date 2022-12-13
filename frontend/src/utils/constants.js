@@ -3,6 +3,7 @@ const WINDOW_WIDTH_SMALL = 1300;
 const BASE_URL = 'http://127.0.0.1:8000';
 const LOCAL_STORAGE_KEYS = {
     AUTH_TOKEN: 'AUTH_TOKEN',
+    LANGUAGE: 'LANGUAGE',
 };
 
 export {

@@ -13,7 +13,8 @@ import { useTranslation } from 'react-i18next';
 import logoImage from '../../../assets/logo.png';
 import ROUTES from '../../../utils/routes';
 import { SettingsIcon } from '../../../assets/icons';
-import useWindowWidth from '../../../hooks/useWindowWidth';
+import { RewardCounter } from '../../molecules/Navbar';
+import { useWindowWidth } from '../../../hooks';
 import { SignOutButton } from '../';
 
 export default function SidebarContent({ onClose, linkItems, ...rest }) {
