@@ -87,5 +87,6 @@
     "group-description-label": "Group description",
     "group-join-title": "Join a group",
     "group-join-subtitle": "Use a code given by your housemate to join an existing group.",
-    "join": "Join"
+    "join": "Join",
+    "your-gems":"Your gems"
 }

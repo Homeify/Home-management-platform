@@ -19,9 +19,9 @@ import { PriorityIcon } from '../../atoms';
 import { StatusTag, TaskMenu, Assigned, Deadline } from '../../atoms/Task';
 import { EditTask } from './';
 import { connect } from 'react-redux';
-import { updateTask as updateTaskAction } from '../../../state/actions/task';
+import { updateStatus } from '../../../state/actions/task';
 
-function TaskView({ task, updateTask, groupId, deselectAll }) {
+function TaskView({ task, updateStatusAction, groupId, deselectAll }) {
     if (!task) return <></>;
     const { t } = useTranslation();
     const {
@@ -55,8 +55,8 @@ function TaskView({ task, updateTask, groupId, deselectAll }) {
         setEditModalVisible(true);
     };
 
-    const updateStatus = (newStatus) => {
-        updateTask(parseInt(id), { status: newStatus });
+    const handleUpdateStatus = (newStatus) => {
+        updateStatusAction(parseInt(id), { status: newStatus });
     };
 
     return (
@@ -126,13 +126,13 @@ function TaskView({ task, updateTask, groupId, deselectAll }) {
                         />
                     </MenuButton>
                     <MenuList>
-                        <MenuItem onClick={() => updateStatus('todo')}>
+                        <MenuItem onClick={() => handleUpdateStatus('todo')}>
                             {t('todo')}
                         </MenuItem>
-                        <MenuItem onClick={() => updateStatus('inprogress')}>
+                        <MenuItem onClick={() => handleUpdateStatus('inprogress')}>
                             {t('inprogress')}
                         </MenuItem>
-                        <MenuItem onClick={() => updateStatus('done')}>
+                        <MenuItem onClick={() => handleUpdateStatus('done')}>
                             {t('done')}
                         </MenuItem>
                     </MenuList>
@@ -168,8 +168,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        updateTask: (taskId, newData) =>
-            dispatch(updateTaskAction(taskId, newData)),
+        updateStatusAction: (taskId, newData) =>
+            dispatch(updateStatus(taskId, newData)),
     };
 };
 

@@ -33,14 +33,9 @@
   <p align="center">
    A web app that makes organising your housework easily.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/Homeify/Home-management-platform/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/Homeify/Home-management-platform/issues">Request Feature</a>
   </p>
 </div>
 
@@ -64,9 +59,9 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#run-tests">Tests</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -152,13 +147,14 @@ _Use a terminal for the following steps:_
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Useful phyton commands:
+### API Documentation: 
+Visit [swagger folder](https://github.com/Homeify/Home-management-platform/tree/main/homeify/swagger_documentation) for HTML documentation for each endpoint.
+
+### Useful phyton commands:
 * ```python manage.py create super user``` - creates an admin that can access administration backend platform (can see/add/edit entities)
 * ```pip freeze > requirements.txt``` - add local requirements in requirements.txt file
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -167,18 +163,21 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 * ```coverage run manage.py test```
 * ```coverage run manage.py test```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
+- [x] JWT login system
+- [x] Groups
+- [x] Admin actions on group
+- [x] Tasks
+- [x] Customise tasks
+- [x] Comments
+- [x] Receive rewards in a group and decline task
+- [x] Frontend
+- [ ] User badges
 - [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -202,21 +201,12 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Iuga Paula  - iuga.paula@my.fmi.unibuc.ro
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/Homeify/Home-management-platform](https://github.com/Homeify/Home-management-platform)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -227,11 +217,10 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
+* [Postman](https://www.postman.com/)
+* [Postman to swagger](https://metamug.com/article/api-integration/postman-to-swagger.html)
+* [Redoc CLI](https://redocly.com/docs/redoc/deployment/cli/)
+* [Swagger open api](https://swagger.io/)
 * [GitHub Pages](https://pages.github.com)
 * [Font Awesome](https://fontawesome.com)
 * [React Icons](https://react-icons.github.io/react-icons/search)

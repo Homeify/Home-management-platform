@@ -11,22 +11,10 @@ import { SidebarContent } from '../../atoms/Navbar';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '../../../utils/routes';
 import { GroupsIcon } from '../../../assets/icons';
-import { getUserAwards } from '../../../utils/functions';
 
 export default function SidebarWithHeader({ userId, groupId, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
-    const [award, setAward] = useState(null);
-
-    const getAward = async () => {
-      const res = await getUserAwards(userId, groupId);
-      setAward(res);
-    };
-
-    useEffect(() => {
-        getAward();
-    }, []);
-
   const linkItems = [
     {
       name: t('myGroups'),
@@ -44,7 +32,6 @@ export default function SidebarWithHeader({ userId, groupId, children }) {
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
         linkItems={linkItems}
-        award={award}
       />
 
       {/* mobile nav */}
@@ -58,11 +45,11 @@ export default function SidebarWithHeader({ userId, groupId, children }) {
         size='full'
       >
         <DrawerContent>
-          <SidebarContent linkItems={linkItems} onClose={onClose} award={award}/>
+          <SidebarContent linkItems={linkItems} onClose={onClose}/>
         </DrawerContent>
       </Drawer>
 
-      <Header onOpen={onOpen} award={award}/>
+      <Header onOpen={onOpen}/>
       <Box ml={{ base: 0, md: 60 }} p='4'>
         {children}
       </Box>
