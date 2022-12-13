@@ -4,13 +4,15 @@ import { SidebarWithHeader } from '../organisms/Navbar';
 import { getUserGroups } from '../../state/actions/group';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { PlusIcon } from '../../assets/icons';
+import { PlusIcon, KeypadIcon } from '../../assets/icons';
 import { GroupList } from '../organisms/Group';
-import { GroupCreate } from '../molecules/Group';
+import { GroupCreate, GroupJoin } from '../molecules/Group';
 
 const Home = ({ getGroups, groups }) => {
-    const [open, setOpen] = useState(false);
-    const onClose = () => setOpen(false);
+    const [openCreateGroup, setOpenCreateGroup] = useState(false);
+    const onCloseGroupCreate = () => setOpenCreateGroup(false);
+    const [openJoinGroup, setOpenJoinGroup] = useState(false);
+    const onCloseJoinGroup = () => setOpenJoinGroup(false);
     useEffect(() => {
         getGroups();
     }, []);
@@ -26,11 +28,19 @@ const Home = ({ getGroups, groups }) => {
                     borderRadius='full'
                     colorScheme='primary'
                     icon={<PlusIcon size='14pt' />}
-                    onClick={() => setOpen(true)}
+                    onClick={() => setOpenCreateGroup(true)}
+                ></IconButton>
+                <IconButton
+                    size='sm'
+                    borderRadius='full'
+                    colorScheme='primary'
+                    icon={<KeypadIcon size='14pt' />}
+                    onClick={() => setOpenJoinGroup(true)}
                 ></IconButton>
             </Flex>
 
-            <GroupCreate isOpen={open} close={onClose} />
+            <GroupCreate isOpen={openCreateGroup} close={onCloseGroupCreate} />
+            <GroupJoin isOpen={openJoinGroup} close={onCloseJoinGroup} />
             {groups && <GroupList groups={groups} />}
         </SidebarWithHeader>
     );

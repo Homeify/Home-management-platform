@@ -30,6 +30,7 @@ import CalendarTimeIcon from './CalendarTimeIcon';
 import PriorityIcon from './PriorityIcon';
 import AddIcon from './AddIcon';
 import DeclineTaskIcon from './DeclineTaskIcon';
+import KeypadIcon from './KeypadIcon';
 
 export {
     AddIcon,
@@ -51,6 +52,7 @@ export {
     GroupsIcon,
     HeartbeatIcon,
     HighPriorityIcon,
+    KeypadIcon,
     LanguageIcon,
     LogOutIcon,
     LowPriorityIcon,

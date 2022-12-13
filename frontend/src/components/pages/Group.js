@@ -67,7 +67,7 @@ const Group = ({ tasks, readTasks, userId }) => {
           />
         </Box>
 
-        {selectedTask !== undefined &&
+        {selectedTask !== undefined && tasks?.length > 0 &&
                     (!isSmall ? (
                         <Box w='80%' px='10px'>
                           <Card
