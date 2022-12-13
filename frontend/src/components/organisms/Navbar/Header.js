@@ -76,9 +76,9 @@ function Header({ onOpen, currentUser, groupId, ...rest }) {
                                 ml='2'
                             >
                                 <Text fontSize='sm'>{`${firstName} ${lastName}`}</Text>
-                                <Text fontSize='xs' color='gray.600'>
+                                {/* <Text fontSize='xs' color='gray.600'>
                                     Admin
-                                </Text>
+                                </Text> */}
                             </VStack>
                         )}
                     </HStack>
