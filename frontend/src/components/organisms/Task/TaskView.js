@@ -168,7 +168,7 @@ function TaskView({
             {/* Comments list */}
             {comments.length ? (
                 <Box my='20px'>
-                    <CommentList comments={comments} />
+                    <CommentList comments={comments} taskId={id} />
                 </Box>
             ) : (
                 <Box mb='20pt' p='20px 0'>

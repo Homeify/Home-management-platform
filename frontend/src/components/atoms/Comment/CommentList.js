@@ -13,7 +13,7 @@ import { CommentItem } from '../../molecules/Comment';
 import { MAX_COMMENTS } from '../../../utils/constants';
 import { useTranslation } from 'react-i18next';
 
-const CommentList = ({ comments }) => {
+const CommentList = ({ taskId, comments }) => {
     const { t } = useTranslation();
     const [showCommentModal, setShowCommentModal] = useState(false);
 
@@ -27,7 +27,7 @@ const CommentList = ({ comments }) => {
         <>
             <Flex flexDir='column' p='0' gap={4}>
                 {commentsToShow.map((comm, i) => (
-                    <CommentItem key={i} comment={comm} />
+                    <CommentItem key={i} comment={comm} taskId={taskId} />
                 ))}
                 {commentsToShow.length !== comments.length && (
                     <Button
@@ -53,7 +53,7 @@ const CommentList = ({ comments }) => {
                     <ModalBody py='20pt'>
                         <Flex flexDir='column' p='0' gap={4}>
                             {comments.map((comm, i) => (
-                                <CommentItem key={i} comment={comm} />
+                                <CommentItem key={i} comment={comm} taskId={taskId} />
                             ))}
                         </Flex>
                     </ModalBody>

@@ -56,6 +56,20 @@ const taskReducer = (state = TaskState, action) => {
         ...state,
         comments: [...state.comments, action.payload],
     };
+  } else if (action.type === TASK_ACTION_TYPES.DELETE_COMMENT) {
+    const commentIndex = state.comments.findIndex(
+      (item) => item.id === action.payload.commentId
+    );
+    return {
+        ...state,
+        comments: [
+            ...state.comments.slice(0, commentIndex),
+            ...state.comments.slice(commentIndex + 1),
+        ],
+    };
+  } else if (action.type === TASK_ACTION_TYPES.UPDATE_COMMENT) {
+    const commentId = action.payload.id;
+    console.log(commentId);
   }
   return state;
 };

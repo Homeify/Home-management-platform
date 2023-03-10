@@ -898,7 +898,16 @@ class UpdateCommentAPI(generics.GenericAPIView):
                 comment.body = new_body
                 comment.date_posted= date_meta
                 comment.save()
-                return Response(data={'message': 'Comment successfully updated.'}, status=status.HTTP_200_OK)
+                serializer = CustomUserSerializer(user)
+                item = {
+                    'id': comment_id,
+                    'task_id': comment.task_id,
+                    'date_posted': comment.date_posted,
+                    'body': comment.body,
+                    'author': serializer.data
+                }
+                serializer = CommentSerializer(item)
+                return Response(data={'data': serializer.data}, status=status.HTTP_200_OK)
             except Exception:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 

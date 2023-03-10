@@ -17,9 +17,9 @@ import {
 } from '@chakra-ui/react';
 import { GroupDetails } from '../organisms/Group';
 import { SearchAndFilter } from '../organisms/SearchAndFilter';
-import { getGroupTasks as getGroupTasksAction } from '../../state/actions/task.js';
+import { getGroupTasks as getGroupTasksAction, getTaskComments as getTaskCommentsAction } from '../../state/actions/task.js';
 
-const Group = ({ tasks, readTasks, userId }) => {
+const Group = ({ tasks, readTasks, readComments, userId }) => {
   const params = useParams();
   const [selectedTask, setSelectedTask] = useState();
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -31,12 +31,15 @@ const Group = ({ tasks, readTasks, userId }) => {
     setSelectedTask(undefined);
   };
 
+  const handleSelectTask = (i) => {
+      setSelectedTask(i);
+      readComments(filteredTasks[i].id);
+  };
+
   const setNewFilteredTasks = (tsks) => {
     setFilteredTasks(tsks);
     if (!tsks || tsks.length === 0) {
       setSelectedTask();
-    } else if (!isSmall) {
-      setSelectedTask(0);
     }
   };
 
@@ -62,7 +65,7 @@ const Group = ({ tasks, readTasks, userId }) => {
           />
           <TaskList
             tasks={filteredTasks}
-            selectTask={setSelectedTask}
+            selectTask={handleSelectTask}
             selectedTask={selectedTask}
           />
         </Box>
@@ -116,6 +119,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     readTasks: (groupId) => dispatch(getGroupTasksAction(groupId)),
+    readComments: (taskId) => dispatch(getTaskCommentsAction(taskId)),
   };
 };
 

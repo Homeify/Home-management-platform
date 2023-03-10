@@ -158,6 +158,47 @@ const addCommentToTask = (taskId, body) => async (dispatch) =>
           }
       });
 
+const deleteComment = (taskId, commentId) => async (dispatch) =>
+    axios.delete(`${BASE_URL}/comments`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem(
+                LOCAL_STORAGE_KEYS.AUTH_TOKEN
+            )}`,
+        },
+        data: {
+            comment_id: commentId,
+        },
+    })
+    .then((res) => {
+      dispatch({
+          type: TASK_ACTION_TYPES.DELETE_COMMENT,
+          payload: {
+              commentId,
+              taskId,
+          },
+      });
+    });
+
+const updateComment = (taskId, commentId, body) => async (dispatch) =>
+    axios.patch(`${BASE_URL}/comments/${commentId}`,
+        { comment_id: commentId, body },
+        {
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem(
+                  LOCAL_STORAGE_KEYS.AUTH_TOKEN
+              )}`,
+          }
+        })
+    .then((res) => {
+      if (res.status === 200 || res.status === 201) {
+        const payload = res.data.data;
+        dispatch({
+            type: TASK_ACTION_TYPES.UPDATE_COMMENT,
+            payload,
+        });
+      }
+    });
+
 export {
   addTask,
   updateTask,
@@ -165,5 +206,7 @@ export {
   declineTask,
   updateStatus,
   getTaskComments,
-  addCommentToTask
+  addCommentToTask,
+  deleteComment,
+  updateComment
 };
