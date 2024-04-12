@@ -1,11 +1,13 @@
 import { extendTheme } from '@chakra-ui/react';
+import '@fontsource/raleway';
+import '@fontsource-variable/mulish';
 import COLORS from './_colors.scss';
 
 const theme = extendTheme({
   fonts: {
-    body: 'Raleway, sans-serif',
-    heading: 'Raleway, sans-serif',
-    mono: 'Raleway, sans-serif',
+    body: `'Raleway', sans-serif`,
+    heading: `'Raleway', sans-serif`,
+    mono: `'Raleway', sans-serif`,
   },
   colors: {
     primary: {
@@ -23,6 +25,10 @@ const theme = extendTheme({
     secondary: {
       300: COLORS.secondary,
     },
+    accent: {
+      100: COLORS.accentLight,
+      300: COLORS.accent,
+    },
     white: {
       300: COLORS.white,
     },
@@ -34,8 +40,14 @@ const theme = extendTheme({
       900: COLORS.blueDark,
     },
     grey: {
-      100: COLORS.grey,
+      100: COLORS.greyLight,
+      200: COLORS.greyLight,
+      300: COLORS.grey,
+      400: COLORS.grey,
       500: COLORS.greyMedium,
+      600: COLORS.greyMedium,
+      700: COLORS.greyDark,
+      800: COLORS.greyDark,
       900: COLORS.greyDark,
     },
     green: {
