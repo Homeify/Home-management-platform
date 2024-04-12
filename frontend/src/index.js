@@ -6,25 +6,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
-import {PersistGate} from 'redux-persist/integration/react';
+import { PersistGate } from 'redux-persist/integration/react';
 import './index.scss';
 import theme from './theme';
+import '@fontsource/raleway/400.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-    // <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </ChakraProvider>,
-    // </React.StrictMode>
+  // <React.StrictMode>
+  <ChakraProvider theme={theme}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </ChakraProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

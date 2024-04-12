@@ -1,7 +1,7 @@
 @import '../theme/_colors.scss';
 
 .shape {
-    background: linear-gradient(45deg, $secondary 0%, $secondaryDark 100%);
+    background: linear-gradient(45deg, $greyLight 0%, $secondary 100%);
     animation: morph 8s ease-in-out infinite;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     transition: all 1s ease-in-out;
